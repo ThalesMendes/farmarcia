@@ -1,0 +1,17 @@
+.obrigatorio label::after {
+    content: '*';
+}
+
+.obrigatorio label::after,
+.marcador-obrigatorio {
+    color: tomato;
+}
+
+.btn-enviar {
+    display: block;
+    margin: auto;
+}
+
+label {
+    font-weight: 600;
+}
