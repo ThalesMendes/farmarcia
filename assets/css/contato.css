@@ -1,14 +1,17 @@
 @media(min-width: 768px) {
-    input {
+    #input-nome,
+    #input-email,
+    #input-telefone,
+    #input-assunto {
         max-width: 50%;
     }
 }
 
-.obrigatorio label::after {
+.obrigatorio::after {
     content: '*';
 }
 
-.obrigatorio label::after,
+.obrigatorio::after,
 .marcador-obrigatorio {
     color: tomato;
 }

@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="pt-br">
 
 <head>
   <meta charset="utf-8" />
@@ -20,8 +20,8 @@
 
     <form>
       <!-- Nome -->
-      <div class="form-group obrigatorio">
-        <label for="form-nome">Nome:</label>
+      <div class="form-group">
+        <label class="obrigatorio" for="input-nome">Nome:</label>
 
         <div class="input-group">
           <div class="input-group-prepend">
@@ -30,14 +30,14 @@
             </div>
           </div>
 
-          <input id="form-nome" class="form-control" type="text" required>
+          <input id="input-nome" class="form-control" type="text" required>
         </div>
       </div>
       <!-- Nome -->
 
       <!-- Email -->
-      <div class="form-group obrigatorio">
-        <label for="form-email">Email:</label>
+      <div class="form-group">
+        <label class="obrigatorio" for="input-email">Email:</label>
 
         <div class="input-group">
           <div class="input-group-prepend">
@@ -46,14 +46,14 @@
             </div>
           </div>
 
-          <input id="form-email" class="form-control" type="email" required>
+          <input id="input-email" class="form-control" type="email" required>
         </div>
       </div>
       <!-- Email -->
 
       <!-- Telefone -->
       <div class="form-group">
-        <label for="form-telefone">Telefone:</label>
+        <label for="input-telefone">Telefone:</label>
 
         <div class="input-group">
           <div class="input-group-prepend">
@@ -62,17 +62,35 @@
             </div>
           </div>
 
-          <input id="form-telefone" class="form-control" type="tel">
+          <input id="input-telefone" class="form-control" type="tel">
         </div>
       </div>
       <!-- Telefone -->
 
-      <!-- Mensagem -->
-      <div class="form-group obrigatorio">
-        <label for="form-mensagem">Mensagem:</label>
+      <!-- Assunto -->
+      <div class="form-group">
+        <label class="obrigatorio" for="input-assunto">Assunto:</label>
 
         <div class="input-group">
-          <textarea id="form-mensagem" class="form-control" rows="8" required></textarea>
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fas fa-question-circle"></i>
+            </div>
+          </div>
+
+          <select id="input-assunto" class="custom-select" required>
+            <option selected>Outro</option>
+          </select>
+        </div>
+      </div>
+      <!-- Assunto -->
+
+      <!-- Mensagem -->
+      <div class="form-group">
+        <label class="obrigatorio" for="input-mensagem">Mensagem:</label>
+
+        <div class="input-group">
+          <textarea id="input-mensagem" class="form-control" rows="8" required></textarea>
         </div>
       </div>
       <!-- Mensagem -->
@@ -81,7 +99,7 @@
         <span class="marcador-obrigatorio">*</span> são obrigatórios.</small>
 
       <!-- Enviar -->
-      <button class="btn btn-primary btn-lg btn-enviar" type="submit">
+      <button class="btn btn-danger btn-lg btn-enviar" type="submit">
         Enviar
         <i class="fas fa-paper-plane"></i>
       </button>
