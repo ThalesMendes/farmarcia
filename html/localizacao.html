@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Farmarcia - Localização</title>
+    <meta charset="utf-8">
+    <meta name ="viewport" content = "width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../assets/bootstrap/css/bootstrap.min.css">
+    <style>
+      #map {
+        height: 360px;
+        background-color: white;
+        border: 7px solid #333333;
+      }
+      h2{
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <!--menu-nav-->
+    </div>
+    <h2>Localização</h2>
+    <div class="row container">
+      <div class="col-md-7">
+        <div id="map"></div>
+        <script>
+          function initMap() {
+            var uluru = {lat: -21.8203861, lng: -43.2488196};
+            var map = new google.maps.Map(document.getElementById('map'), {zoom: 2, center: uluru});
+            var marker = new google.maps.Marker({position: uluru, map: map});
+          }
+        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSiyG7MJ_-fDhgi-Sn0OUVHYnTE_o_qnc&callback=initMap"></script>
+      </div>
+      <div class="col-md-5 container">
+        <h3>Endereço</h3>
+        <p>Av. Exemplo, 123 - Algum Lugar, Terra do Nunca | MG </p>
+        <h3>Telefone</h3>
+        <p>(01) 2345-6789</p>
+        <h3>Horários de Funcionamento</h3>
+        <p>Sempre que possível</p>
+      </div>
+    </div>
+    <div>
+      <!--footer-->
+    </div>
+  </body>
+</html>
