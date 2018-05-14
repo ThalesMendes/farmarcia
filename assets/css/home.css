@@ -25,7 +25,7 @@
     padding: 2% 10% calc(2% + 30px) 10%;
 }
 
-.descricao {
+.descricao-slideshow {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -33,16 +33,16 @@
     padding: 3% 0;
 }
 
-.descricao  a {
+.descricao-slideshow  a {
     text-decoration: none;
 }
 
-.descricao button {
+.descricao-slideshow button {
     width: 100%;
     height: 60px;
 }
 
-.descricao h3 {
+.descricao-slideshow h3 {
     font-size: 2em;
 }
 
@@ -61,18 +61,31 @@
     font-size: 1.3em;
 }
 
-.destaques p {
-    text-transform: capitalize;
-    color: #888;
+.destaques button {
+    width: 100%;
 }
 
-.destaques button {
-    display: block;
-    margin: auto;
+.btn-container {
+    position: relative;
+    height: 38px;     
+}
+
+.btn-destaque {   
+    position: absolute;
+    bottom: 0px;       
+    width: 50%;
+
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .card {
     height: 95%;
+}
+
+.marca {
+    text-transform: capitalize;
+    color: #888;
 }
 
 h2 {    
@@ -84,6 +97,10 @@ h2 {
 ol {
     list-style: none;
     padding-left: 0;    
+}
+
+figcaption {
+    padding-bottom: 0 !important;
 }
 
 main {
