@@ -1,1 +1,11 @@
-
+#map {
+  height: 360px;
+  background-color: white;
+  border: 7px solid #333333;
+}
+h2{
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
