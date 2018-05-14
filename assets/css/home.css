@@ -4,6 +4,7 @@
     }
 }
 
+/* Slideshow */
 #slideshow {    
     background-color: #e24c4c;
     color: white;
@@ -45,7 +46,9 @@
 .descricao-slideshow h3 {
     font-size: 2em;
 }
+/* Slideshow */
 
+/* Produtos em destaque */
 .destaques {
     margin-top: 20px;
 }
@@ -87,6 +90,7 @@
     text-transform: capitalize;
     color: #888;
 }
+/* Produtos em destaque */
 
 h2 {    
     font-size: 2.5em;
@@ -97,6 +101,14 @@ h2 {
 ol {
     list-style: none;
     padding-left: 0;    
+}
+
+figure {    
+    transition: 0.3s;
+}
+
+figure:hover {
+    transform: scale(1.06);
 }
 
 figcaption {
