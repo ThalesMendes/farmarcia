@@ -4,6 +4,12 @@
     }
 }
 
+.titulo-section {    
+    font-size: 2.5em;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
 /* Slideshow */
 #slideshow {    
     background-color: #e24c4c;
@@ -86,31 +92,25 @@
     height: 95%;
 }
 
+.produto {    
+    transition: 0.3s;
+}
+
+.produto:hover {
+    transform: scale(1.06);
+}
+
+.produto figcaption {
+    padding-bottom: 0 !important;
+}
+
 .marca {
     text-transform: capitalize;
     color: #888;
 }
 /* Produtos em destaque */
 
-h2 {    
-    font-size: 2.5em;
-    font-weight: 900;
-    text-transform: uppercase;
-}
-
 ol {
     list-style: none;
     padding-left: 0;    
-}
-
-figure {    
-    transition: 0.3s;
-}
-
-figure:hover {
-    transform: scale(1.06);
-}
-
-figcaption {
-    padding-bottom: 0 !important;
 }
