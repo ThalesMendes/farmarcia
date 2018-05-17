@@ -4,14 +4,14 @@
     }
 }
 
-.titulo-section {    
+.titulo-section {
     font-size: 2.5em;
     font-weight: 900;
     text-transform: uppercase;
 }
 
 /* Slideshow */
-#slideshow {    
+#slideshow {
     background-color: #e24c4c;
     color: white;
 }
@@ -76,12 +76,12 @@
 
 .btn-container {
     position: relative;
-    height: 38px;     
+    height: 38px;
 }
 
-.btn-destaque {   
+.btn-destaque {
     position: absolute;
-    bottom: 0px;       
+    bottom: 0px;
     width: 50%;
 
     left: 50%;
@@ -92,7 +92,7 @@
     height: 95%;
 }
 
-.produto {    
+.produto {
     transition: 0.3s;
 }
 
@@ -112,5 +112,16 @@
 
 ol {
     list-style: none;
-    padding-left: 0;    
+    padding-left: 0;
+}
+
+a {
+  color: white;
+}
+a:hover{
+  color:#dc3545;
+  text-decoration: none;
+}
+.navbar .nav-item{
+  font-size: 1.3em;
 }
