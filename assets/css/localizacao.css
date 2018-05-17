@@ -9,3 +9,13 @@ h2{
   margin-right: auto;
   margin-left: auto;
 }
+a {
+  color: white;
+}
+a:hover{
+  color:#dc3545;
+  text-decoration: none;
+}
+.navbar .nav-item{
+  font-size: 1.3em;
+}
