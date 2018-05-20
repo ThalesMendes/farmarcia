@@ -50,6 +50,10 @@
     width: 100%;
 }
 
+.produto-button:hover {
+    text-decoration: none;
+}
+
 .produto-button > button {
     display: block;
     margin: auto;
