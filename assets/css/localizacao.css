@@ -1,21 +1,17 @@
 #map {
   height: 360px;
   background-color: white;
-  border: 7px solid #333333;
 }
-h2{
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
-a {
+
+footer a {
   color: white;
 }
-a:hover{
+
+footer a:hover {
   color:#dc3545;
   text-decoration: none;
 }
-.navbar .nav-item{
+
+.navbar .nav-item {
   font-size: 1.3em;
 }
