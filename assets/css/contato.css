@@ -21,6 +21,12 @@
     margin: auto;
 }
 
+.input-group-text {
+    background-color: #dc3545;
+    border: 1px solid #dc3545;
+    color: white;
+}
+
 label {
     font-weight: 600;
 }
@@ -28,13 +34,16 @@ label {
 main {
     margin: 20px 0;
 }
-a {
-  color: white;
+
+footer a {
+    color: white;
 }
-a:hover{
-  color:#dc3545;
-  text-decoration: none;
+
+footer a:hover{
+    color:#dc3545;
+    text-decoration: none;
 }
+
 .navbar .nav-item{
-  font-size: 1.3em;
+    font-size: 1.3em;
 }
