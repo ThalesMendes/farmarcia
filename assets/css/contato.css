@@ -1,9 +1,6 @@
 @media(min-width: 768px) {
-    #input-nome,
-    #input-email,
-    #input-telefone,
-    #input-assunto {
-        max-width: 50%;
+    .form-centro {
+        width: 50%
     }
 }
 
@@ -27,6 +24,10 @@
     color: white;
 }
 
+.form-centro {
+    margin: auto;
+}
+
 label {
     font-weight: 600;
 }
@@ -39,11 +40,11 @@ footer a {
     color: white;
 }
 
-footer a:hover{
+footer a:hover {
     color:#dc3545;
     text-decoration: none;
 }
 
-.navbar .nav-item{
+.navbar .nav-item {
     font-size: 1.3em;
 }
