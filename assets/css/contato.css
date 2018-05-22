@@ -1,50 +1,50 @@
 @media(min-width: 768px) {
-    .form-centro {
-        width: 50%
-    }
+  .form-centro {
+    width: 50%
+  }
 }
 
 .obrigatorio::after {
-    content: '*';
+  content: '*';
 }
 
 .obrigatorio::after,
 .marcador-obrigatorio {
-    color: tomato;
+  color: tomato;
 }
 
 .btn-enviar {
-    display: block;
-    margin: auto;
+  display: block;
+  margin: auto;
 }
 
 .input-group-text {
-    background-color: #dc3545;
-    border: 1px solid #dc3545;
-    color: white;
+  background-color: #dc3545;
+  border: 1px solid #dc3545;
+  color: white;
 }
 
 .form-centro {
-    margin: auto;
+  margin: auto;
 }
 
 label {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 main {
-    margin: 20px 0;
+  margin: 20px 0;
 }
 
 footer a {
-    color: white;
+  color: white;
 }
 
 footer a:hover {
-    color:#dc3545;
-    text-decoration: none;
+  color:#dc3545;
+  text-decoration: none;
 }
 
 .navbar .nav-item {
-    font-size: 1.3em;
+  font-size: 1.3em;
 }
