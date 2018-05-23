@@ -15,7 +15,7 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light shadow pr-5 pl-5 mb-4 bg-white rounded">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="../html/home.html">
       <img src="../assets/imgs/logo.png" alt="Logo" style="width: 150px;">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -41,12 +41,16 @@
           <a href="../html/contato.html" class="nav-link">Contato</a>
         </li>
       </ul>
-      <form class="form-inline" action="/action_page.php">
-        <input class="form-control mr-sm-0" type="search" placeholder="Procurar Produtos">
-        <button class="btn btn-danger" type="submit">
-          <i class="fas fa-search"></i>
-        </button>
-      </form>
+      <div class="form-group pt-2">
+        <div class="input-group">
+          <input class="form-control" type="search" placeholder="Procurar produtos">
+          <div class="input-group-append">
+            <button class="btn btn-danger" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </nav>
 
@@ -61,7 +65,6 @@
           <div class="form-group">
             <div class="input-group">
               <input class="form-control" type="search" placeholder="Procurar produtos">
-
               <div class="input-group-append">
                 <button class="btn btn-danger" type="submit">
                   <i class="fas fa-search"></i>
