@@ -125,6 +125,10 @@ footer a:hover {
   text-decoration: none;
 }
 
+.navbar {
+  z-index: 1;
+}
+
 .navbar .nav-item{
   font-size: 1.3em;
 }
