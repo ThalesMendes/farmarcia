@@ -2,77 +2,130 @@
 <html lang="pt-br">
 
 <head>
-<title>Farmárcia - Produtos</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Farmárcia - Produtos</title>
+
   <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../assets/css/home.css">
-  <script src="../assets/javascript/jquery.js"></script>
-  <script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-  
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="../assets/css/produtos.css">
+  <link rel="stylesheet" href="../assets/css/dialogo-produto.css">
 </head>
-<!-- titulo -->
+
 <body>
-	<div class="row">
-		<div class="col"></div>
-		<div class="col"><h2>Produtos</h2></div>
-		<div class="col"></div>
-	</div>
-</br>
-<!-- titulo -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow pr-5 pl-5 mb-4 bg-white rounded">
+    <a class="navbar-brand" href="#">
+      <img src="../assets/imgs/logo.png" alt="Logo" style="width: 150px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-<!-- inicio dropdown -->
-	<div class="col-md-2">
-	
-		<div class="dropdown">
-			<button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				Categorias
-			</button>
-			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				<a class="dropdown-item" href="#">Dermatologico</a>
-				<a class="dropdown-item" href="#">Analgesico</a>
-				<a class="dropdown-item" href="#">Antibiotico</a>
-			</div>
-		</div>
-</br>
-	</div>
-	<div class="col-md-2">
-		<div class="dropdown">
-			<button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				Ordenar por 
-			</button>
-		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-			<a class="dropdown-item" href="#">Menor preco</a>
-			<a class="dropdown-item" href="#">Nome</a>
-			<a class="dropdown-item" href="#">Recentes</a>
-		</div>
-		</div>
-	</div>
-<!-- fim dropdown -->
+    <div class="collapse navbar-collapse pt-2" id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a href="../html/home.html" class="nav-link">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a href="../html/quemsomos.html" class="nav-link">Quem somos</a>
+        </li>
+        <li class="nav-item">
+          <a href="../html/produtos.html" class="nav-link">Produtos</a>
+        </li>
+        <li class="nav-item">
+          <a href="../html/localizacao.html" class="nav-link">Localização</a>
+        </li>
+        <li class="nav-item">
+          <a href="../html/contato.html" class="nav-link">Contato</a>
+        </li>
+      </ul>
+      <form class="form-inline" action="/action_page.php">
+        <input class="form-control mr-sm-0" type="search" placeholder="Procurar Produtos">
+        <button class="btn btn-danger" type="submit">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+    </div>
+  </nav>
 
-    <!-- Produtos  -->
-    <section class="container destaques">
-      
+  <main class="container">
+    <h1>Produtos</h1>
 
-      <ol class="row">
+    <div class="row">
+      <!-- Painel de pesquisa -->
+      <div class="col-lg-3 col-md-4">
+        <form>
+          <!-- Pesquisa -->
+          <div class="form-group">
+            <div class="input-group">
+              <input class="form-control" type="search" placeholder="Procurar produtos">
+
+              <div class="input-group-append">
+                <button class="btn btn-danger" type="submit">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Pesquisa -->
+
+          <!-- Ordenação -->
+          <div class="form-group">
+            <label class="nome-campo" for="input-ordem">Ordenar por</label>
+
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-sort-amount-down"></i>
+                </div>
+              </div>
+
+              <select id="input-ordem" class="custom-select" required>
+                <option selected>Mais novo</option>
+                <option>Ordem alfabética</option>
+                <option>Menor preço</option>
+              </select>
+            </div>
+          </div>
+          <!-- Ordenação -->
+
+          <!-- Categorias -->
+          <div class="form-group">
+            <label class="nome-campo" for="input-categoria">Categorias</label>
+
+            <div class="input-group categorias">
+              <label>
+                <input type="checkbox"> Analgésico
+              </label>
+              <label>
+                <input type="checkbox"> Oftálmico
+              </label>
+              <label>
+                <input type="checkbox"> Anti-inflamatório
+              </label>
+            </div>
+          </div>
+          <!-- Categorias -->
+        </form>
+      </div>
+      <!-- Painel de pesquisa -->
+
+      <!-- Lista de produtos -->
+      <ol class="row col-lg-9 col-md-8">
         <!-- Produto -->
-        <li class="col-12 col-md-5 col-lg-3">
-          <figure class="card p-2">
+        <li class="col-sm-6 col-lg-4">
+          <figure class="produto card p-2">
             <!-- Imagem -->
-            <a href="#">
-              <img href="#" src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
+            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
+              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
             </a>
             <!-- Imagem -->
 
             <!-- Descrição -->
             <figcaption class="card-body">
-              <a href="#">
+              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
                 <h4>Lorem ipsum dolor sit amet</h4>
               </a>
               <p class="marca">Consectetur</p>
@@ -81,7 +134,7 @@
 
             <!-- Botão -->
             <div class="btn-container">
-              <a class="btn-destaque" href="#">
+              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
                 <button class="btn btn-danger">Ver mais</button>
               </a>
             </div>
@@ -91,17 +144,17 @@
         <!-- Produto -->
 
         <!-- Produto -->
-        <li class="col-12 col-md-5 col-lg-3">
-          <figure class="card p-2">
+        <li class="col-sm-6 col-lg-4">
+          <figure class="produto card p-2">
             <!-- Imagem -->
-            <a href="#">
-              <img href="#" src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
+            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
+              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
             </a>
             <!-- Imagem -->
 
             <!-- Descrição -->
             <figcaption class="card-body">
-              <a href="#">
+              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
                 <h4>Fusce lacinia ex sed odio scelerisque</h4>
               </a>
               <p class="marca">Sed</p>
@@ -110,7 +163,7 @@
 
             <!-- Botão -->
             <div class="btn-container">
-              <a class="btn-destaque" href="#">
+              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
                 <button class="btn btn-danger">Ver mais</button>
               </a>
             </div>
@@ -120,17 +173,17 @@
         <!-- Produto -->
 
         <!-- Produto -->
-        <li class="col-12 col-md-5 col-lg-3">
-          <figure class="card p-2">
+        <li class="col-sm-6 col-lg-4">
+          <figure class="produto card p-2">
             <!-- Imagem -->
-            <a href="#">
-              <img href="#" src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
+            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
+              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
             </a>
             <!-- Imagem -->
 
             <!-- Descrição -->
             <figcaption class="card-body">
-              <a href="#">
+              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
                 <h4>Nulla tristique ac elit rutrum fermentum</h4>
               </a>
               <p class="marca">Nullam</p>
@@ -139,7 +192,7 @@
 
             <!-- Botão -->
             <div class="btn-container">
-              <a class="btn-destaque" href="#">
+              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
                 <button class="btn btn-danger">Ver mais</button>
               </a>
             </div>
@@ -149,17 +202,17 @@
         <!-- Produto -->
 
         <!-- Produto -->
-        <li class="col-12 col-md-5 col-lg-3">
-          <figure class="card p-2">
+        <li class="col-sm-6 col-lg-4">
+          <figure class="produto card p-2">
             <!-- Imagem -->
-            <a href="#">
-              <img href="#" src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
+            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
+              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
             </a>
             <!-- Imagem -->
 
             <!-- Descrição -->
             <figcaption class="card-body">
-              <a href="#">
+              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
                 <h4>Maecenas odio libero accumsan sit amet nisi eget commodo tincidunt enim</h4>
               </a>
               <p class="marca">Praesent</p>
@@ -168,7 +221,7 @@
 
             <!-- Botão -->
             <div class="btn-container">
-              <a class="btn-destaque" href="#">
+              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
                 <button class="btn btn-danger">Ver mais</button>
               </a>
             </div>
@@ -178,17 +231,17 @@
         <!-- Produto -->
 
         <!-- Produto -->
-        <li class="col-12 col-md-5 col-lg-3">
-          <figure class="card p-2">
+        <li class="col-sm-6 col-lg-4">
+          <figure class="produto card p-2">
             <!-- Imagem -->
-            <a href="#">
-              <img href="#" src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
+            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
+              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
             </a>
             <!-- Imagem -->
 
             <!-- Descrição -->
             <figcaption class="card-body">
-              <a href="#">
+              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
                 <h4>Curabitur sed enim et tellus ultricies malesuada a nec ex</h4>
               </a>
               <p class="marca">Sed</p>
@@ -197,7 +250,7 @@
 
             <!-- Botão -->
             <div class="btn-container">
-              <a class="btn-destaque" href="#">
+              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
                 <button class="btn btn-danger">Ver mais</button>
               </a>
             </div>
@@ -207,17 +260,17 @@
         <!-- Produto -->
 
         <!-- Produto -->
-        <li class="col-12 col-md-5 col-lg-3">
-          <figure class="card p-2">
+        <li class="col-sm-6 col-lg-4">
+          <figure class="produto card p-2">
             <!-- Imagem -->
-            <a href="#">
-              <img href="#" src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
+            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
+              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
             </a>
             <!-- Imagem -->
 
             <!-- Descrição -->
             <figcaption class="card-body">
-              <a href="#">
+              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
                 <h4>Proin non lorem magna</h4>
               </a>
               <p class="marca">Fusce</p>
@@ -226,7 +279,7 @@
 
             <!-- Botão -->
             <div class="btn-container">
-              <a class="btn-destaque" href="#">
+              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
                 <button class="btn btn-danger">Ver mais</button>
               </a>
             </div>
@@ -234,27 +287,28 @@
           </figure>
         </li>
         <!-- Produto -->
-		        <!-- Produto -->
-        <li class="col-12 col-md-5 col-lg-3">
-          <figure class="card p-2">
+
+        <!-- Produto -->
+        <li class="col-sm-6 col-lg-4">
+          <figure class="produto card p-2">
             <!-- Imagem -->
-            <a href="#">
-              <img href="#" src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
+            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
+              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
             </a>
             <!-- Imagem -->
 
             <!-- Descrição -->
             <figcaption class="card-body">
-              <a href="#">
-                <h4>Proin non lorem magna</h4>
+              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
+                <h4>Nulla tristique ac elit rutrum fermentum</h4>
               </a>
-              <p class="marca">Fusce</p>
+              <p class="marca">Nullam</p>
             </figcaption>
             <!-- Descrição -->
 
             <!-- Botão -->
             <div class="btn-container">
-              <a class="btn-destaque" href="#">
+              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
                 <button class="btn btn-danger">Ver mais</button>
               </a>
             </div>
@@ -262,27 +316,28 @@
           </figure>
         </li>
         <!-- Produto -->
-		        <!-- Produto -->
-        <li class="col-12 col-md-5 col-lg-3">
-          <figure class="card p-2">
+
+        <!-- Produto -->
+        <li class="col-sm-6 col-lg-4">
+          <figure class="produto card p-2">
             <!-- Imagem -->
-            <a href="#">
-              <img href="#" src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
+            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
+              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
             </a>
             <!-- Imagem -->
 
             <!-- Descrição -->
             <figcaption class="card-body">
-              <a href="#">
-                <h4>Proin non lorem magna</h4>
+              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
+                <h4>Maecenas odio libero accumsan sit amet nisi eget commodo tincidunt enim</h4>
               </a>
-              <p class="marca">Fusce</p>
+              <p class="marca">Praesent</p>
             </figcaption>
             <!-- Descrição -->
 
             <!-- Botão -->
             <div class="btn-container">
-              <a class="btn-destaque" href="#">
+              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
                 <button class="btn btn-danger">Ver mais</button>
               </a>
             </div>
@@ -290,27 +345,28 @@
           </figure>
         </li>
         <!-- Produto -->
-		        <!-- Produto -->
-        <li class="col-12 col-md-5 col-lg-3">
-          <figure class="card p-2">
+
+        <!-- Produto -->
+        <li class="col-sm-6 col-lg-4">
+          <figure class="produto card p-2">
             <!-- Imagem -->
-            <a href="#">
-              <img href="#" src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
+            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
+              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
             </a>
             <!-- Imagem -->
 
             <!-- Descrição -->
             <figcaption class="card-body">
-              <a href="#">
-                <h4>Proin non lorem magna</h4>
+              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
+                <h4>Curabitur sed enim et tellus ultricies malesuada a nec ex</h4>
               </a>
-              <p class="marca">Fusce</p>
+              <p class="marca">Sed</p>
             </figcaption>
             <!-- Descrição -->
 
             <!-- Botão -->
             <div class="btn-container">
-              <a class="btn-destaque" href="#">
+              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
                 <button class="btn btn-danger">Ver mais</button>
               </a>
             </div>
@@ -318,46 +374,19 @@
           </figure>
         </li>
         <!-- Produto -->
-		        <!-- Produto -->
-        <li class="col-12 col-md-5 col-lg-3">
-          <figure class="card p-2">
-            <!-- Imagem -->
-            <a href="#">
-              <img href="#" src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
 
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="#">
-                <h4>Proin non lorem magna</h4>
-              </a>
-              <p class="marca">Fusce</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-destaque" href="#">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
         <!-- Produto -->
-		        <!-- Produto -->
-        <li class="col-12 col-md-5 col-lg-3">
-          <figure class="card p-2">
+        <li class="col-sm-6 col-lg-4">
+          <figure class="produto card p-2">
             <!-- Imagem -->
-            <a href="#">
-              <img href="#" src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
+            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
+              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
             </a>
             <!-- Imagem -->
 
             <!-- Descrição -->
             <figcaption class="card-body">
-              <a href="#">
+              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
                 <h4>Proin non lorem magna</h4>
               </a>
               <p class="marca">Fusce</p>
@@ -366,35 +395,7 @@
 
             <!-- Botão -->
             <div class="btn-container">
-              <a class="btn-destaque" href="#">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-		        <!-- Produto -->
-        <li class="col-12 col-md-5 col-lg-3">
-          <figure class="card p-2">
-            <!-- Imagem -->
-            <a href="#">
-              <img href="#" src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="#">
-                <h4>Proin non lorem magna</h4>
-              </a>
-              <p class="marca">Fusce</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-destaque" href="#">
+              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
                 <button class="btn btn-danger">Ver mais</button>
               </a>
             </div>
@@ -403,12 +404,73 @@
         </li>
         <!-- Produto -->
       </ol>
-    </section>
-    <!-- Produtos em destaque -->
+      <!-- Lista de produtos -->
+    </div>
 
+    <!-- Diálogo do Produto -->
+    <div id="modal-produto" class="modal fade" role="dialog" tabindex="-1">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <!-- Conteúdo preenchido com as informações correspondentes ao produto -->
+        </div>
+      </div>
+    </div>
+    <!-- Diálogo do Produto -->
+  </main>
+
+  <footer class="bg-dark text-white">
+    <div class="container">
+      <div class="row pt-2 mb-3 text-center justify-content-center">
+        <div class="col-md-2 mb-3">
+          <h6 class="text-uppercase font-weight-bold">
+            <a href="../html/home.html">Inicio</a>
+          </h6>
+        </div>
+        <div class="col-md-2 mb-3">
+          <h6 class="text-uppercase font-weight-bold">
+            <a href="../html/quemsomos.html">Quem Somos</a>
+          </h6>
+        </div>
+        <div class="col-md-2 mb-3">
+          <h6 class="text-uppercase font-weight-bold">
+            <a href="../html/produtos.html">Produtos</a>
+          </h6>
+        </div>
+        <div class="col-md-2 mb-3">
+          <h6 class="text-uppercase font-weight-bold">
+            <a href="../html/localizacao.html">Localização</a>
+          </h6>
+        </div>
+        <div class="col-md-2 mb-3">
+          <h6 class="text-uppercase font-weight-bold">
+            <a href="../html/contato.html">Contato</a>
+          </h6>
+        </div>
+      </div>
+      <div class="row text-center">
+        <div class="col-md-12">
+          <div class="mb-2 flex-center">
+            <a class="fb-ic p-2" href="#">
+              <i class="fab fa-facebook fa-2x"></i>
+            </a>
+            <a class="tw-ic p-2" href="#">
+              <i class="fab fa-twitter fa-2x"></i>
+            </a>
+            <a class="insta-ic p-2" href="#">
+              <i class="fab fa-instagram fa-2x"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        Copyright © 2018 Farmarcia
+      </div>
+    </div>
+  </footer>
 
   <script src="../assets/javascript/jquery.js"></script>
   <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../assets/javascript/dialogo_produto.js"></script>
 </body>
 
 </html>
