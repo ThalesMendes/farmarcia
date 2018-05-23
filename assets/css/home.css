@@ -12,6 +12,7 @@
 
 /* Slideshow */
 #slideshow {
+  padding-top: 10px;
   background-color: #e24c4c;
   color: white;
 }
@@ -56,7 +57,7 @@
 
 /* Produtos em destaque */
 .destaques {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .destaques img {
