@@ -66,6 +66,10 @@
   color: white;
 }
 
+.lista-produtos {
+  margin: auto;
+}
+
 h1 {
   text-align: center;
 }
