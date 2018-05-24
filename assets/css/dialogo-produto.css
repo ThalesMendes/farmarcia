@@ -6,7 +6,7 @@
   content: ' > ' !important;
 }
 
-.titulo-produto {    
+.titulo-produto {
   margin-bottom: 0 !important;
   text-transform: none !important;
   font-size: 2rem !important;
@@ -63,4 +63,12 @@
 .marca {
   text-transform: capitalize;
   color: #888;
+}
+
+@media (min-width: 1440px) {
+  footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
 }
