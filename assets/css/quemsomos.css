@@ -8,3 +8,11 @@ a:hover{
 .navbar .nav-item{
   font-size: 1.3em;
 }
+
+@media (min-width: 1440px){
+  footer{
+    position: relative !important ;
+    bottom: 0 !important;
+    width: 100% !important;
+  }
+}

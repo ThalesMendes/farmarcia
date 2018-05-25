@@ -45,6 +45,14 @@ main {
   margin: 20px 0;
 }
 
+@media (min-width: 1440px){
+  footer{
+    position: absolute !important ;
+    bottom: 0 !important;
+    width: 100% !important;
+  }
+}
+
 footer a {
   color: white;
 }
