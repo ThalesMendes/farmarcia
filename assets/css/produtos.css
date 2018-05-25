@@ -83,6 +83,15 @@ ol {
   }
 }
 
+@media (min-width: 2560px) {
+  footer {
+    position: absolute !important;
+    bottom: 0 !important;
+    width: 100%;
+  }
+}
+
+
 footer a {
   color: white;
 }
