@@ -6,46 +6,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Farmárcia - Nome do Produto</title>
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
-      crossorigin="anonymous">
-    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/pagina-produto.css">
-  </head>
+  <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="../assets/css/pagina-produto.css">
+</head>
 
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-white rounded">
-      <a class="navbar-brand" href="#">
-        <img src="../assets/imgs/logo.png" alt="Logo" style="width: 150px;">
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow pr-5 pl-5 mb-4 bg-white rounded">
+    <a class="navbar-brand" href="../html/home.html">
+      <img src="../assets/imgs/logo.png" alt="Logo" style="width: 150px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mx-auto">
-          <li class="nav-item">
-            <a href="../html/home.html" class="nav-link">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a href="../html/quemsomos.html" class="nav-link">Quem somos</a>
-          </li>
-          <li class="nav-item">
-            <a href="../html/produtos.html" class="nav-link">Produtos</a>
-          </li>
-          <li class="nav-item">
-            <a href="../html/localizacao.html" class="nav-link">Localização</a>
-          </li>
-          <li class="nav-item">
-            <a href="../html/contato.html" class="nav-link">Contato</a>
-          </li>
-        </ul>
-        <form class="form-inline" action="/action_page.php">
-          <input class="form-control mr-sm-2" type="search" placeholder="Procurar Produtos">
-          <button class="btn btn-danger" type="submit">Procurar</button>
-        </form>
+    <div class="collapse navbar-collapse pt-2" id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a href="../html/home.html" class="nav-link">Início</a>
+        </li>
+        <li class="nav-item">
+          <a href="../html/quemsomos.html" class="nav-link">Quem somos</a>
+        </li>
+        <li class="nav-item">
+          <a href="../html/produtos.html" class="nav-link">Produtos</a>
+        </li>
+        <li class="nav-item">
+          <a href="../html/localizacao.html" class="nav-link">Localização</a>
+        </li>
+        <li class="nav-item">
+          <a href="../html/contato.html" class="nav-link">Contato</a>
+        </li>
+      </ul>
+      <div class="form-group pt-2">
+        <div class="input-group">
+          <input class="form-control" type="search" placeholder="Procurar produtos">
+          <div class="input-group-append">
+            <button class="btn btn-danger" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
       </div>
-    </nav>
+    </div>
+  </nav>
+
+  <main class="container">
+    <figure class="produto-container">
+      <div class="row">
+        <!-- Imagem do produto -->
+        <div class="thumb-container col-lg-5 img-thumbnail">
+          <img class="thumb-img img-fluid" src="../assets/imgs/produto-placeholder.png">
+        </div>
+        <!-- Imagem do produto -->
 
     <main class="container">
       <figure class="produto-container">
@@ -94,19 +109,19 @@
       <div class="container">
         <div class="pt-2 mb-3 text-center justify-content-center">
           <h6 class="text-uppercase font-weight-bold">
-            <a href="#!">Início</a>
+            <a href="../html/home.html">Início</a>
           </h6>
           <h6 class="text-uppercase font-weight-bold">
-            <a href="#!">Quem Somos</a>
+            <a href="../html/quemsomos.html">Quem Somos</a>
           </h6>
           <h6 class="text-uppercase font-weight-bold">
-            <a href="#!">Produtos</a>
+            <a href="../html/produtos.html">Produtos</a>
           </h6>
           <h6 class="text-uppercase font-weight-bold">
-            <a href="#!">Localização</a>
+            <a href="../html/localizacao.html">Localização</a>
           </h6>
           <h6 class="text-uppercase font-weight-bold">
-             <a href="#!">Contato</a>
+             <a href="../html/contato.html">Contato</a>
           </h6>
         </div>
       </div>
@@ -125,11 +140,14 @@
           </div>
         </div>
       </div>
-        <div class="text-center">
-          Copyright © 2018 Farmárcia
-        </div>
+      <div class="text-center">
+        Copyright © 2018 Farmárcia
       </div>
-    </footer>
-  </body>
+    </div>
+  </footer>
+
+  <script src="../assets/javascript/jquery.js"></script>
+  <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
 
 </html>

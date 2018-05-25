@@ -4,6 +4,14 @@
   }
 }
 
+#input-mensagem {
+  resize: none;
+}
+
+.form-mensagem {
+  margin-bottom: 0;
+}
+
 .obrigatorio::after {
   content: '*';
 }
@@ -16,6 +24,7 @@
 .btn-enviar {
   display: block;
   margin: auto;
+  margin-top: 10px;
 }
 
 .input-group-text {
@@ -41,7 +50,7 @@ footer a {
 }
 
 footer a:hover {
-  color:#dc3545;
+  color: #dc3545;
   text-decoration: none;
 }
 
