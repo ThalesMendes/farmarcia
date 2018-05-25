@@ -14,7 +14,7 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light shadow pr-5 pl-5 mb-4 bg-white rounded">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="../html/home.html">
       <img src="../assets/imgs/logo.png" alt="Logo" style="width: 150px;">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -25,7 +25,7 @@
     <div class="collapse navbar-collapse pt-2" id="navbarSupportedContent">
       <ul class="navbar-nav mx-auto">
         <li class="nav-item">
-          <a href="../html/home.html" class="nav-link">Inicio</a>
+          <a href="../html/home.html" class="nav-link">Início</a>
         </li>
         <li class="nav-item">
           <a href="../html/quemsomos.html" class="nav-link">Quem somos</a>
@@ -40,88 +40,91 @@
           <a href="../html/contato.html" class="nav-link">Contato</a>
         </li>
       </ul>
-      <form class="form-inline" action="/action_page.php">
-        <input class="form-control mr-sm-0" type="search" placeholder="Procurar Produtos">
-        <button class="btn btn-danger" type="submit"><i class="fas fa-search"></i>
-        </button>
-      </form>
+      <div class="form-group pt-2">
+        <div class="input-group">
+          <input class="form-control" type="search" placeholder="Procurar produtos">
+          <div class="input-group-append">
+            <button class="btn btn-danger" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </nav>
 
   <main class="container">
     <h1>Contato</h1>
 
-    <form>
-      <div class="form-centro">
-        <!-- Nome -->
-        <div class="form-group">
-          <label class="obrigatorio" for="input-nome">Nome:</label>
+    <form class="form-centro">
+      <!-- Nome -->
+      <div class="form-group">
+        <label class="obrigatorio" for="input-nome">Nome:</label>
 
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i class="fas fa-user"></i>
-              </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fas fa-user"></i>
             </div>
-
-            <input id="input-nome" class="form-control" type="text" required>
           </div>
+
+          <input id="input-nome" class="form-control" type="text" required>
         </div>
-        <!-- Nome -->
-
-        <!-- Email -->
-        <div class="form-group">
-          <label class="obrigatorio" for="input-email">Email:</label>
-
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i class="fas fa-at"></i>
-              </div>
-            </div>
-
-            <input id="input-email" class="form-control" type="email" required>
-          </div>
-        </div>
-        <!-- Email -->
-
-        <!-- Telefone -->
-        <div class="form-group">
-          <label for="input-telefone">Telefone:</label>
-
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i class="fas fa-phone"></i>
-              </div>
-            </div>
-
-            <input id="input-telefone" class="form-control" type="tel">
-          </div>
-        </div>
-        <!-- Telefone -->
-
-        <!-- Assunto -->
-        <div class="form-group">
-          <label class="obrigatorio" for="input-assunto">Assunto:</label>
-
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i class="fas fa-question-circle"></i>
-              </div>
-            </div>
-
-            <select id="input-assunto" class="custom-select" required>
-              <option selected>Outro</option>
-            </select>
-          </div>
-        </div>
-        <!-- Assunto -->
       </div>
+      <!-- Nome -->
+
+      <!-- Email -->
+      <div class="form-group">
+        <label class="obrigatorio" for="input-email">Email:</label>
+
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fas fa-at"></i>
+            </div>
+          </div>
+
+          <input id="input-email" class="form-control" type="email" required>
+        </div>
+      </div>
+      <!-- Email -->
+
+      <!-- Telefone -->
+      <div class="form-group">
+        <label for="input-telefone">Telefone:</label>
+
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fas fa-phone"></i>
+            </div>
+          </div>
+
+          <input id="input-telefone" class="form-control" type="tel">
+        </div>
+      </div>
+      <!-- Telefone -->
+
+      <!-- Assunto -->
+      <div class="form-group">
+        <label class="obrigatorio" for="input-assunto">Assunto:</label>
+
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fas fa-question-circle"></i>
+            </div>
+          </div>
+
+          <select id="input-assunto" class="custom-select" required>
+            <option selected>Outro</option>
+          </select>
+        </div>
+      </div>
+      <!-- Assunto -->
 
       <!-- Mensagem -->
-      <div class="form-group">
+      <div class="form-group form-mensagem">
         <label class="obrigatorio" for="input-mensagem">Mensagem:</label>
 
         <div class="input-group">
@@ -146,19 +149,19 @@
     <div class="container">
       <div class="pt-2 mb-3 text-center justify-content-center">
         <h6 class="text-uppercase font-weight-bold">
-          <a href="#!">Início</a>
+          <a href="../html/home.html">Início</a>
         </h6>
         <h6 class="text-uppercase font-weight-bold">
-          <a href="#!">Quem Somos</a>
+          <a href="../html/quemsomos.html">Quem Somos</a>
         </h6>
         <h6 class="text-uppercase font-weight-bold">
-          <a href="#!">Produtos</a>
+          <a href="../html/produtos.html">Produtos</a>
         </h6>
         <h6 class="text-uppercase font-weight-bold">
-          <a href="#!">Localização</a>
+          <a href="../html/localizacao.html">Localização</a>
         </h6>
         <h6 class="text-uppercase font-weight-bold">
-           <a href="#!">Contato</a>
+           <a href="../html/contato.html">Contato</a>
         </h6>
       </div>
       <div class="row text-center">
@@ -181,6 +184,9 @@
       </div>
     </div>
   </footer>
+  <script src="../assets/javascript/jquery.js"></script>
+  <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../assets/javascript/dialogo_produto.js"></script>
 </body>
 
 </html>
