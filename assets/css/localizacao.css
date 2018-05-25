@@ -3,21 +3,6 @@
   background-color: white;
 }
 
-<<<<<<< HEAD
-@media (min-width: 1440px){
-  footer{
-    position: relative !important ;
-    bottom: 0 !important;
-    width: 100% !important;
-  }
-}
-
-@media (min-width: 2560px){
-  footer{
-    position: absolute !important ;
-    bottom: 0 !important;
-    width: 100% !important;
-=======
 @media (min-width: 1440px) {
   footer {
     position: relative !important;
@@ -31,7 +16,6 @@
     position: absolute !important;
     bottom: 0 !important;
     width: 100%;
->>>>>>> Leonardo
   }
 }
 
