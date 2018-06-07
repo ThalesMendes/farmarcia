@@ -18,7 +18,7 @@
     <a class="navbar-brand" href="../html/home.html">
       <img src="../assets/imgs/logo.png" alt="Logo" style="width: 150px;">
     </a>
-    
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -46,7 +46,7 @@
       <div class="form-group pt-2">
         <div class="input-group">
           <input class="form-control" type="search" placeholder="Procurar produtos">
-          
+
           <div class="input-group-append">
             <button class="btn btn-danger" type="submit">
               <i class="fas fa-search"></i>
@@ -79,10 +79,20 @@
                 <div class="col-lg-4 img-container">
                   <img class="img-fluid" src="../assets/imgs/produto-placeholder.png">
                 </div>
+                <!-- Imagem -->
 
-                <a href="pagina-produto.html">
-                  <button class="btn btn-primary btn-lg">Página do produto</button>
-                </a>
+                <!-- Descrição -->
+                <div class="col-lg-6 descricao-slideshow">
+                  <div>
+                    <h3>Novalgina Gotas 10ml</h3>
+                    <p>In hac habitasse platea dictumst. Etiam in quam eget velit molestie maximus sed sed augue.</p>
+                  </div>
+
+                  <a href="pagina-produto.html">
+                    <button class="btn btn-primary btn-lg">Ver mais</button>
+                  </a>
+                </div>
+                <!-- Descrição -->
               </div>
             </div>
             <!-- Slide -->
@@ -94,10 +104,21 @@
                 <div class="col-lg-4 img-container">
                   <img class="img-fluid" src="../assets/imgs/produto-placeholder.png">
                 </div>
+                <!-- Imagem -->
 
-                <a href="pagina-produto.html">
-                  <button class="btn btn-primary btn-lg">Página do produto</button>
-                </a>
+                <!-- Descrição -->
+                <div class="col-lg-6 descricao-slideshow">
+                  <div>
+                    <h3>Cataflam 50mg Com 10 Comprimidos</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas non finibus dui. Sed facilisis dui
+                      a faucibus accumsan.</p>
+                  </div>
+
+                  <a href="pagina-produto.html">
+                    <button class="btn btn-primary btn-lg">Ver mais</button>
+                  </a>
+                </div>
+                <!-- Descrição -->
               </div>
             </div>
             <!-- Slide -->
@@ -328,7 +349,7 @@
           <a href="../html/contato.html">Contato</a>
         </h6>
       </div>
-      
+
       <div class="row text-center">
         <div class="col-md-12">
           <div class="mb-2 flex-center">
