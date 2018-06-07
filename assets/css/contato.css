@@ -4,6 +4,14 @@
   }
 }
 
+#input-mensagem {
+  resize: none;
+}
+
+.form-mensagem {
+  margin-bottom: 0;
+}
+
 .obrigatorio::after {
   content: '*';
 }
@@ -16,6 +24,7 @@
 .btn-enviar {
   display: block;
   margin: auto;
+  margin-top: 10px;
 }
 
 .input-group-text {
@@ -36,12 +45,28 @@ main {
   margin: 20px 0;
 }
 
+@media (min-width: 1440px) {
+  footer {
+    position: relative !important;
+    bottom: 0 !important;
+    width: 100%;
+  }
+}
+
+@media (min-width: 2560px) {
+  footer {
+    position: absolute !important;
+    bottom: 0 !important;
+    width: 100%;
+  }
+}
+
 footer a {
   color: white;
 }
 
 footer a:hover {
-  color:#dc3545;
+  color: #dc3545;
   text-decoration: none;
 }
 
