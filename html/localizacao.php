@@ -13,44 +13,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow pr-5 pl-5 mb-4 bg-white rounded">
-    <a class="navbar-brand" href="#">
-      <img src="../assets/imgs/logo.png" alt="Logo" style="width: 150px;">
-    </a>
-    
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-      aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse pt-2" id="navbarSupportedContent">
-      <ul class="navbar-nav mx-auto">
-        <li class="nav-item">
-          <a href="../html/home.html" class="nav-link">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a href="../html/quemsomos.html" class="nav-link">Quem somos</a>
-        </li>
-        <li class="nav-item">
-          <a href="../html/produtos.html" class="nav-link">Produtos</a>
-        </li>
-        <li class="nav-item">
-          <a href="../html/localizacao.html" class="nav-link">Localização</a>
-        </li>
-        <li class="nav-item">
-          <a href="../html/contato.html" class="nav-link">Contato</a>
-        </li>
-      </ul>
-
-      <form class="form-inline" action="/action_page.php">
-        <input class="form-control mr-sm-0" type="search" placeholder="Procurar Produtos">
-
-        <button class="btn btn-danger" type="submit">
-          <i class="fas fa-search"></i>
-        </button>
-      </form>
-    </div>
-  </nav>
+  <?php require 'navbar.php' ?>
 
   <main class="container">
     <h1>Localização</h1>
