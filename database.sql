@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS `Produto`;
+﻿DROP TABLE IF EXISTS `Produto`;
 
 /* Categoria */
 DROP TABLE IF EXISTS `Categoria`;
@@ -16,10 +16,9 @@ CREATE TABLE `Produto` (
   `preco` float NOT NULL,
   `descricao` text,
   `imagem` tinytext,
-  `categoria_id` int(11) NOT NULL,
+  `Categoria_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `categoria_id` (`categoria_id`),
-  FOREIGN KEY (`categoria_id`) REFERENCES `Categoria` (`id`)
+  FOREIGN KEY (`Categoria_id`) REFERENCES `Categoria` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /* Produto */
 
