@@ -18,6 +18,7 @@
     <a class="navbar-brand" href="../html/home.html">
       <img src="../assets/imgs/logo.png" alt="Logo" style="width: 150px;">
     </a>
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -41,9 +42,11 @@
           <a href="../html/contato.html" class="nav-link">Contato</a>
         </li>
       </ul>
+
       <div class="form-group pt-2">
         <div class="input-group">
           <input class="form-control" type="search" placeholder="Procurar produtos">
+          
           <div class="input-group-append">
             <button class="btn btn-danger" type="submit">
               <i class="fas fa-search"></i>
@@ -437,9 +440,10 @@
           <a href="../html/localizacao.html">Localização</a>
         </h6>
         <h6 class="text-uppercase font-weight-bold">
-           <a href="../html/contato.html">Contato</a>
+          <a href="../html/contato.html">Contato</a>
         </h6>
       </div>
+
       <div class="row text-center">
         <div class="col-md-12">
           <div class="mb-2 flex-center">
@@ -455,6 +459,7 @@
           </div>
         </div>
       </div>
+
       <div class="text-center">
         Copyright © 2018 Farmárcia
       </div>
