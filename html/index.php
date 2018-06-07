@@ -47,7 +47,7 @@
                     <p>In hac habitasse platea dictumst. Etiam in quam eget velit molestie maximus sed sed augue.</p>
                   </div>
 
-                  <a href="pagina-produto.html">
+                  <a href="pagina-produto.php">
                     <button class="btn btn-primary btn-lg">Ver mais</button>
                   </a>
                 </div>
@@ -73,7 +73,7 @@
                       a faucibus accumsan.</p>
                   </div>
 
-                  <a href="pagina-produto.html">
+                  <a href="pagina-produto.php">
                     <button class="btn btn-primary btn-lg">Ver mais</button>
                   </a>
                 </div>

@@ -73,6 +73,10 @@
             </div>
           </div>
           <!-- Categorias -->
+          <button class="btn btn-danger btn-md btn-enviar" type="submit">
+            Atualizar
+            <i class="fas fa-sync"></i>
+          </button>
         </form>
       </div>
       <!-- Painel de pesquisa -->
