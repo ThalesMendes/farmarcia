@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="pt-br">
 
 <head>
   <title>Farmárcia - Localização</title>
