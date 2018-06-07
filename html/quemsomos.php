@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
   <meta charset="utf-8">
@@ -47,7 +47,7 @@
       <div class="form-group pt-2">
         <div class="input-group">
           <input class="form-control" type="search" placeholder="Procurar produtos">
-          
+
           <div class="input-group-append">
             <button class="btn btn-danger" type="submit">
               <i class="fas fa-search"></i>
@@ -63,50 +63,52 @@
       <div class="col-md-12">
         <div class="jumbotron">
           <h4>Fundada em 2000, a Farmárcia é uma drogaria de inovação e valores que visa o melhor atendimento ao cliente com
-            o melhor preço.
-          </h4>
+            o melhor preço.</h4>
         </div>
 
         <img class="img-fluid" src="http://www.poa24horas.com.br/wp-content/uploads/2017/07/Reprod-Poa-24H-125.jpg">
-        </br>
+        <br>
 
         <div class="jumbotron">
           <h5>História</h5>
+
           <h6>Desde o início a Farmárcia veio com o intuito de se destacar na região entre as demais drogarias pela sua alta
-            qualidade nos produtos e serviços.</br>
-            Marcelo, Márcia e Maria, proprietários da Farmárcia possuíram como palavra chave: "inovação e pesquisa" e desde então a Farmárcia
-            vem se tornando líder na manipulação de medicamentos.
-          </h6>
+            qualidade nos produtos e serviços.
+            <br> Marcelo, Márcia e Maria, proprietários da Farmárcia possuíram como palavra chave: "inovação e pesquisa" e desde
+            então a Farmárcia vem se tornando líder na manipulação de medicamentos.</h6>
+
           <p>Em 2007 com o crescimento constante de qualidade e demanda, a Farmárcia se expandiu, sendo fundada a segunda unidade
             da mesma, onde manteve-se o alto padrão de qualidade e capacidade à demanda da população.</p>
         </div>
-        </br>
+        <br>
       </div>
 
       <div class="col-md-4">
         <div align="center">
           <img src="../assets/imgs/missoa.png" height="150">
-          <p>Expandir o acesso à medicamentos de qualidade, com tecnologia e modernidade.
-          </p>
+
+          <p>Expandir o acesso à medicamentos de qualidade, com tecnologia e modernidade.</p>
         </div>
       </div>
-      <br />
+      <br>
+
       <div class="col-md-4">
         <div align="center">
           <img src="../assets/imgs/visao.png" height="150">
-          <p>Garantir inovação e pesquisa na área farmaceutica nacional beneficiando e auxiliando a vida da população.
-          </p>
+
+          <p>Garantir inovação e pesquisa na área farmaceutica nacional beneficiando e auxiliando a vida da população.</p>
         </div>
       </div>
-      <br />
+      <br>
+
       <div class="col-md-4">
         <div align="center">
           <img src="../assets/imgs/valores.png" height="150">
-          <p>Ética, respeito ao cliente, qualidade no serviço, inovação, pesquisa, tecnologia, cooperação e compromisso.
-          </p>
+
+          <p>Ética, respeito ao cliente, qualidade no serviço, inovação, pesquisa, tecnologia, cooperação e compromisso.</p>
         </div>
       </div>
-      <br />
+      <br>
     </div>
   </div>
 
@@ -154,7 +156,6 @@
 
   <script src="../assets/javascript/jquery.js"></script>
   <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-  <script src="../assets/javascript/dialogo_produto.js"></script>
 </body>
 
 </html>
