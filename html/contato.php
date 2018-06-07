@@ -192,7 +192,6 @@
   
   <script src="../assets/javascript/jquery.js"></script>
   <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-  <script src="../assets/javascript/dialogo_produto.js"></script>
 </body>
 
 </html>
