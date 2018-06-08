@@ -2,7 +2,7 @@
   <a class="navbar-brand" href="../html/index.php">
     <img src="../assets/imgs/logo.png" alt="Logo" style="width: 150px;">
   </a>
-  
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -30,7 +30,7 @@
     <div class="form-group pt-2">
       <div class="input-group">
         <input class="form-control" type="search" placeholder="Procurar produtos">
-        
+
         <div class="input-group-append">
           <button class="btn btn-danger" type="submit">
             <i class="fas fa-search"></i>

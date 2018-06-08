@@ -7,7 +7,7 @@
   <title>Farmárcia - Home</title>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-   crossorigin="anonymous">
+    crossorigin="anonymous">
   <link rel="stylesheet" href="../assets/css/index.css">
   <link rel="stylesheet" href="../assets/css/dialogo-produto.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
@@ -290,7 +290,7 @@
     <!-- Diálogo do Produto -->
   </main>
 
-  <?php require 'footer.php' ?>  
+  <?php require 'footer.php' ?>
   <script src="../assets/javascript/dialogo_produto.js"></script>
 
 </body>
