@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow pr-5 pl-5 mb-4 bg-white rounded">
-  <a class="navbar-brand" href="../html/home.html">
+  <a class="navbar-brand" href="../html/index.php">
     <img src="../assets/imgs/logo.png" alt="Logo" style="width: 150px;">
   </a>
   

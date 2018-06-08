@@ -2,19 +2,19 @@
   <div class="container">
     <div class="pt-2 mb-3 text-center justify-content-center">
       <h6 class="text-uppercase font-weight-bold">
-        <a href="../html/home.html">Início</a>
+        <a href="../html/index.php">Início</a>
       </h6>
       <h6 class="text-uppercase font-weight-bold">
-        <a href="../html/quemsomos.html">Quem Somos</a>
+        <a href="../html/quemsomos.php">Quem Somos</a>
       </h6>
       <h6 class="text-uppercase font-weight-bold">
-        <a href="../html/produtos.html">Produtos</a>
+        <a href="../html/produtos.php">Produtos</a>
       </h6>
       <h6 class="text-uppercase font-weight-bold">
-        <a href="../html/localizacao.html">Localização</a>
+        <a href="../html/localizacao.php">Localização</a>
       </h6>
       <h6 class="text-uppercase font-weight-bold">
-        <a href="../html/contato.html">Contato</a>
+        <a href="../html/contato.php">Contato</a>
       </h6>
     </div>
 
@@ -40,6 +40,6 @@
   </div>
 </footer>
 
-<script src="../assets/javascript/jquery.js"></script>
-<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="../assets/javascript/dialogo_produto.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
