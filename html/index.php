@@ -1,3 +1,36 @@
+<?php
+  $db_connection = new mysqli('localhost', 'root', '', 'farmarcia', 3306);
+
+  if ($db_connection->error) {
+    exit;
+  }
+
+  define('PROMO_PRODUCTS_COUNT', 3);
+  define('HIGHLIGHTED_PRODUCTS_COUNT', 6);
+
+  define('PRODUCT_IMAGE_PATH', '../assets/imgs/');
+  define('DESCRIPTION_CHAR_LIMIT', 300);
+
+  function get_homepage_products() {
+    global $db_connection;
+
+    $result = $db_connection->query(
+      "SELECT *
+       FROM `Produto`
+       ORDER BY `id` ASC
+       LIMIT " . (PROMO_PRODUCTS_COUNT + HIGHLIGHTED_PRODUCTS_COUNT));
+
+    $products = array();
+    $i = 0;
+    while ($row = $result->fetch_assoc()) {
+      $products[$i] = $row;
+      $i++;
+    }
+
+    return $products;
+  }
+?>
+
 <!doctype html>
 <html lang="pt-br">
 
@@ -18,6 +51,8 @@
   <?php require 'navbar.php' ?>
 
   <main>
+    <?php $homepage_products = get_homepage_products(); ?>
+
     <!-- Slideshow -->
     <section>
       <div id="slideshow" class="carousel slide" data-ride="carousel">
@@ -25,73 +60,80 @@
           <h2 class="titulo-section">Promoção</h2>
         </div>
 
-        <ol class="carousel-indicators">
-          <li data-target="#slideshow" data-slide-to="0" class="active"></li>
-          <li data-target="#slideshow" data-slide-to="1"></li>
-        </ol>
+        <?php
+          if (count($homepage_products) > 0) { ?>
 
-        <div class="container">
-          <div class="carousel-inner">
-            <!-- Slide -->
-            <div class="carousel-item slide-item active">
-              <div class="row">
-                <!-- Imagem -->
-                <div class="col-lg-4 img-container">
-                  <img class="img-fluid" src="../assets/imgs/produto-placeholder.png">
-                </div>
-                <!-- Imagem -->
+            <ol class="carousel-indicators">
+              <?php
+                for ($i = 0; $i < PROMO_PRODUCTS_COUNT; $i++) { ?>
 
-                <!-- Descrição -->
-                <div class="col-lg-6 descricao-slideshow">
-                  <div>
-                    <h3>Novalgina Gotas 10ml</h3>
-                    <p>In hac habitasse platea dictumst. Etiam in quam eget velit molestie maximus sed sed augue.</p>
+                  <li data-target="#slideshow" data-slide-to="<?php echo $i ?>" <?php if ($i == 0) echo 'class="active"'; ?>></li>
+
+                <?php }
+              ?>
+            </ol>
+
+            <div class="container">
+              <div class="carousel-inner">
+                <?php for ($i = 0; $i < PROMO_PRODUCTS_COUNT; $i++) { ?>
+
+                  <!-- Slide -->
+                  <div class="carousel-item slide-item <?php if ($i == 0) echo 'active'; ?>">
+                    <div class="row">
+                      <!-- Imagem -->
+                      <div class="col-lg-4 img-container">
+                        <?php
+                          $img = PRODUCT_IMAGE_PATH;
+                          if ($homepage_products[$i]['imagem'] != NULL)
+                            $img .= $homepage_products[$i]['imagem'];
+                          else
+                            $img .= 'produto-placeholder.png';
+                        ?>
+
+                        <img class="img-fluid" src="<?php echo $img; ?>">
+                      </div>
+                      <!-- Imagem -->
+
+                      <!-- Descrição -->
+                      <div class="col-lg-6 descricao-slideshow">
+                        <div>
+                          <h3><?php echo $homepage_products[$i]['nome']; ?></h3>
+                          <p>
+                            <?php
+                              $description = $homepage_products[$i]['descricao'];
+
+                              if (strlen($description) > DESCRIPTION_CHAR_LIMIT) {
+                                echo explode("\n", wordwrap($description, DESCRIPTION_CHAR_LIMIT))[0] . '...';
+                              } else {
+                                echo $description;
+                              }
+                            ?>
+                          </p>
+                        </div>
+
+                        <a href="pagina-produto.php">
+                          <button class="btn btn-primary btn-lg">Ver mais</button>
+                        </a>
+                      </div>
+                      <!-- Descrição -->
+                    </div>
                   </div>
+                  <!-- Slide -->
+                <?php } ?>
 
-                  <a href="pagina-produto.php">
-                    <button class="btn btn-primary btn-lg">Ver mais</button>
-                  </a>
-                </div>
-                <!-- Descrição -->
-              </div>
+                <a class="carousel-control-prev" href="#slideshow" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Anterior</span>
+                </a>
+                <a class="carousel-control-next" href="#slideshow" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Próximo</span>
+                </a>
             </div>
-            <!-- Slide -->
 
-            <!-- Slide -->
-            <div class="carousel-item slide-item">
-              <div class="row">
-                <!-- Imagem -->
-                <div class="col-lg-4 img-container">
-                  <img class="img-fluid" src="../assets/imgs/produto-placeholder.png">
-                </div>
-                <!-- Imagem -->
-
-                <!-- Descrição -->
-                <div class="col-lg-6 descricao-slideshow">
-                  <div>
-                    <h3>Cataflam 50mg Com 10 Comprimidos</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas non finibus dui. Sed facilisis dui
-                      a faucibus accumsan.</p>
-                  </div>
-
-                  <a href="pagina-produto.php">
-                    <button class="btn btn-primary btn-lg">Ver mais</button>
-                  </a>
-                </div>
-                <!-- Descrição -->
-              </div>
-            </div>
-            <!-- Slide -->
-
-            <a class="carousel-control-prev" href="#slideshow" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Anterior</span>
-            </a>
-            <a class="carousel-control-next" href="#slideshow" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Próximo</span>
-            </a>
-          </div>
+          <?php } else { ?>
+            <p class="nenhum-produto">Não há produtos em promoção!</p>
+          <?php } ?>
         </div>
       </div>
     </section>
@@ -101,181 +143,50 @@
     <section class="container destaques">
       <h2 class="titulo-section">Destaques</h2>
 
-      <ol class="row">
-        <!-- Produto -->
-        <li class="col-12 col-md-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
+      <?php if (count($homepage_products) > PROMO_PRODUCTS_COUNT) { ?>
 
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Lorem ipsum dolor sit amet</h4>
-              </a>
-              <p class="marca">Consectetur</p>
-            </figcaption>
-            <!-- Descrição -->
+        <ol class="row">
+          <?php for ($i = PROMO_PRODUCTS_COUNT; $i < count($homepage_products); $i++) { ?>
+            <!-- Produto -->
+            <li class="col-12 col-md-6 col-lg-4">
+              <figure class="produto card p-2">
+                <!-- Imagem -->
+                <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
+                  <?php
+                    $img = PRODUCT_IMAGE_PATH;
+                    if ($homepage_products[$i]['imagem'] != NULL)
+                      $img .= $homepage_products[$i]['imagem'];
+                    else
+                      $img .= 'produto-placeholder.png';
+                  ?>
+                  <img src="<?php echo $img ?>" alt="Foto do produto">
+                </a>
+                <!-- Imagem -->
 
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-destaque" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
+                <!-- Descrição -->
+                <figcaption class="card-body">
+                  <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
+                    <h4><?php echo $homepage_products[$i]['nome']; ?></h4>
+                  </a>
+                  <p class="marca">R$ <?php echo number_format($homepage_products[$i]['preco'], 2, ',','.'); ?></p>
+                </figcaption>
+                <!-- Descrição -->
 
-        <!-- Produto -->
-        <li class="col-12 col-md-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Fusce lacinia ex sed odio scelerisque</h4>
-              </a>
-              <p class="marca">Sed</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-destaque" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-
-        <!-- Produto -->
-        <li class="col-12 col-md-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Nulla tristique ac elit rutrum fermentum</h4>
-              </a>
-              <p class="marca">Nullam</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-destaque" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-
-        <!-- Produto -->
-        <li class="col-12 col-md-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Maecenas odio libero accumsan sit amet nisi eget commodo tincidunt enim</h4>
-              </a>
-              <p class="marca">Praesent</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-destaque" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-
-        <!-- Produto -->
-        <li class="col-12 col-md-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Curabitur sed enim et tellus ultricies malesuada a nec ex</h4>
-              </a>
-              <p class="marca">Sed</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-destaque" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-
-        <!-- Produto -->
-        <li class="col-12 col-md-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Proin non lorem magna</h4>
-              </a>
-              <p class="marca">Fusce</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-destaque" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-      </ol>
+                <!-- Botão -->
+                <div class="btn-container">
+                  <a class="btn-destaque" href="dialogo-produto.php" data-toggle="modal" data-target="#modal-produto">
+                    <button class="btn btn-danger">Ver mais</button>
+                  </a>
+                </div>
+                <!-- Botão -->
+              </figure>
+            </li>
+            <!-- Produto -->
+          <?php } ?>
+        </ol>
+      <?php } else { ?>
+        <p class="nenhum-produto">Não há produtos em destaque!</p>
+      <?php } ?>
     </section>
     <!-- Produtos em destaque -->
 
