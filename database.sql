@@ -16,7 +16,7 @@ CREATE TABLE `Produto` (
   `preco` float NOT NULL,
   `descricao` text,
   `imagem` tinytext,
-  `Categoria_id` int(11) NOT NULL,
+  `Categoria_id` int(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`Categoria_id`) REFERENCES `Categoria` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
