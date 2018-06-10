@@ -123,7 +123,7 @@
                         <p><?= limit_description_text($product['descricao']); ?></p>
                       </div>
 
-                      <a href="pagina-produto.php/?id=<?= $product['id']; ?>">
+                      <a href="pagina-produto.php?id=<?= $product['id']; ?>">
                         <button class="btn btn-primary btn-lg">Ver mais</button>
                       </a>
                     </div>
@@ -166,14 +166,14 @@
             <li class="col-12 col-md-6 col-lg-4">
               <figure class="produto card p-2">
                 <!-- Imagem -->
-                <a href="dialogo-produto.php/?id=<?= $product['id']; ?>" data-toggle="modal" data-target="#modal-produto">
+                <a href="dialogo-produto.php?id=<?= $product['id']; ?>" data-toggle="modal" data-target="#modal-produto">
                   <img src="<?= get_image_path($product['imagem']); ?>" alt="Foto do produto">
                 </a>
                 <!-- Imagem -->
 
                 <!-- Descrição -->
                 <figcaption class="card-body">
-                  <a href="dialogo-produto.php/?id=<?= $product['id']; ?>" data-toggle="modal" data-target="#modal-produto">
+                  <a href="dialogo-produto.php?id=<?= $product['id']; ?>" data-toggle="modal" data-target="#modal-produto">
                     <h4><?= $product['nome']; ?></h4>
                   </a>
                   <p class="marca">R$ <?= number_format($product['preco'], 2, ',', '.'); ?></p>
@@ -182,7 +182,7 @@
 
                 <!-- Botão -->
                 <div class="btn-container">
-                  <a class="btn-destaque" href="dialogo-produto.php/?id=<?= $product['id']; ?>" data-toggle="modal" data-target="#modal-produto">
+                  <a class="btn-destaque" href="dialogo-produto.php?id=<?= $product['id']; ?>" data-toggle="modal" data-target="#modal-produto">
                     <button class="btn btn-danger">Ver mais</button>
                   </a>
                 </div>
