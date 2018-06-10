@@ -1,34 +1,70 @@
 <?php
+  class homepage {
+    private const PROMO_PRODUCTS_COUNT = 3;
+    private const HIGHLIGHTED_PRODUCTS_COUNT = 6;
+
+    private $db_connection;
+
+    function __construct($db_connection) {
+      $this->db_connection = $db_connection;
+    }
+
+    public function get_promo_products() {
+      return $this->get_products(0, self::PROMO_PRODUCTS_COUNT);
+    }
+
+    public function get_highlighted_products() {
+      return $this->get_products(self::PROMO_PRODUCTS_COUNT, self::HIGHLIGHTED_PRODUCTS_COUNT);
+    }
+
+    private function get_products($index, $count) {
+      $result = $this->db_connection->query(
+        "SELECT *
+         FROM `Produto`
+         ORDER BY `id` ASC
+         LIMIT " . $index . "," . $count . ";");
+
+      $products = array();
+      while ($row = $result->fetch_assoc()) {
+        $products[] = $row;
+      }
+      $result->close();
+
+      return $products;
+    }
+  }
+
+  define('DESCRIPTION_CHAR_LIMIT', 300);
+
+  function get_image_path($img_name) {
+    $product_image_directory = '../assets/imgs/';
+
+    if ($img_name != NULL)
+      return $product_image_directory . $img_name;
+    else
+      return $product_image_directory . 'produto-placeholder.png';
+  }
+
+  function limit_description_text($text) {
+    $count = 300;
+
+    if (strlen($text) > $count)
+      return explode("\n", wordwrap($text, $count))[0] . '...';
+    else
+      return $text;
+  }
+?>
+
+<?php
   $db_connection = new mysqli('localhost', 'root', '', 'farmarcia', 3306);
 
   if ($db_connection->error) {
     exit;
   }
 
-  define('PROMO_PRODUCTS_COUNT', 3);
-  define('HIGHLIGHTED_PRODUCTS_COUNT', 6);
-
-  define('PRODUCT_IMAGE_PATH', '../assets/imgs/');
-  define('DESCRIPTION_CHAR_LIMIT', 300);
-
-  function get_homepage_products() {
-    global $db_connection;
-
-    $result = $db_connection->query(
-      "SELECT *
-       FROM `Produto`
-       ORDER BY `id` ASC
-       LIMIT " . (PROMO_PRODUCTS_COUNT + HIGHLIGHTED_PRODUCTS_COUNT));
-
-    $products = array();
-    $i = 0;
-    while ($row = $result->fetch_assoc()) {
-      $products[$i] = $row;
-      $i++;
-    }
-
-    return $products;
-  }
+  $homepage = new homepage($db_connection);
+  $promo_products = $homepage->get_promo_products();
+  $highlighted_products = $homepage->get_highlighted_products();
 ?>
 
 <!doctype html>
@@ -51,8 +87,6 @@
   <?php require 'navbar.php' ?>
 
   <main>
-    <?php $homepage_products = get_homepage_products(); ?>
-
     <!-- Slideshow -->
     <section>
       <div id="slideshow" class="carousel slide" data-ride="carousel">
@@ -60,80 +94,60 @@
           <h2 class="titulo-section">Promoção</h2>
         </div>
 
-        <?php
-          if (count($homepage_products) > 0) { ?>
+        <?php if ($promo_products): ?>
+          <ol class="carousel-indicators">
+            <?php foreach ($promo_products as $index => $product): ?>
 
-            <ol class="carousel-indicators">
-              <?php
-                for ($i = 0; $i < PROMO_PRODUCTS_COUNT; $i++) { ?>
+              <li data-target="#slideshow" data-slide-to="<?= $index ?>" class="<?php if ($index == 0) echo 'active'; ?>"></li>
 
-                  <li data-target="#slideshow" data-slide-to="<?php echo $i ?>" <?php if ($i == 0) echo 'class="active"'; ?>></li>
+            <?php endforeach; ?>
+          </ol>
 
-                <?php }
-              ?>
-            </ol>
+          <div class="container">
+            <div class="carousel-inner">
+              <?php foreach($promo_products as $index => $product): ?>
 
-            <div class="container">
-              <div class="carousel-inner">
-                <?php for ($i = 0; $i < PROMO_PRODUCTS_COUNT; $i++) { ?>
-
-                  <!-- Slide -->
-                  <div class="carousel-item slide-item <?php if ($i == 0) echo 'active'; ?>">
-                    <div class="row">
-                      <!-- Imagem -->
-                      <div class="col-lg-4 img-container">
-                        <?php
-                          $img = PRODUCT_IMAGE_PATH;
-                          if ($homepage_products[$i]['imagem'] != NULL)
-                            $img .= $homepage_products[$i]['imagem'];
-                          else
-                            $img .= 'produto-placeholder.png';
-                        ?>
-
-                        <img class="img-fluid" src="<?php echo $img; ?>">
-                      </div>
-                      <!-- Imagem -->
-
-                      <!-- Descrição -->
-                      <div class="col-lg-6 descricao-slideshow">
-                        <div>
-                          <h3><?php echo $homepage_products[$i]['nome']; ?></h3>
-                          <p>
-                            <?php
-                              $description = $homepage_products[$i]['descricao'];
-
-                              if (strlen($description) > DESCRIPTION_CHAR_LIMIT) {
-                                echo explode("\n", wordwrap($description, DESCRIPTION_CHAR_LIMIT))[0] . '...';
-                              } else {
-                                echo $description;
-                              }
-                            ?>
-                          </p>
-                        </div>
-
-                        <a href="pagina-produto.php">
-                          <button class="btn btn-primary btn-lg">Ver mais</button>
-                        </a>
-                      </div>
-                      <!-- Descrição -->
+                <!-- Slide -->
+                <div class="carousel-item slide-item <?php if ($index == 0) echo 'active'; ?>">
+                  <div class="row">
+                    <!-- Imagem -->
+                    <div class="col-lg-4 img-container">
+                      <img class="img-fluid" src="<?= get_image_path($product['imagem']); ?>">
                     </div>
+                    <!-- Imagem -->
+
+                    <!-- Descrição -->
+                    <div class="col-lg-6 descricao-slideshow">
+                      <div>
+                        <h3><?= $product['nome']; ?></h3>
+                        <p><?= limit_description_text($product['descricao']); ?></p>
+                      </div>
+
+                      <a href="pagina-produto.php">
+                        <button class="btn btn-primary btn-lg">Ver mais</button>
+                      </a>
+                    </div>
+                    <!-- Descrição -->
                   </div>
-                  <!-- Slide -->
-                <?php } ?>
+                </div>
+                <!-- Slide -->
 
-                <a class="carousel-control-prev" href="#slideshow" role="button" data-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Anterior</span>
-                </a>
-                <a class="carousel-control-next" href="#slideshow" role="button" data-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Próximo</span>
-                </a>
+              <?php endforeach; ?>
+
+              <a class="carousel-control-prev" href="#slideshow" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Anterior</span>
+              </a>
+              <a class="carousel-control-next" href="#slideshow" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Próximo</span>
+              </a>
             </div>
+        <?php else: ?>
 
-          <?php } else { ?>
-            <p class="nenhum-produto">Não há produtos em promoção!</p>
-          <?php } ?>
+          <p class="nenhum-produto">Não há produtos em promoção!</p>
+
+        <?php endif; ?>
         </div>
       </div>
     </section>
@@ -143,32 +157,26 @@
     <section class="container destaques">
       <h2 class="titulo-section">Destaques</h2>
 
-      <?php if (count($homepage_products) > PROMO_PRODUCTS_COUNT) { ?>
+      <?php if ($highlighted_products): ?>
 
         <ol class="row">
-          <?php for ($i = PROMO_PRODUCTS_COUNT; $i < count($homepage_products); $i++) { ?>
+          <?php foreach($highlighted_products as $product): ?>
+
             <!-- Produto -->
             <li class="col-12 col-md-6 col-lg-4">
               <figure class="produto card p-2">
                 <!-- Imagem -->
-                <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                  <?php
-                    $img = PRODUCT_IMAGE_PATH;
-                    if ($homepage_products[$i]['imagem'] != NULL)
-                      $img .= $homepage_products[$i]['imagem'];
-                    else
-                      $img .= 'produto-placeholder.png';
-                  ?>
-                  <img src="<?php echo $img ?>" alt="Foto do produto">
+                <a href="dialogo-produto.php" data-toggle="modal" data-target="#modal-produto">
+                  <img src="<?= get_image_path($product['imagem']); ?>" alt="Foto do produto">
                 </a>
                 <!-- Imagem -->
 
                 <!-- Descrição -->
                 <figcaption class="card-body">
-                  <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                    <h4><?php echo $homepage_products[$i]['nome']; ?></h4>
+                  <a href="dialogo-produto.php" data-toggle="modal" data-target="#modal-produto">
+                    <h4><?= $product['nome']; ?></h4>
                   </a>
-                  <p class="marca">R$ <?php echo number_format($homepage_products[$i]['preco'], 2, ',','.'); ?></p>
+                  <p class="marca">R$ <?= number_format($product['preco'], 2, ',', '.'); ?></p>
                 </figcaption>
                 <!-- Descrição -->
 
@@ -182,11 +190,14 @@
               </figure>
             </li>
             <!-- Produto -->
-          <?php } ?>
+
+          <?php endforeach; ?>
         </ol>
-      <?php } else { ?>
-        <p class="nenhum-produto">Não há produtos em destaque!</p>
-      <?php } ?>
+        <?php else: ?>
+
+          <p class="nenhum-produto">Não há produtos em destaque!</p>
+
+        <?php endif; ?>
     </section>
     <!-- Produtos em destaque -->
 
@@ -203,7 +214,6 @@
 
   <?php require 'footer.php' ?>
   <script src="../assets/javascript/dialogo_produto.js"></script>
-
 </body>
 
 </html>
