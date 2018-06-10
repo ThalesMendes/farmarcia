@@ -3,7 +3,7 @@
 /* Categoria */
 DROP TABLE IF EXISTS `Categoria`;
 CREATE TABLE `Categoria` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nome` tinytext NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -11,7 +11,7 @@ CREATE TABLE `Categoria` (
 
 /* Produto */
 CREATE TABLE `Produto` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nome` tinytext NOT NULL,
   `preco` float NOT NULL,
   `descricao` text,
