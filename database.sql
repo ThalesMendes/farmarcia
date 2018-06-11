@@ -19,6 +19,8 @@ CREATE TABLE `Produto` (
   `Categoria_id` int(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`Categoria_id`) REFERENCES `Categoria` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /* Produto */
 
