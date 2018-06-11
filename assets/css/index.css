@@ -24,6 +24,9 @@
 }
 
 #slideshow .img-container {
+  display: flex;
+  align-items: center;
+
   width: auto;
 }
 
@@ -111,8 +114,7 @@
   padding-bottom: 0 !important;
 }
 
-.marca {
-  text-transform: capitalize;
+.preco {
   color: #888;
 }
 /* Produtos em destaque */

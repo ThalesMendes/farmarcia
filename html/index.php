@@ -37,7 +37,7 @@
   define('DESCRIPTION_CHAR_LIMIT', 300);
 
   function get_image_path($img_name) {
-    $product_image_directory = '../assets/imgs/';
+    $product_image_directory = '../assets/imgs/produtos/';
 
     if ($img_name != NULL)
       return $product_image_directory . $img_name;
@@ -57,6 +57,7 @@
 
 <?php
   $db_connection = new mysqli('localhost', 'root', '', 'farmarcia', 3306);
+  $db_connection->set_charset('utf8');
 
   if ($db_connection->error) {
     exit;
@@ -124,7 +125,7 @@
                       </div>
 
                       <a href="pagina-produto.php?id=<?= $product['id']; ?>">
-                        <button class="btn btn-primary btn-lg">Ver mais</button>
+                        <button class="btn btn-primary btn-lg">Página do produto</button>
                       </a>
                     </div>
                     <!-- Descrição -->
@@ -161,28 +162,29 @@
 
         <ol class="row">
           <?php foreach($highlighted_products as $product): ?>
+            <?php $id = $product['id']; ?>
 
             <!-- Produto -->
             <li class="col-12 col-md-6 col-lg-4">
               <figure class="produto card p-2">
                 <!-- Imagem -->
-                <a href="dialogo-produto.php?id=<?= $product['id']; ?>" data-toggle="modal" data-target="#modal-produto">
+                <a href="pagina-produto.php?id=<?= $id; ?>" dialogo-src="dialogo-produto.php?id=<?= $id; ?>" data-toggle="modal" data-target="#modal-produto">
                   <img src="<?= get_image_path($product['imagem']); ?>" alt="Foto do produto">
                 </a>
                 <!-- Imagem -->
 
                 <!-- Descrição -->
                 <figcaption class="card-body">
-                  <a href="dialogo-produto.php?id=<?= $product['id']; ?>" data-toggle="modal" data-target="#modal-produto">
+                  <a href="pagina-produto.php?id=<?= $id; ?>" dialogo-src="dialogo-produto.php?id=<?= $id; ?>" data-toggle="modal" data-target="#modal-produto">
                     <h4><?= $product['nome']; ?></h4>
                   </a>
-                  <p class="marca">R$ <?= number_format($product['preco'], 2, ',', '.'); ?></p>
+                  <p class="preco">R$ <?= number_format($product['preco'], 2, ',', '.'); ?></p>
                 </figcaption>
                 <!-- Descrição -->
 
                 <!-- Botão -->
                 <div class="btn-container">
-                  <a class="btn-destaque" href="dialogo-produto.php?id=<?= $product['id']; ?>" data-toggle="modal" data-target="#modal-produto">
+                  <a class="btn-destaque" href="pagina-produto.php?id=<?= $id; ?>" dialogo-src="dialogo-produto.php?id=<?= $id; ?>" data-toggle="modal" data-target="#modal-produto">
                     <button class="btn btn-danger">Ver mais</button>
                   </a>
                 </div>

@@ -1,3 +1,66 @@
+<?php
+  function get_product($db_connection, $id) {
+      $id = $_GET['id'];
+
+      $stmt = $db_connection->prepare(
+        "SELECT *
+         FROM `Produto`
+         WHERE `id` = ?");
+
+      $stmt->bind_param('i', $id);
+      $stmt->execute();
+
+      $result = $stmt->get_result();
+      $product =  $result->fetch_assoc();
+      $result->close();
+
+      return $product;
+  }
+
+  function get_category_name($db_connection, $category_id) {
+    $stmt = $db_connection->prepare(
+      "SELECT `nome`
+       FROM `Categoria`
+       WHERE `id` = ?");
+
+    $stmt->bind_param('i', $category_id);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $category = $result->fetch_assoc();
+    $result->close();
+
+    return $category['nome'];
+  }
+
+  // Função repetida em 'index.php', linha 39
+  function get_image_path($img_name) {
+    $product_image_directory = '../assets/imgs/produtos/';
+
+    if ($img_name != NULL)
+      return $product_image_directory . $img_name;
+    else
+      return $product_image_directory . 'produto-placeholder.png';
+  }
+?>
+
+<?php
+  $db_connection = new mysqli('localhost', 'root', '', 'farmarcia', 3306);
+  $db_connection->set_charset('utf8');
+
+  if ($db_connection->error) {
+    exit;
+  }
+
+  if (isset($_GET['id']) && !empty($_GET['id'])) {
+    $product = get_product($db_connection, $_GET['id']);
+    $category = get_category_name($db_connection, $product['Categoria_id']);
+  } else {
+    header("Location: produtos.php");
+    exit;
+  }
+?>
+
 <!doctype html>
 <html lang="pt-br">
 
@@ -17,46 +80,32 @@
   <?php require 'navbar.php' ?>
 
   <main class="container">
-    <figure class="produto-container">
-      <div class="row">
-        <!-- Imagem do produto -->
-        <div class="thumb-container col-lg-5 img-thumbnail">
-          <img class="thumb-img img-fluid" src="../assets/imgs/produto-placeholder.png">
-        </div>
-        <!-- Imagem do produto -->
+    <?php if ($product != NULL): ?>
+      <figure class="produto-container">
+        <div class="row">
+          <!-- Imagem do produto -->
+          <div class="thumb-container col-lg-5 img-thumbnail">
+            <img class="thumb-img img-fluid" src="<?= get_image_path($product['imagem']); ?>">
+          </div>
+          <!-- Imagem do produto -->
 
-        <!-- Descrição do produto -->
-        <figcaption class="col-lg-7">
-          <h1 class="titulo-produto">Cataflam 50mg Com 10 Comprimidos</h3>
-            <p class="marca">Marca</p>
+          <!-- Descrição do produto -->
+          <figcaption class="col-lg-7">
+            <h1 class="titulo-produto"><?= $product['nome']; ?></h3>
+            <p style="color: #888; margin: 0;"><?= $category ?></P>
+            <p class="preco">R$ <?= number_format($product['preco'], 2, ',', '.'); ?></p>
 
-            <p>In hac habitasse platea dictumst. Etiam in quam eget velit molestie maximus sed sed augue. In dapibus sapien
-              vel justo tempor interdum. Vestibulum dolor nisi, venenatis quis dolor quis, volutpat tincidunt arcu.
-            </p>
-        </figcaption>
-        <!-- Descrição do produto -->
-      </div>
+            <p><?= $product['descricao']; ?></p>
+          </figcaption>
+          <!-- Descrição do produto -->
+        </div>
+      </figure>
 
-      <!-- Informações adicionais -->
-      <div class="info-extra row">
-        <div class="col-lg-4 col-md-6">
-          <h3>Lorem</h3>
-          <p>Etiam sodales in urna nec consequat. In hac habitasse platea dictumst. Aliquam accumsan ex vel lectus maximus,
-            nec facilisis ex malesuada. Aliquam sem ipsum, sollicitudin nec rhoncus in, porttitor nec augue</p>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <h3>Ipsum</h3>
-          <p>Praesent sed leo eu lectus facilisis congue. Suspendisse porta ipsum sit amet risus hendrerit rhoncus. Integer
-            suscipit augue sit amet arcu ullamcorper, id facilisis neque euismod.</p>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <h3>Dolor</h3>
-          <p>Aenean quis tellus non est accumsan tincidunt sit amet ut turpis. Suspendisse tristique magna in massa ultrices
-            vehicula. Duis facilisis ligula non diam tempus, vel tempus nisl aliquet.</p>
-        </div>
-      </div>
-      <!-- Informações adicionais -->
-    </figure>
+    <?php else: ?>
+
+      <p class="nenhum-produto">Produto não encontrado!</p>
+
+    <?php endif; ?>
   </main>
 
   <?php require 'footer.php' ?>
