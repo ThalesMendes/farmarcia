@@ -1,64 +1,7 @@
 <?php
-  function get_product($db_connection, $id) {
-      $id = $_GET['id'];
-
-      $stmt = $db_connection->prepare(
-        "SELECT *
-         FROM `Produto`
-         WHERE `id` = ?");
-
-      $stmt->bind_param('i', $id);
-      $stmt->execute();
-
-      $result = $stmt->get_result();
-      $product =  $result->fetch_assoc();
-      $result->close();
-
-      return $product;
-  }
-
-  function get_category_name($db_connection, $category_id) {
-    $stmt = $db_connection->prepare(
-      "SELECT `nome`
-       FROM `Categoria`
-       WHERE `id` = ?");
-
-    $stmt->bind_param('i', $category_id);
-    $stmt->execute();
-
-    $result = $stmt->get_result();
-    $category = $result->fetch_assoc();
-    $result->close();
-
-    return $category['nome'];
-  }
-
-  // Função repetida em 'index.php', linha 39
-  function get_image_path($img_name) {
-    $product_image_directory = '../assets/imgs/produtos/';
-
-    if ($img_name != NULL)
-      return $product_image_directory . $img_name;
-    else
-      return $product_image_directory . 'produto-placeholder.png';
-  }
-?>
-
-<?php
-  $db_connection = new mysqli('localhost', 'root', '', 'farmarcia', 3306);
-  $db_connection->set_charset('utf8');
-
-  if ($db_connection->error) {
-    exit;
-  }
-
-  if (isset($_GET['id']) && !empty($_GET['id'])) {
-    $product = get_product($db_connection, $_GET['id']);
-    $category = get_category_name($db_connection, $product['Categoria_id']);
-  } else {
-    header("Location: produtos.php");
-    exit;
-  }
+  require 'functions.php';
+  require 'db_connection.php';
+  require 'product_crud.php';
 ?>
 
 <!doctype html>
@@ -67,7 +10,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Farmárcia - Nome do Produto</title>
+  <title>Farmárcia - <?= $product['nome']; ?></title>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
     crossorigin="anonymous">

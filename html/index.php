@@ -1,5 +1,7 @@
 <?php
-  class homepage {
+  require 'functions.php';
+
+  class home_model {
     private const PROMO_PRODUCTS_COUNT = 3;
     private const HIGHLIGHTED_PRODUCTS_COUNT = 6;
 
@@ -34,38 +36,13 @@
     }
   }
 
-  define('DESCRIPTION_CHAR_LIMIT', 300);
+  require 'db_connection.php';
 
-  function get_image_path($img_name) {
-    $product_image_directory = '../assets/imgs/produtos/';
+  $home_model = new home_model($db_connection);
+  $promo_products = $home_model->get_promo_products();
+  $highlighted_products = $home_model->get_highlighted_products();
 
-    if ($img_name != NULL)
-      return $product_image_directory . $img_name;
-    else
-      return $product_image_directory . 'produto-placeholder.png';
-  }
-
-  function limit_description_text($text) {
-    $count = 300;
-
-    if (strlen($text) > $count)
-      return explode("\n", wordwrap($text, $count))[0] . '...';
-    else
-      return $text;
-  }
-?>
-
-<?php
-  $db_connection = new mysqli('localhost', 'root', '', 'farmarcia', 3306);
-  $db_connection->set_charset('utf8');
-
-  if ($db_connection->error) {
-    exit;
-  }
-
-  $homepage = new homepage($db_connection);
-  $promo_products = $homepage->get_promo_products();
-  $highlighted_products = $homepage->get_highlighted_products();
+  define('SLIDESHOW_DESCRIPTION_CHAR_LIMIT', 300);
 ?>
 
 <!doctype html>
@@ -121,7 +98,7 @@
                     <div class="col-lg-6 descricao-slideshow">
                       <div>
                         <h3><?= $product['nome']; ?></h3>
-                        <p><?= limit_description_text($product['descricao']); ?></p>
+                        <p><?= limit_text($product['descricao'], SLIDESHOW_DESCRIPTION_CHAR_LIMIT); ?></p>
                       </div>
 
                       <a href="pagina-produto.php?id=<?= $product['id']; ?>">
