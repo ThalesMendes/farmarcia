@@ -1,3 +1,24 @@
+<?php
+  require 'db_connection.php';
+
+  function get_categories($db_connection) {
+    $result = $db_connection->query(
+      "SELECT *
+       FROM `Categoria`
+       ORDER BY `nome` ASC");
+
+    $categories = array();
+    while ($row = $result->fetch_assoc()) {
+      $categories[] = $row;
+    }
+    $result->close();
+
+    return $categories;
+  }
+
+  $categories = get_categories($db_connection);
+?>
+
 <!doctype html>
 <html lang="pt-br">
 
@@ -62,15 +83,11 @@
             <label class="nome-campo" for="input-categoria">Categorias</label>
 
             <div class="input-group categorias">
-              <label>
-                <input type="checkbox"> Analgésico
-              </label>
-              <label>
-                <input type="checkbox"> Oftálmico
-              </label>
-              <label>
-                <input type="checkbox"> Anti-inflamatório
-              </label>
+              <?php foreach($categories as $category): ?>
+                <label>
+                  <input type="checkbox" value="<?= $category['id']; ?>"> <?= $category['nome']; ?>
+                </label>
+              <?php endforeach; ?>
             </div>
           </div>
           <!-- Categorias -->
