@@ -68,7 +68,8 @@
 }
 
 .lista-produtos {
-  margin: auto;
+  align-content: flex-start;
+  margin: 0 auto;
 }
 
 ol {
