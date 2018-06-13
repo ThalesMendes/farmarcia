@@ -11,13 +11,12 @@
       $this->db_connection = $db_connection;
     }
 
-    function get_categories() {
+    public function get_categories() {
       $result = $this->db_connection->query(
         "SELECT *
          FROM `Categoria`
          ORDER BY `nome` ASC");
 
-      $categories = array();
       while ($row = $result->fetch_assoc()) {
         $categories[] = $row;
       }
@@ -27,14 +26,13 @@
     }
 
     // Duplicação da função "get_products" em "index.php"
-    function get_default_products($sort_sql) {
+    public function get_default_products($sort_sql) {
       $result = $this->db_connection->query(
         "SELECT *
         FROM `Produto`
         ORDER BY $sort_sql
         LIMIT " . self::DEFAULT_PRODUCTS_COUNT . ";");
 
-      $products = array();
       while ($row = $result->fetch_assoc()) {
         $products[] = $row;
       }
@@ -43,7 +41,26 @@
       return $products;
     }
 
-    function get_filtered_products($filtered_categories, $sort_sql) {
+    public function get_products($sort_sql, $search = NULL, $filtered_categories = NULL) {
+      $sql = "SELECT *
+              FROM `Produto`";
+
+      if (isset($filtered_categories)) {
+        $sql .= " WHERE `Categoria_id` = ?";
+        $sql .= str_repeat(' OR `Categoria_id` = ?', count($filtered_categories) - 1);
+      }
+
+      if (isset($search)) {
+        $limit = self::MAX_PRODUCTS_COUNT;
+      } else
+        $limit = slef::DEFAULT_PRODUCTS_COUNT;
+
+      $sort .= " ORDER BY $sort_sql";
+    }
+
+
+
+    public function get_filtered_products($filtered_categories, $sort_sql) {
       $sql = "SELECT *
               FROM `Produto`
               WHERE `Categoria_id` = ?";
@@ -66,7 +83,6 @@
       $result = $stmt->get_result();
       $stmt->close();
 
-      $products = array();
       while ($row = $result->fetch_assoc()) {
         $products[] = $row;
       }
@@ -153,7 +169,7 @@
           <!-- Pesquisa -->
           <div class="form-group">
             <div class="input-group">
-              <input class="form-control" type="search" placeholder="Procurar produtos">
+              <input class="form-control" type="search" name="pesquisa" placeholder="Procurar produtos">
               <div class="input-group-append">
                 <button class="btn btn-danger" type="submit">
                   <i class="fas fa-search"></i>
@@ -215,6 +231,7 @@
             </div>
           </div>
           <!-- Categorias -->
+
           <button class="btn btn-danger btn-md btn-enviar" type="submit">
             Atualizar
             <i class="fas fa-sync"></i>
