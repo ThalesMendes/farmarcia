@@ -1,53 +1,95 @@
 <?php
   require 'functions.php';
+
+  class product_list_model {
+    private const DEFAULT_PRODUCTS_COUNT = 10;
+    private const MAX_PRODUCTS_COUNT = 12;
+
+    private $db_connection;
+
+    function __construct($db_connection) {
+      $this->db_connection = $db_connection;
+    }
+
+    function get_categories() {
+      $result = $this->db_connection->query(
+        "SELECT *
+         FROM `Categoria`
+         ORDER BY `nome` ASC");
+
+      $categories = array();
+      while ($row = $result->fetch_assoc()) {
+        $categories[] = $row;
+      }
+      $result->close();
+
+      return $categories;
+    }
+
+    // Duplicação da função "get_products" em "index.php"
+    function get_default_products() {
+      $result = $this->db_connection->query(
+        "SELECT *
+        FROM `Produto`
+        ORDER BY `id` ASC
+        LIMIT " . self::DEFAULT_PRODUCTS_COUNT . ";");
+
+      $products = array();
+      while ($row = $result->fetch_assoc()) {
+        $products[] = $row;
+      }
+      $result->close();
+
+      return $products;
+    }
+
+    function get_filtered_products($filtered_categories) {
+      $sql = "SELECT *
+              FROM `Produto`
+              WHERE `Categoria_id` = ?";
+      $sql .= str_repeat(' OR `Categoria_id` = ?', count($filtered_categories) - 1);
+      $sql .= " ORDER BY `id` ASC
+               LIMIT " . self::MAX_PRODUCTS_COUNT . ";";
+
+      $stmt = $this->db_connection->prepare($sql);
+
+      $types = str_repeat('i', count($filtered_categories));
+      $params[] = &$types;
+
+      foreach ($filtered_categories as &$filter) {
+        $params[] = &$filter;
+      }
+
+      call_user_func_array(array($stmt, 'bind_param'), $params);
+
+      $stmt->execute();
+      $result = $stmt->get_result();
+      $stmt->close();
+
+      $products = array();
+      while ($row = $result->fetch_assoc()) {
+        $products[] = $row;
+      }
+      $result->close();
+
+      return $products;
+    }
+  }
+
   require 'db_connection.php';
 
-  function get_categories($db_connection) {
-    $result = $db_connection->query(
-      "SELECT *
-       FROM `Categoria`
-       ORDER BY `nome` ASC");
-
-    $categories = array();
-    while ($row = $result->fetch_assoc()) {
-      $categories[] = $row;
-    }
-    $result->close();
-
-    return $categories;
-  }
-
-  // Duplicação da função "get_products" em "index.php"
-  function get_default_products($db_connection) {
-    $default_products_count = 10;
-
-    $result = $db_connection->query(
-      "SELECT *
-       FROM `Produto`
-       ORDER BY `id` ASC
-       LIMIT $default_products_count;");
-
-    $products = array();
-    while ($row = $result->fetch_assoc()) {
-      $products[] = $row;
-    }
-    $result->close();
-
-    return $products;
-  }
-?>
-
-<?php
-  $categories = get_categories($db_connection);
+  $product_list_model = new product_list_model($db_connection);
+  $categories = $product_list_model->get_categories();
 
   $filtered_categories = array();
   if (isset($_GET['categorias-filtradas'])) {
     foreach ($_GET['categorias-filtradas'] as $filter) {
       $filtered_categories[] = $filter;
     }
+    $products = $product_list_model->get_filtered_products($filtered_categories);
+  } else {
+    $products = $product_list_model->get_default_products();
   }
-
-  $products = get_default_products($db_connection);
 ?>
 
 <!doctype html>
