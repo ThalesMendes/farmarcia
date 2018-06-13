@@ -27,11 +27,11 @@
     }
 
     // Duplicação da função "get_products" em "index.php"
-    function get_default_products() {
+    function get_default_products($sort_sql) {
       $result = $this->db_connection->query(
         "SELECT *
         FROM `Produto`
-        ORDER BY `id` ASC
+        ORDER BY $sort_sql
         LIMIT " . self::DEFAULT_PRODUCTS_COUNT . ";");
 
       $products = array();
@@ -43,12 +43,12 @@
       return $products;
     }
 
-    function get_filtered_products($filtered_categories) {
+    function get_filtered_products($filtered_categories, $sort_sql) {
       $sql = "SELECT *
               FROM `Produto`
               WHERE `Categoria_id` = ?";
       $sql .= str_repeat(' OR `Categoria_id` = ?', count($filtered_categories) - 1);
-      $sql .= " ORDER BY `id` ASC
+      $sql .= " ORDER BY $sort_sql
                LIMIT " . self::MAX_PRODUCTS_COUNT . ";";
 
       $stmt = $this->db_connection->prepare($sql);
@@ -76,7 +76,39 @@
     }
   }
 
+  class sort_type {
+    private $name;
+    private $sql_string;
+
+    function __construct($name, $sql_string) {
+      $this->name = $name;
+      $this->sql_string = $sql_string;
+    }
+
+    public function get_name() {
+      return $this->name;
+    }
+
+    public function get_sql_string() {
+      return $this->sql_string;
+    }
+  }
+
   require 'db_connection.php';
+
+  // Lista de ordenações
+  $newer = new sort_type('Mais novo', "`id` ASC");
+  $alphabetic = new sort_type('Ordem alfabética', "`nome` ASC");
+  $cheaper = new sort_type('Menor preço', "`preco` ASC");
+
+  $sort_types = array($newer, $alphabetic, $cheaper);
+
+  if (isset($_GET['sort']) && !empty($_GET['sort']) && array_key_exists($_GET['sort'], $sort_types)) {
+    $sort_sql = $sort_types[$_GET['sort']]->get_sql_string();
+    $sort_index = $_GET['sort'];
+  } else {
+    $sort_sql = $sort_types[0]->get_sql_string();
+  }
 
   $product_list_model = new product_list_model($db_connection);
   $categories = $product_list_model->get_categories();
@@ -86,9 +118,9 @@
     foreach ($_GET['categorias-filtradas'] as $filter) {
       $filtered_categories[] = $filter;
     }
-    $products = $product_list_model->get_filtered_products($filtered_categories);
+    $products = $product_list_model->get_filtered_products($filtered_categories, $sort_sql);
   } else {
-    $products = $product_list_model->get_default_products();
+    $products = $product_list_model->get_default_products($sort_sql);
   }
 ?>
 
@@ -142,10 +174,19 @@
                 </div>
               </div>
 
-              <select id="input-ordem" class="custom-select" required>
-                <option selected>Mais novo</option>
-                <option>Ordem alfabética</option>
-                <option>Menor preço</option>
+              <select name="sort" id="input-ordem" class="custom-select" required>
+                <?php foreach ($sort_types as $index => $sort): ?>
+
+                  <?php
+                    if ($index == $sort_index)
+                      $sort_selected = 'selected';
+                    else
+                      $sort_selected = NULL;
+                  ?>
+
+                  <option value="<?= $index; ?>" <?= $sort_selected; ?>><?= $sort->get_name(); ?></option>
+
+                <?php endforeach; ?>
               </select>
             </div>
           </div>
@@ -157,6 +198,7 @@
 
             <div class="input-group categorias">
               <?php foreach($categories as $category): ?>
+
                 <?php
                   if (in_array($category['id'], $filtered_categories))
                     $checked = 'checked';
@@ -168,6 +210,7 @@
                   <input type="checkbox" name="categorias-filtradas[]" value="<?= $category['id']; ?>"
                     <?= $checked ?>> <?= $category['nome']; ?>
                 </label>
+
               <?php endforeach; ?>
             </div>
           </div>
