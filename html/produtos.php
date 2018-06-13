@@ -15,8 +15,17 @@
 
     return $categories;
   }
+?>
 
+<?php
   $categories = get_categories($db_connection);
+
+  $filtered_categories = array();
+  if (isset($_GET['categorias-filtradas'])) {
+    foreach ($_GET['categorias-filtradas'] as $filter) {
+      $filtered_categories[] = $filter;
+    }
+  }
 ?>
 
 <!doctype html>
@@ -43,7 +52,7 @@
 
     <div class="row">
       <!-- Painel de pesquisa -->
-      <div class="col-lg-3 col-md-4">
+      <div class="col-lg-3 col-md-4 mb-4">
         <form>
           <!-- Pesquisa -->
           <div class="form-group">
@@ -84,8 +93,16 @@
 
             <div class="input-group categorias">
               <?php foreach($categories as $category): ?>
+                <?php
+                  if (in_array($category['id'], $filtered_categories))
+                    $checked = 'checked';
+                  else
+                    $checked = NULL;
+                ?>
+
                 <label>
-                  <input type="checkbox" value="<?= $category['id']; ?>"> <?= $category['nome']; ?>
+                  <input type="checkbox" name="categorias-filtradas[]" value="<?= $category['id']; ?>"
+                    <?= $checked ?>> <?= $category['nome']; ?>
                 </label>
               <?php endforeach; ?>
             </div>
@@ -105,14 +122,14 @@
         <li class="col-sm-6 col-lg-4">
           <figure class="produto card p-2">
             <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
+            <a href="pagina-produto.php" dialogo-src="dialogo-produto.php" data-toggle="modal" data-target="#modal-produto">
               <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
             </a>
             <!-- Imagem -->
 
             <!-- Descrição -->
             <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
+              <a href="pagina-produto.php" dialogo-src="dialogo-produto.php" data-toggle="modal" data-target="#modal-produto">
                 <h4>Lorem ipsum dolor sit amet</h4>
               </a>
               <p class="marca">Consectetur</p>
@@ -121,268 +138,7 @@
 
             <!-- Botão -->
             <div class="btn-container">
-              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-
-        <!-- Produto -->
-        <li class="col-sm-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Fusce lacinia ex sed odio scelerisque</h4>
-              </a>
-              <p class="marca">Sed</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-
-        <!-- Produto -->
-        <li class="col-sm-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Nulla tristique ac elit rutrum fermentum</h4>
-              </a>
-              <p class="marca">Nullam</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-
-        <!-- Produto -->
-        <li class="col-sm-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Maecenas odio libero accumsan sit amet nisi eget commodo tincidunt enim</h4>
-              </a>
-              <p class="marca">Praesent</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-
-        <!-- Produto -->
-        <li class="col-sm-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Curabitur sed enim et tellus ultricies malesuada a nec ex</h4>
-              </a>
-              <p class="marca">Sed</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-
-        <!-- Produto -->
-        <li class="col-sm-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Proin non lorem magna</h4>
-              </a>
-              <p class="marca">Fusce</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-
-        <!-- Produto -->
-        <li class="col-sm-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Nulla tristique ac elit rutrum fermentum</h4>
-              </a>
-              <p class="marca">Nullam</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-
-        <!-- Produto -->
-        <li class="col-sm-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Maecenas odio libero accumsan sit amet nisi eget commodo tincidunt enim</h4>
-              </a>
-              <p class="marca">Praesent</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-
-        <!-- Produto -->
-        <li class="col-sm-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Curabitur sed enim et tellus ultricies malesuada a nec ex</h4>
-              </a>
-              <p class="marca">Sed</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-
-        <!-- Produto -->
-        <li class="col-sm-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Proin non lorem magna</h4>
-              </a>
-              <p class="marca">Fusce</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
+              <a class="btn-ver-mais" href="pagina-produto.php" dialogo-src="dialogo-produto.php" data-toggle="modal" data-target="#modal-produto">
                 <button class="btn btn-danger">Ver mais</button>
               </a>
             </div>
