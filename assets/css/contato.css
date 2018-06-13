@@ -1,0 +1,75 @@
+@media(min-width: 768px) {
+  .form-centro {
+    width: 50%
+  }
+}
+
+#input-mensagem {
+  resize: none;
+}
+
+.form-mensagem {
+  margin-bottom: 0;
+}
+
+.obrigatorio::after {
+  content: '*';
+}
+
+.obrigatorio::after,
+.marcador-obrigatorio {
+  color: tomato;
+}
+
+.btn-enviar {
+  display: block;
+  margin: auto;
+  margin-top: 10px;
+}
+
+.input-group-text {
+  background-color: #dc3545;
+  border: 1px solid #dc3545;
+  color: white;
+}
+
+.form-centro {
+  margin: auto;
+}
+
+label {
+  font-weight: 600;
+}
+
+main {
+  margin: 20px 0;
+}
+
+@media (min-width: 1440px) {
+  footer {
+    position: relative !important;
+    bottom: 0 !important;
+    width: 100%;
+  }
+}
+
+@media (min-width: 2560px) {
+  footer {
+    position: absolute !important;
+    bottom: 0 !important;
+    width: 100%;
+  }
+}
+
+footer a {
+  color: white;
+}
+
+footer a:hover {
+  color: #dc3545;
+  text-decoration: none;
+}
+
+.navbar .nav-item {
+  font-size: 1.3em;
+}
