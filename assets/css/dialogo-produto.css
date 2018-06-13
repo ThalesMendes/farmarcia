@@ -6,7 +6,7 @@
   content: ' > ' !important;
 }
 
-.titulo-produto {    
+.titulo-produto {
   margin-bottom: 0 !important;
   text-transform: none !important;
   font-size: 2rem !important;
@@ -18,8 +18,12 @@
 }
 
 .thumb-container {
+  display: flex !important;
+  align-items: center !important;
+
   width: 95% !important;
-  margin: auto !important;
+  min-height: 400px !important;
+  margin: 0 auto !important;
   padding: 20px !important;
 }
 
@@ -60,7 +64,6 @@
   width: 75%;
 }
 
-.marca {
-  text-transform: capitalize;
+.preco {
   color: #888;
 }

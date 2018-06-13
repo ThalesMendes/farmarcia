@@ -1,8 +1,16 @@
+<?php
+  require 'functions.php';
+  require 'db_connection.php';
+  require 'product_crud.php';
+
+  define('DESCRIPTION_CHAR_LIMIT', 450);
+?>
+
 <div class="modal-header">
   <!-- Categoria e título do produto -->
   <h2 class="modal-title titulo-modal">
-    <span class="categoria">Categoria</span>
-    <a href="pagina-produto.html">Cataflam 50mg Com 10 Comprimidos</a>
+    <span class="categoria"><?= $category ?></span>
+    <a href="pagina-produto.php?id=<?= $product['id']; ?>"><?= $product['nome']; ?></a>
   </h2>
   <!-- Categoria e título do produto -->
 
@@ -17,22 +25,20 @@
   <figure class="row produto-container">
     <!-- Imagem do produto -->
     <div class="thumb-container col-lg-5 img-thumbnail">
-      <img class="thumb-img img-fluid" src="../assets/imgs/produto-placeholder.png">
+      <img class="thumb-img img-fluid" src="<?= get_image_path($product['imagem']); ?>">
     </div>
     <!-- Imagem do produto -->
 
     <!-- Descrição do produto -->
     <figcaption class="col-lg-6 info-produto">
       <div class="texto-produto">
-        <h3 class="titulo-produto">Cataflam 50mg Com 10 Comprimidos</h3>
-        <p class="marca">Marca</p>
+        <h3 class="titulo-produto"><?= $product['nome']; ?></h3>
+        <p class="preco">R$ <?= number_format($product['preco'], 2, ',', '.'); ?></p>
 
-        <p>In hac habitasse platea dictumst. Etiam in quam eget velit molestie maximus sed sed augue. In dapibus sapien vel
-          justo tempor interdum. Vestibulum dolor nisi, venenatis quis dolor quis, volutpat tincidunt arcu.
-        </p>
+        <p><?= limit_text($product['descricao'], DESCRIPTION_CHAR_LIMIT); ?></p>
       </div>
 
-      <a class="produto-button" href="pagina-produto.html">
+      <a class="produto-button" href="pagina-produto.php?id=<?= $product['id']; ?>">
         <button class="btn btn-danger btn-lg">Página do produto</button>
       </a>
     </figcaption>
