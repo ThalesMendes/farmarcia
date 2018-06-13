@@ -1,4 +1,5 @@
 <?php
+  require 'functions.php';
   require 'db_connection.php';
 
   function get_categories($db_connection) {
@@ -15,6 +16,25 @@
 
     return $categories;
   }
+
+  // Duplicação da função "get_products" em "index.php"
+  function get_default_products($db_connection) {
+    $default_products_count = 10;
+
+    $result = $db_connection->query(
+      "SELECT *
+       FROM `Produto`
+       ORDER BY `id` ASC
+       LIMIT $default_products_count;");
+
+    $products = array();
+    while ($row = $result->fetch_assoc()) {
+      $products[] = $row;
+    }
+    $result->close();
+
+    return $products;
+  }
 ?>
 
 <?php
@@ -26,6 +46,8 @@
       $filtered_categories[] = $filter;
     }
   }
+
+  $products = get_default_products($db_connection);
 ?>
 
 <!doctype html>
@@ -118,34 +140,21 @@
 
       <!-- Lista de produtos -->
       <ol class="lista-produtos row col-lg-9 col-md-8">
-        <!-- Produto -->
-        <li class="col-sm-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="pagina-produto.php" dialogo-src="dialogo-produto.php" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
+        <?php foreach ($products as $product): ?>
+          <?php
+            $product_id = $product['id'];
+            $product_name = $product['nome'];
+            $product_price = $product['preco'];
+            $product_image = $product['imagem'];
+          ?>
 
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="pagina-produto.php" dialogo-src="dialogo-produto.php" data-toggle="modal" data-target="#modal-produto">
-                <h4>Lorem ipsum dolor sit amet</h4>
-              </a>
-              <p class="marca">Consectetur</p>
-            </figcaption>
-            <!-- Descrição -->
+          <!-- Produto -->
+          <li class="col-sm-6 col-lg-4">
+            <?php require 'product_template.php'; ?>
+          </li>
+          <!-- Produto -->
 
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-ver-mais" href="pagina-produto.php" dialogo-src="dialogo-produto.php" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
+        <?php endforeach; ?>
       </ol>
       <!-- Lista de produtos -->
     </div>
