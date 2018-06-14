@@ -72,6 +72,13 @@
   margin: 0 auto;
 }
 
+.nenhum-produto {
+  width: 100%;
+  padding: 1em 0 2em 0;
+  text-align: center;
+  font-size: 2.5em;
+}
+
 ol {
   list-style: none;
   padding-left: 0;

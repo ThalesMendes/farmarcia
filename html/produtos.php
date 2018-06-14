@@ -1,9 +1,9 @@
 <?php
+  // Mostrar "nenhum produto encontrado"
   require 'functions.php';
 
   class product_list_model {
     private const DEFAULT_PRODUCTS_COUNT = 10;
-    private const MAX_PRODUCTS_COUNT = 12;
 
     private $db_connection;
 
@@ -25,14 +25,58 @@
       return $categories;
     }
 
-    // Duplicação da função "get_products" em "index.php"
-    public function get_default_products($sort_sql) {
-      $result = $this->db_connection->query(
-        "SELECT *
-        FROM `Produto`
-        ORDER BY $sort_sql
-        LIMIT " . self::DEFAULT_PRODUCTS_COUNT . ";");
+    public function get_products($sort_sql, $filtered_categories, $search) {
+      if (empty($search) && empty($filtered_categories)) {
+        return self::get_default_products($sort_sql);
+      }
 
+      $types = '';
+
+      if (!empty($filtered_categories)) {
+        $types .= str_repeat('i', count($filtered_categories));
+
+        $filter_sql = "`Categoria_id` = ?";
+        $filter_sql .= str_repeat(' OR `Categoria_id` = ?', count($filtered_categories) - 1);
+      }
+
+      if (!empty($search)) {
+        $exploded_search = explode(' ', $search);
+
+        $types .= str_repeat('s', count($exploded_search));
+
+        $name_search_sql = "`nome` LIKE ?";
+        $name_search_sql .= str_repeat(" AND `nome` LIKE ?", count($exploded_search) - 1);
+      } else
+        $limit = self::DEFAULT_PRODUCTS_COUNT;
+
+      $sql = "SELECT *
+              FROM `Produto` "
+              . ((!empty($filter_sql) || !empty($name_search_sql)) ? "WHERE " : '')
+              . ((!empty($filter_sql)) ? "($filter_sql)" : '')
+              . ((!empty($filter_sql) && !empty($name_search_sql)) ? " AND " : '')
+              . ((!empty($name_search_sql)) ? "($name_search_sql)" : '')
+              . " ORDER BY $sort_sql";
+
+      $params[] = &$types;
+      if (!empty($filtered_categories)) {
+        foreach ($filtered_categories as &$filter)
+          $params[] = &$filter;
+      }
+
+      if (!empty($exploded_search)) {
+        foreach ($exploded_search as &$search_token)
+          $param = "%$search_token%";
+          $params[] = &$param;
+      }
+
+      $stmt = $this->db_connection->prepare($sql);
+      call_user_func_array(array($stmt, 'bind_param'), $params);
+
+      $stmt->execute();
+      $result = $stmt->get_result();
+      $stmt->close();
+
+      $products = array();
       while ($row = $result->fetch_assoc()) {
         $products[] = $row;
       }
@@ -41,47 +85,13 @@
       return $products;
     }
 
-    public function get_products($sort_sql, $search = NULL, $filtered_categories = NULL) {
-      $sql = "SELECT *
-              FROM `Produto`";
-
-      if (isset($filtered_categories)) {
-        $sql .= " WHERE `Categoria_id` = ?";
-        $sql .= str_repeat(' OR `Categoria_id` = ?', count($filtered_categories) - 1);
-      }
-
-      if (isset($search)) {
-        $limit = self::MAX_PRODUCTS_COUNT;
-      } else
-        $limit = slef::DEFAULT_PRODUCTS_COUNT;
-
-      $sort .= " ORDER BY $sort_sql";
-    }
-
-
-
-    public function get_filtered_products($filtered_categories, $sort_sql) {
-      $sql = "SELECT *
-              FROM `Produto`
-              WHERE `Categoria_id` = ?";
-      $sql .= str_repeat(' OR `Categoria_id` = ?', count($filtered_categories) - 1);
-      $sql .= " ORDER BY $sort_sql
-               LIMIT " . self::MAX_PRODUCTS_COUNT . ";";
-
-      $stmt = $this->db_connection->prepare($sql);
-
-      $types = str_repeat('i', count($filtered_categories));
-      $params[] = &$types;
-
-      foreach ($filtered_categories as &$filter) {
-        $params[] = &$filter;
-      }
-
-      call_user_func_array(array($stmt, 'bind_param'), $params);
-
-      $stmt->execute();
-      $result = $stmt->get_result();
-      $stmt->close();
+     // Duplicação da função "get_products" em "index.php"
+     private function get_default_products($sort_sql) {
+      $result = $this->db_connection->query(
+        "SELECT *
+        FROM `Produto`
+        ORDER BY $sort_sql
+        LIMIT " . self::DEFAULT_PRODUCTS_COUNT . ";");
 
       while ($row = $result->fetch_assoc()) {
         $products[] = $row;
@@ -118,26 +128,30 @@
   $cheaper = new sort_type('Menor preço', "`preco` ASC");
 
   $sort_types = array($newer, $alphabetic, $cheaper);
+  $sort_index = 0;
+  $sort_sql = $sort_types[$sort_index]->get_sql_string();
 
-  if (isset($_GET['sort']) && !empty($_GET['sort']) && array_key_exists($_GET['sort'], $sort_types)) {
-    $sort_sql = $sort_types[$_GET['sort']]->get_sql_string();
-    $sort_index = $_GET['sort'];
-  } else {
-    $sort_sql = $sort_types[0]->get_sql_string();
-  }
+  $filtered_categories = array();
+  $search_text = NULL;
 
   $product_list_model = new product_list_model($db_connection);
   $categories = $product_list_model->get_categories();
 
-  $filtered_categories = array();
-  if (isset($_GET['categorias-filtradas'])) {
+  if (!empty($_GET['sort']) && array_key_exists($_GET['sort'], $sort_types)) {
+    $sort_sql = $sort_types[$_GET['sort']]->get_sql_string();
+    $sort_index = $_GET['sort'];
+  }
+
+  if (!empty($_GET['categorias-filtradas'])) {
     foreach ($_GET['categorias-filtradas'] as $filter) {
       $filtered_categories[] = $filter;
     }
-    $products = $product_list_model->get_filtered_products($filtered_categories, $sort_sql);
-  } else {
-    $products = $product_list_model->get_default_products($sort_sql);
   }
+
+  if (!empty($_GET['pesquisa'])) {
+    $search_text = $_GET['pesquisa'];
+  }
+  $products = $product_list_model->get_products($sort_sql, $filtered_categories, $search_text);
 ?>
 
 <!doctype html>
@@ -169,7 +183,7 @@
           <!-- Pesquisa -->
           <div class="form-group">
             <div class="input-group">
-              <input class="form-control" type="search" name="pesquisa" placeholder="Procurar produtos">
+              <input class="form-control" type="search" name="pesquisa" value="<?= $search_text; ?>" placeholder="Procurar produtos">
               <div class="input-group-append">
                 <button class="btn btn-danger" type="submit">
                   <i class="fas fa-search"></i>
@@ -242,21 +256,28 @@
 
       <!-- Lista de produtos -->
       <ol class="lista-produtos row col-lg-9 col-md-8">
-        <?php foreach ($products as $product): ?>
-          <?php
-            $product_id = $product['id'];
-            $product_name = $product['nome'];
-            $product_price = $product['preco'];
-            $product_image = $product['imagem'];
-          ?>
+        <?php if (!empty($products)): ?>
+          <?php foreach ($products as $product): ?>
 
-          <!-- Produto -->
-          <li class="col-sm-6 col-lg-4">
-            <?php require 'product_template.php'; ?>
-          </li>
-          <!-- Produto -->
+            <?php
+              $product_id = $product['id'];
+              $product_name = $product['nome'];
+              $product_price = $product['preco'];
+              $product_image = $product['imagem'];
+            ?>
 
-        <?php endforeach; ?>
+            <!-- Produto -->
+            <li class="col-sm-6 col-lg-4">
+              <?php require 'product_template.php'; ?>
+            </li>
+            <!-- Produto -->
+
+          <?php endforeach; ?>
+        <?php else: ?>
+
+          <p class="nenhum-produto">Nenhum produto encontrado!</p>
+
+        <?php endif; ?>
       </ol>
       <!-- Lista de produtos -->
     </div>
