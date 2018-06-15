@@ -1,3 +1,8 @@
+<?php 
+$mensagem=0;
+@$mensagem= $_REQUEST['mensagem'];
+?>
+
 <!doctype html>
 <html lang="pt-br">
 
@@ -20,7 +25,7 @@
   <main class="container">
     <h1>Contato</h1>
 
-    <form class="form-centro" method="POST" action="formulario_email.php">
+    <form class="form-centro" method="POST" action="envia_email.php">
       <!-- Nome -->
       <div class="form-group">
         <label class="obrigatorio" for="input-nome">Nome:</label>
@@ -117,3 +122,4 @@
 </body>
 
 </html>
+
