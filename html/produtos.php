@@ -3,7 +3,7 @@
 
   class product_list_model {
     private const DEFAULT_PRODUCTS_COUNT = 10;
-    private const MIN_SIMILARITY = 65;
+    private const MIN_SIMILARITY = 70;
 
     private $db_connection;
 
@@ -46,12 +46,10 @@
         $exploded_search = explode(' ', $search_string);
 
         while ($row = $result->fetch_assoc()) {
-          if (self::is_search_match($row['nome'], $exploded_search)) {
+          if (self::is_product_search_match($row['nome'], $exploded_search)
+          || self::is_category_search_match($row['Categoria_id'], $categories, $exploded_search)) {
             $products[] = $row;
-          } else {
-            if (self::is_category_search_match($row['Categoria_id'], $categories, $exploded_search))
-              $products[] = $row;
-          }
+          } 
         }
       } else {
         while ($row = $result->fetch_assoc()) {
@@ -101,32 +99,48 @@
         return $result;
     }
 
-    private function is_search_match($name, $search_tokens) {
-      $name_tokens = explode(' ', $name);
-
-      foreach ($search_tokens as $search_token) {
-        if (stripos($name, $search_token) !== false) {
-          return true;
-        } else {
-          foreach ($name_tokens as $name_token) {
-            similar_text($name_token, $search_token, $similarity);
-            if ($similarity >= self::MIN_SIMILARITY)
-              return true;
-          }
-        }
-      }
-      return false;
-    }
-
-    private function is_category_search_match($product_category_id, $categories, $search_tokens) {
+    private static function is_category_search_match($product_category_id, $categories, $search_tokens) {
       foreach ($categories as $category) {
         if ($category['id'] == $product_category_id) {
-          if (self::is_search_match($category['nome'], $search_tokens))
+          if (self::is_category_match($category['nome'], $search_tokens))
             return true;
-          return false;
+          else
+            return false;
         }        
       } 
       return false;
+    }    
+
+    private static function is_category_match($category_name, $search_tokens) {
+      $name_tokens = explode(' ', $category_name);
+
+      foreach ($search_tokens as $search_token) {
+        if (!self::is_similar($name_tokens, $search_token))
+          return false;        
+      }      
+      return true;
+    }
+
+    private static function is_product_search_match($product_name, $search_tokens) { 
+      $name_tokens = explode(' ', $product_name);
+      
+      foreach ($search_tokens as $search_token) {
+        if (!self::contains($search_token, $product_name) && !self::is_similar($name_tokens, $search_token))
+          return false; 
+      }
+      return true;
+    }
+
+    private static function is_similar($name_tokens, $search_token) {
+      foreach ($name_tokens as $name_token) {
+        similar_text($name_token, $search_token, $similarity);
+        if ($similarity >= self::MIN_SIMILARITY)
+          return true;
+      }
+    }
+
+    private static function contains($needle, $haystack) {
+      return stripos($haystack, $needle) !== false;
     }
   }
 
