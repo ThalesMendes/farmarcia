@@ -1,6 +1,5 @@
 <?php
   require 'functions.php';
-  
   require 'product_list_model.php';
 
   class sort_type {
@@ -45,7 +44,7 @@
 
   $search_text = NULL;
   if (!empty($_GET['pesquisa'])) {
-    $search_text = $_GET['pesquisa'];
+    $search_text = trim($_GET['pesquisa']);
   }  
 
   require 'db_connection.php';
@@ -86,6 +85,7 @@
           <div class="form-group">
             <div class="input-group">
               <input class="form-control" type="search" name="pesquisa" value="<?= $search_text; ?>" placeholder="Procurar produtos">
+
               <div class="input-group-append">
                 <button class="btn btn-danger" type="submit">
                   <i class="fas fa-search"></i>
