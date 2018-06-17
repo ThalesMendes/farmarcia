@@ -95,20 +95,18 @@
 
       return $result;
     }
-
-    private static function contains($needle, $haystack) {
-      return stripos($haystack, $needle) !== false;
-    }
   }
 
   class product_searcher {
-    private const MIN_SIMILARITY = 70;
+    private const MIN_CATEGORY_SIMILARITY = 65;
+    private const MIN_NAME_SIMILARITY = 72.5;
 
     public function is_product_search_match($product_name, $search_tokens) { 
       $name_tokens = explode(' ', $product_name);
       
       foreach ($search_tokens as $search_token) {
-        if (!self::contains($search_token, $product_name) && !self::is_similar($name_tokens, $search_token))
+        if (!self::contains($search_token, $product_name)
+         && !self::is_similar($name_tokens, $search_token, self::MIN_NAME_SIMILARITY))
           return false; 
       }
       return true;
@@ -130,18 +128,22 @@
       $name_tokens = explode(' ', $category_name);
 
       foreach ($search_tokens as $search_token) {
-        if (!self::is_similar($name_tokens, $search_token))
+        if (!self::is_similar($name_tokens, $search_token, self::MIN_CATEGORY_SIMILARITY))
           return false;        
       }      
       return true;
     }
 
-    private static function is_similar($name_tokens, $search_token) {
+    private static function is_similar($name_tokens, $search_token, $min_similarity) {
       foreach ($name_tokens as $name_token) {
         similar_text($name_token, $search_token, $similarity);
-        if ($similarity >= self::MIN_SIMILARITY)
+        if ($similarity >= $min_similarity)
           return true;
       }
+    }
+
+    private static function contains($needle, $haystack) {
+      return stripos($haystack, $needle) !== false;
     }
   }
 ?>
