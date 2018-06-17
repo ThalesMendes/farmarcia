@@ -39,13 +39,19 @@
         $result = self::query_filtered_products($sql, $sort_sql, $filtered_categories);
       }
 
+      $categories = self::get_categories();
+
       $products = array();
       if (!empty($search_string)) {
         $exploded_search = explode(' ', $search_string);
 
         while ($row = $result->fetch_assoc()) {
-          if (self::is_search_match($row['nome'], $exploded_search))
+          if (self::is_search_match($row['nome'], $exploded_search)) {
             $products[] = $row;
+          } else {
+            if (self::is_category_search_match($row['Categoria_id'], $categories, $exploded_search))
+              $products[] = $row;
+          }
         }
       } else {
         while ($row = $result->fetch_assoc()) {
@@ -111,6 +117,17 @@
       }
       return false;
     }
+
+    private function is_category_search_match($product_category_id, $categories, $search_tokens) {
+      foreach ($categories as $category) {
+        if ($category['id'] == $product_category_id) {
+          if (self::is_search_match($category['nome'], $search_tokens))
+            return true;
+          return false;
+        }        
+      } 
+      return false;
+    }
   }
 
   class sort_type {
@@ -130,8 +147,6 @@
       return $this->sql_string;
     }
   }
-
-  require 'db_connection.php';
 
   // Lista de ordenações
   $newer = new sort_type('Mais novo', "`id` ASC");
@@ -158,7 +173,9 @@
   $search_text = NULL;
   if (!empty($_GET['pesquisa'])) {
     $search_text = $_GET['pesquisa'];
-  }
+  }  
+
+  require 'db_connection.php';
   
   $product_list_model = new product_list_model($db_connection);
   $categories = $product_list_model->get_categories();
