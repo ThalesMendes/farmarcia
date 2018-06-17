@@ -25,61 +25,66 @@
       return $categories;
     }
 
-    public function get_products($sort_sql, $filtered_categories, $search) {
-      if (empty($search) && empty($filtered_categories)) {
+    public function get_products($sort_sql, $filtered_categories, $search_string) {
+      if (empty($search_string) && empty($filtered_categories)) {
         return self::get_default_products($sort_sql);
       }
 
-      $types = '';
+      $sql = "SELECT * FROM `Produto` ";
 
-      if (!empty($filtered_categories)) {
-        $types .= str_repeat('i', count($filtered_categories));
+      if (empty($filtered_categories)) {
+        $sql .= "ORDER BY $sort_sql;";
+        $result = $this->db_connection->query($sql);
+      } else {
+        $sql .= "WHERE `Categoria_id` = ?";
+        $sql .= str_repeat(" OR `Categoria_id` = ?", count($filtered_categories) - 1);
+        $sql .= " ORDER BY $sort_sql;";
 
-        $filter_sql = "`Categoria_id` = ?";
-        $filter_sql .= str_repeat(' OR `Categoria_id` = ?', count($filtered_categories) - 1);
+        $types = str_repeat('i', count($filtered_categories));
+
+        $stmt = $this->db_connection->prepare($sql);
+
+        $params = array($types);
+        foreach ($filtered_categories as &$category) {
+          $params[] = &$category;
+        }
+        call_user_func_array(array($stmt, 'bind_param'), $params);
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $stmt->close();
       }
-
-      if (!empty($search)) {
-        $exploded_search = explode(' ', $search);
-
-        $types .= str_repeat('s', count($exploded_search));
-
-        $name_search_sql = "`nome` LIKE ?";
-        $name_search_sql .= str_repeat(" AND `nome` LIKE ?", count($exploded_search) - 1);
-      } else
-        $limit = self::DEFAULT_PRODUCTS_COUNT;
-
-      $sql = "SELECT *
-              FROM `Produto` "
-              . ((!empty($filter_sql) || !empty($name_search_sql)) ? "WHERE " : '')
-              . ((!empty($filter_sql)) ? "($filter_sql)" : '')
-              . ((!empty($filter_sql) && !empty($name_search_sql)) ? " AND " : '')
-              . ((!empty($name_search_sql)) ? "($name_search_sql)" : '')
-              . " ORDER BY $sort_sql";
-
-      $params[] = &$types;
-      if (!empty($filtered_categories)) {
-        foreach ($filtered_categories as &$filter)
-          $params[] = &$filter;
-      }
-
-      if (!empty($exploded_search)) {
-        foreach ($exploded_search as &$search_token)
-          $param = "%$search_token%";
-          $params[] = &$param;
-      }
-
-      $stmt = $this->db_connection->prepare($sql);
-      call_user_func_array(array($stmt, 'bind_param'), $params);
-
-      $stmt->execute();
-      $result = $stmt->get_result();
-      $stmt->close();
 
       $products = array();
-      while ($row = $result->fetch_assoc()) {
-        $products[] = $row;
+      if (!empty($search_string)) {
+        $exploded_search = explode(' ', $search_string);
+
+        while ($row = $result->fetch_assoc()) {
+          $exploded_name = explode(' ', $row['nome']);
+
+          foreach ($exploded_search as $search_token) {
+            if (stripos($row['nome'], $search_token) !== false) {
+              $products[] = $row;
+              break;
+            } else {
+              foreach ($exploded_name as $name_token) {
+                similar_text($name_token, $search_token, $similarity);
+
+                if ($similarity >= 65) {
+                  $products[] = $row;
+                  break 2;
+                }
+              }
+            }
+          }
+        }
+      } else {
+        while ($row = $result->fetch_assoc()) {
+          $products[] = $row;
+        }
       }
+
       $result->close();
 
       return $products;
