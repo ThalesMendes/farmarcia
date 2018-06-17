@@ -139,23 +139,23 @@
   $cheaper = new sort_type('Menor preço', "`preco` ASC");
 
   $sort_types = array($newer, $alphabetic, $cheaper);
-  $sort_index = 0;
-  $sort_sql = $sort_types[$sort_index]->get_sql_string();
-
-  $filtered_categories = array();
-  $search_text = NULL;
 
   if (!empty($_GET['sort']) && array_key_exists($_GET['sort'], $sort_types)) {
-    $sort_sql = $sort_types[$_GET['sort']]->get_sql_string();
     $sort_index = $_GET['sort'];
+    $sort_sql = $sort_types[$sort_index]->get_sql_string();
+  } else {
+    $sort_index = 0;
+    $sort_sql = $sort_types[$sort_index]->get_sql_string();
   }
 
+  $filtered_categories = array();
   if (!empty($_GET['categorias-filtradas'])) {
     foreach ($_GET['categorias-filtradas'] as $filter) {
       $filtered_categories[] = $filter;
     }
   }
 
+  $search_text = NULL;
   if (!empty($_GET['pesquisa'])) {
     $search_text = $_GET['pesquisa'];
   }
