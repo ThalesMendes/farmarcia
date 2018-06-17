@@ -1,9 +1,9 @@
 <?php
-  // Mostrar "nenhum produto encontrado"
   require 'functions.php';
 
   class product_list_model {
     private const DEFAULT_PRODUCTS_COUNT = 10;
+    private const MIN_SIMILARITY = 65;
 
     private $db_connection;
 
@@ -36,7 +36,45 @@
         $sql .= "ORDER BY $sort_sql;";
         $result = $this->db_connection->query($sql);
       } else {
-        $sql .= "WHERE `Categoria_id` = ?";
+        $result = self::query_filtered_products($sql, $sort_sql, $filtered_categories);
+      }
+
+      $products = array();
+      if (!empty($search_string)) {
+        $exploded_search = explode(' ', $search_string);
+
+        while ($row = $result->fetch_assoc()) {
+          if (self::is_search_match($row['nome'], $exploded_search))
+            $products[] = $row;
+        }
+      } else {
+        while ($row = $result->fetch_assoc()) {
+          $products[] = $row;
+        }
+      }
+
+      $result->close();
+
+      return $products;
+    }
+
+    private function get_default_products($sort_sql) {
+      $result = $this->db_connection->query(
+        "SELECT *
+        FROM `Produto`
+        ORDER BY $sort_sql
+        LIMIT " . self::DEFAULT_PRODUCTS_COUNT . ";");
+
+      while ($row = $result->fetch_assoc()) {
+        $products[] = $row;
+      }
+      $result->close();
+
+      return $products;
+    }
+
+    private function query_filtered_products($base_sql, $sort_sql, $filtered_categories) {
+        $sql = $base_sql . "WHERE `Categoria_id` = ?";
         $sql .= str_repeat(" OR `Categoria_id` = ?", count($filtered_categories) - 1);
         $sql .= " ORDER BY $sort_sql;";
 
@@ -52,58 +90,26 @@
 
         $stmt->execute();
         $result = $stmt->get_result();
-
         $stmt->close();
-      }
 
-      $products = array();
-      if (!empty($search_string)) {
-        $exploded_search = explode(' ', $search_string);
-
-        while ($row = $result->fetch_assoc()) {
-          $exploded_name = explode(' ', $row['nome']);
-
-          foreach ($exploded_search as $search_token) {
-            if (stripos($row['nome'], $search_token) !== false) {
-              $products[] = $row;
-              break;
-            } else {
-              foreach ($exploded_name as $name_token) {
-                similar_text($name_token, $search_token, $similarity);
-
-                if ($similarity >= 65) {
-                  $products[] = $row;
-                  break 2;
-                }
-              }
-            }
-          }
-        }
-      } else {
-        while ($row = $result->fetch_assoc()) {
-          $products[] = $row;
-        }
-      }
-
-      $result->close();
-
-      return $products;
+        return $result;
     }
 
-     // Duplicação da função "get_products" em "index.php"
-     private function get_default_products($sort_sql) {
-      $result = $this->db_connection->query(
-        "SELECT *
-        FROM `Produto`
-        ORDER BY $sort_sql
-        LIMIT " . self::DEFAULT_PRODUCTS_COUNT . ";");
+    private function is_search_match($name, $search_tokens) {
+      $name_tokens = explode(' ', $name);
 
-      while ($row = $result->fetch_assoc()) {
-        $products[] = $row;
+      foreach ($search_tokens as $search_token) {
+        if (stripos($name, $search_token) !== false) {
+          return true;
+        } else {
+          foreach ($name_tokens as $name_token) {
+            similar_text($name_token, $search_token, $similarity);
+            if ($similarity >= self::MIN_SIMILARITY)
+              return true;
+          }
+        }
       }
-      $result->close();
-
-      return $products;
+      return false;
     }
   }
 
@@ -139,9 +145,6 @@
   $filtered_categories = array();
   $search_text = NULL;
 
-  $product_list_model = new product_list_model($db_connection);
-  $categories = $product_list_model->get_categories();
-
   if (!empty($_GET['sort']) && array_key_exists($_GET['sort'], $sort_types)) {
     $sort_sql = $sort_types[$_GET['sort']]->get_sql_string();
     $sort_index = $_GET['sort'];
@@ -156,6 +159,10 @@
   if (!empty($_GET['pesquisa'])) {
     $search_text = $_GET['pesquisa'];
   }
+  
+  $product_list_model = new product_list_model($db_connection);
+  $categories = $product_list_model->get_categories();
+  
   $products = $product_list_model->get_products($sort_sql, $filtered_categories, $search_text);
 ?>
 
