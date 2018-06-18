@@ -22,7 +22,7 @@
       header("Location: login.php");
     }
     else{
-      //header("Location: "); passar como parametro para o header o nome da pagina
+      header("Location: administrador.php ");
     }
   }
 ?>

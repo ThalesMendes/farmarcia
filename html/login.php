@@ -50,11 +50,8 @@
       <!-- senha -->
 
       <!-- mesangem de erro -->
-    <p class="text-center text-danger">
+      <p class="text-center text-danger">
           <?php
-            include_once "valida_login.php";
-
-            echo isset($_SESSION['erro']);
 
             if(isset($_SESSION['erro'])){
               echo $_SESSION['erro'];
