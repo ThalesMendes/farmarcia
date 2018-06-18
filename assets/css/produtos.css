@@ -68,7 +68,15 @@
 }
 
 .lista-produtos {
-  margin: auto;
+  align-content: flex-start;
+  margin: 0 auto;
+}
+
+.nenhum-produto {
+  width: 100%;
+  padding: 1em 0 2em 0;
+  text-align: center;
+  font-size: 2.5em;
 }
 
 ol {
