@@ -27,9 +27,9 @@
       </li>
     </ul>
 
-    <div class="form-group pt-2">
+    <form class="form-group pt-2" action="produtos.php">
       <div class="input-group">
-        <input class="form-control" type="search" placeholder="Procurar produtos">
+        <input class="form-control" type="search" name="pesquisa" placeholder="Procurar produtos">
 
         <div class="input-group-append">
           <button class="btn btn-danger" type="submit">
@@ -37,6 +37,6 @@
           </button>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </nav>
