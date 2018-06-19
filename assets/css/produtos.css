@@ -38,6 +38,16 @@
   font-size: 1.25em;
 }
 
+.produto .card-body {
+  flex-grow: 0;
+}
+
+.produto-img-container {
+  display: flex;
+  align-items: center;
+
+  flex-grow: 1;
+}
 .btn-container {
   position: relative;
   height: 38px;
@@ -67,8 +77,12 @@
   color: white;
 }
 
-.lista-produtos {
+.painel-principal {
   align-items: flex-start;
+}
+
+.lista-produtos {
+  align-items: stretch;
   margin: 0 auto;
 }
 

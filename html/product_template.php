@@ -1,7 +1,7 @@
 <!-- Produto -->
 <figure class="produto card p-2">
   <!-- Imagem -->
-  <a href="pagina-produto.php?id=<?= $product_id; ?>" dialogo-src="dialogo-produto.php?id=<?= $product_id; ?>" data-toggle="modal" data-target="#modal-produto">
+  <a class="produto-img-container" href="pagina-produto.php?id=<?= $product_id; ?>" dialogo-src="dialogo-produto.php?id=<?= $product_id; ?>" data-toggle="modal" data-target="#modal-produto">
     <img src="<?= get_image_path($product_image); ?>" alt="Foto do produto">
   </a>
   <!-- Imagem -->

@@ -78,7 +78,7 @@
   <main class="container">
     <h1>Produtos</h1>
 
-    <div class="row">
+    <div class="painel-principal row">
       <!-- Painel de pesquisa -->
       <div class="col-lg-3 col-md-4 mb-4">
         <form>

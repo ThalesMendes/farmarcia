@@ -114,6 +114,17 @@
   padding-bottom: 0 !important;
 }
 
+.produto .card-body {
+  flex-grow: 0;
+}
+
+.produto-img-container {
+  display: flex;
+  align-items: center;
+
+  flex-grow: 1;
+}
+
 .preco {
   color: #888;
 }
