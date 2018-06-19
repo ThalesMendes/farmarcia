@@ -18,8 +18,8 @@
 
     // redireciona
     if(empty($row)){
-      $_SESSION['erro'] = "Usuário ou senha inválido!";
-      header("Location: login.php");
+      //$erro = urlencode("Usuário ou senha inválido!");
+      header("Location: login.php?erro=Usu%C3%A1rio+ou+senha+inv%C3%A1lido%21");
     }
     else{
       header("Location: administrador.php ");

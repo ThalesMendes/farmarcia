@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
     crossorigin="anonymous">
   <link rel="stylesheet" href="../assets/css/login.css">
+  <link rel="stylesheet" href="../assets/css/comum.css">
 </head>
 
 <body>
@@ -52,10 +53,9 @@
       <!-- mesangem de erro -->
       <p class="text-center text-danger">
           <?php
-
-            if(isset($_SESSION['erro'])){
-              echo $_SESSION['erro'];
-              unset ($_SESSION['erro']);
+            if(isset($_GET['erro'])){
+              $erro = $_GET['erro'];
+              echo $erro;
             }
           ?>
       </p>
