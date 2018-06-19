@@ -1,3 +1,60 @@
+<?php
+  require 'functions.php';
+  require 'product_list_model.php';
+
+  class sort_type {
+    private $name;
+    private $sql_string;
+
+    function __construct($name, $sql_string) {
+      $this->name = $name;
+      $this->sql_string = $sql_string;
+    }
+
+    public function get_name() {
+      return $this->name;
+    }
+
+    public function get_sql_string() {
+      return $this->sql_string;
+    }
+  }
+
+  // Lista de ordenações
+  $newer = new sort_type('Mais novo', "`id` ASC");
+  $alphabetic = new sort_type('Ordem alfabética', "`nome` ASC");
+  $cheaper = new sort_type('Menor preço', "`preco` ASC");
+
+  $sort_types = array($newer, $alphabetic, $cheaper);
+
+  if (!empty($_GET['sort']) && array_key_exists($_GET['sort'], $sort_types)) {
+    $sort_index = $_GET['sort'];
+    $sort_sql = $sort_types[$sort_index]->get_sql_string();
+  } else {
+    $sort_index = 0;
+    $sort_sql = $sort_types[$sort_index]->get_sql_string();
+  }
+
+  $filtered_categories = array();
+  if (!empty($_GET['categorias-filtradas'])) {
+    foreach ($_GET['categorias-filtradas'] as $filter) {
+      $filtered_categories[] = $filter;
+    }
+  }
+
+  $search_text = NULL;
+  if (!empty($_GET['pesquisa'])) {
+    $search_text = trim($_GET['pesquisa']);
+  }
+
+  require 'db_connection.php';
+
+  $product_list_model = new product_list_model($db_connection);
+  $categories = $product_list_model->get_categories();
+
+  $products = $product_list_model->get_products($sort_sql, $filtered_categories, $search_text);
+?>
+
 <!doctype html>
 <html lang="pt-br">
 
@@ -12,6 +69,7 @@
     crossorigin="anonymous">
   <link rel="stylesheet" href="../assets/css/produtos.css">
   <link rel="stylesheet" href="../assets/css/dialogo-produto.css">
+  <link rel="stylesheet" href="../assets/css/comum.css">
 </head>
 
 <body>
@@ -20,14 +78,15 @@
   <main class="container">
     <h1>Produtos</h1>
 
-    <div class="row">
+    <div class="painel-principal row">
       <!-- Painel de pesquisa -->
-      <div class="col-lg-3 col-md-4">
+      <div class="col-lg-3 col-md-4 mb-4">
         <form>
           <!-- Pesquisa -->
           <div class="form-group">
             <div class="input-group">
-              <input class="form-control" type="search" placeholder="Procurar produtos">
+              <input class="form-control" type="search" name="pesquisa" value="<?= $search_text; ?>" placeholder="Procurar produtos">
+
               <div class="input-group-append">
                 <button class="btn btn-danger" type="submit">
                   <i class="fas fa-search"></i>
@@ -48,10 +107,19 @@
                 </div>
               </div>
 
-              <select id="input-ordem" class="custom-select" required>
-                <option selected>Mais novo</option>
-                <option>Ordem alfabética</option>
-                <option>Menor preço</option>
+              <select name="sort" id="input-ordem" class="custom-select" required>
+                <?php foreach ($sort_types as $index => $sort): ?>
+
+                  <?php
+                    if ($index == $sort_index)
+                      $sort_selected = 'selected';
+                    else
+                      $sort_selected = NULL;
+                  ?>
+
+                  <option value="<?= $index; ?>" <?= $sort_selected; ?>><?= $sort->get_name(); ?></option>
+
+                <?php endforeach; ?>
               </select>
             </div>
           </div>
@@ -62,18 +130,25 @@
             <label class="nome-campo" for="input-categoria">Categorias</label>
 
             <div class="input-group categorias">
-              <label>
-                <input type="checkbox"> Analgésico
-              </label>
-              <label>
-                <input type="checkbox"> Oftálmico
-              </label>
-              <label>
-                <input type="checkbox"> Anti-inflamatório
-              </label>
+              <?php foreach($categories as $category): ?>
+
+                <?php
+                  if (in_array($category['id'], $filtered_categories))
+                    $checked = 'checked';
+                  else
+                    $checked = NULL;
+                ?>
+
+                <label>
+                  <input type="checkbox" name="categorias-filtradas[]" value="<?= $category['id']; ?>"
+                    <?= $checked ?>> <?= $category['nome']; ?>
+                </label>
+
+              <?php endforeach; ?>
             </div>
           </div>
           <!-- Categorias -->
+
           <button class="btn btn-danger btn-md btn-enviar" type="submit">
             Atualizar
             <i class="fas fa-sync"></i>
@@ -84,295 +159,28 @@
 
       <!-- Lista de produtos -->
       <ol class="lista-produtos row col-lg-9 col-md-8">
-        <!-- Produto -->
-        <li class="col-sm-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
+        <?php if (!empty($products)): ?>
+          <?php foreach ($products as $product): ?>
 
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Lorem ipsum dolor sit amet</h4>
-              </a>
-              <p class="marca">Consectetur</p>
-            </figcaption>
-            <!-- Descrição -->
+            <?php
+              $product_id = $product['id'];
+              $product_name = $product['nome'];
+              $product_price = $product['preco'];
+              $product_image = $product['imagem'];
+            ?>
 
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
+            <!-- Produto -->
+            <li class="col-sm-6 col-lg-4">
+              <?php require 'product_template.php'; ?>
+            </li>
+            <!-- Produto -->
 
-        <!-- Produto -->
-        <li class="col-sm-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
+          <?php endforeach; ?>
+        <?php else: ?>
 
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Fusce lacinia ex sed odio scelerisque</h4>
-              </a>
-              <p class="marca">Sed</p>
-            </figcaption>
-            <!-- Descrição -->
+          <p class="nenhum-produto">Nenhum produto encontrado!</p>
 
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-
-        <!-- Produto -->
-        <li class="col-sm-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Nulla tristique ac elit rutrum fermentum</h4>
-              </a>
-              <p class="marca">Nullam</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-
-        <!-- Produto -->
-        <li class="col-sm-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Maecenas odio libero accumsan sit amet nisi eget commodo tincidunt enim</h4>
-              </a>
-              <p class="marca">Praesent</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-
-        <!-- Produto -->
-        <li class="col-sm-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Curabitur sed enim et tellus ultricies malesuada a nec ex</h4>
-              </a>
-              <p class="marca">Sed</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-
-        <!-- Produto -->
-        <li class="col-sm-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Proin non lorem magna</h4>
-              </a>
-              <p class="marca">Fusce</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-
-        <!-- Produto -->
-        <li class="col-sm-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Nulla tristique ac elit rutrum fermentum</h4>
-              </a>
-              <p class="marca">Nullam</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-
-        <!-- Produto -->
-        <li class="col-sm-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Maecenas odio libero accumsan sit amet nisi eget commodo tincidunt enim</h4>
-              </a>
-              <p class="marca">Praesent</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-
-        <!-- Produto -->
-        <li class="col-sm-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Curabitur sed enim et tellus ultricies malesuada a nec ex</h4>
-              </a>
-              <p class="marca">Sed</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
-
-        <!-- Produto -->
-        <li class="col-sm-6 col-lg-4">
-          <figure class="produto card p-2">
-            <!-- Imagem -->
-            <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-              <img src="../assets/imgs/produto-placeholder.png" alt="Foto do produto">
-            </a>
-            <!-- Imagem -->
-
-            <!-- Descrição -->
-            <figcaption class="card-body">
-              <a href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <h4>Proin non lorem magna</h4>
-              </a>
-              <p class="marca">Fusce</p>
-            </figcaption>
-            <!-- Descrição -->
-
-            <!-- Botão -->
-            <div class="btn-container">
-              <a class="btn-ver-mais" href="dialogo-produto.html" data-toggle="modal" data-target="#modal-produto">
-                <button class="btn btn-danger">Ver mais</button>
-              </a>
-            </div>
-            <!-- Botão -->
-          </figure>
-        </li>
-        <!-- Produto -->
+        <?php endif; ?>
       </ol>
       <!-- Lista de produtos -->
     </div>

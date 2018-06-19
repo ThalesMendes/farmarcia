@@ -59,6 +59,7 @@
   <link rel="stylesheet" href="../assets/css/dialogo-produto.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
     crossorigin="anonymous">
+  <link rel="stylesheet" href="../assets/css/comum.css">
 </head>
 
 <body>
@@ -139,34 +140,16 @@
 
         <ol class="row">
           <?php foreach($highlighted_products as $product): ?>
-            <?php $id = $product['id']; ?>
+            <?php
+              $product_id = $product['id'];
+              $product_name = $product['nome'];
+              $product_price = $product['preco'];
+              $product_image = $product['imagem'];
+            ?>
 
             <!-- Produto -->
             <li class="col-12 col-md-6 col-lg-4">
-              <figure class="produto card p-2">
-                <!-- Imagem -->
-                <a href="pagina-produto.php?id=<?= $id; ?>" dialogo-src="dialogo-produto.php?id=<?= $id; ?>" data-toggle="modal" data-target="#modal-produto">
-                  <img src="<?= get_image_path($product['imagem']); ?>" alt="Foto do produto">
-                </a>
-                <!-- Imagem -->
-
-                <!-- Descrição -->
-                <figcaption class="card-body">
-                  <a href="pagina-produto.php?id=<?= $id; ?>" dialogo-src="dialogo-produto.php?id=<?= $id; ?>" data-toggle="modal" data-target="#modal-produto">
-                    <h4><?= $product['nome']; ?></h4>
-                  </a>
-                  <p class="preco">R$ <?= number_format($product['preco'], 2, ',', '.'); ?></p>
-                </figcaption>
-                <!-- Descrição -->
-
-                <!-- Botão -->
-                <div class="btn-container">
-                  <a class="btn-destaque" href="pagina-produto.php?id=<?= $id; ?>" dialogo-src="dialogo-produto.php?id=<?= $id; ?>" data-toggle="modal" data-target="#modal-produto">
-                    <button class="btn btn-danger">Ver mais</button>
-                  </a>
-                </div>
-                <!-- Botão -->
-              </figure>
+              <?php require 'product_template.php'; ?>
             </li>
             <!-- Produto -->
 
