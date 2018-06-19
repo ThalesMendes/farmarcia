@@ -1,3 +1,12 @@
+<style>
+.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
+    color: rgb(226, 76, 76);
+}
+.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:active {
+    color: rgb(226, 76, 76);
+}
+</style>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow pr-5 pl-5 mb-4 bg-white rounded">
   <a class="navbar-brand" href="../html/index.php">
     <img src="../assets/imgs/logo.png" alt="Logo" style="width: 150px;">
