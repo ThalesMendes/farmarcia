@@ -16,6 +16,7 @@ $mensagem=0;
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
     crossorigin="anonymous">
   <link rel="stylesheet" href="../assets/css/contato.css">
+  <link rel="stylesheet" href="../assets/css/comum.css">
 </head>
 
 <body>

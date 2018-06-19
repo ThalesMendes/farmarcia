@@ -52,4 +52,9 @@
     header("Location: produtos.php");
     exit;
   }
+
+  if (!empty($product))
+    $product_text = $product['nome'];
+  else
+    $product_text = "Produto não encontrado!";
 ?>

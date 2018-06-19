@@ -45,13 +45,13 @@
   $search_text = NULL;
   if (!empty($_GET['pesquisa'])) {
     $search_text = trim($_GET['pesquisa']);
-  }  
+  }
 
   require 'db_connection.php';
-  
+
   $product_list_model = new product_list_model($db_connection);
   $categories = $product_list_model->get_categories();
-  
+
   $products = $product_list_model->get_products($sort_sql, $filtered_categories, $search_text);
 ?>
 
@@ -69,6 +69,7 @@
     crossorigin="anonymous">
   <link rel="stylesheet" href="../assets/css/produtos.css">
   <link rel="stylesheet" href="../assets/css/dialogo-produto.css">
+  <link rel="stylesheet" href="../assets/css/comum.css">
 </head>
 
 <body>
@@ -77,7 +78,7 @@
   <main class="container">
     <h1>Produtos</h1>
 
-    <div class="row">
+    <div class="painel-principal row">
       <!-- Painel de pesquisa -->
       <div class="col-lg-3 col-md-4 mb-4">
         <form>
