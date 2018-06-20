@@ -14,6 +14,7 @@
          FROM `Categoria`
          ORDER BY `nome` ASC");
 
+      $products = array();
       while ($row = $result->fetch_assoc()) {
         $categories[] = $row;
       }
@@ -46,7 +47,7 @@
           if (product_searcher::is_product_search_match($row['nome'], $exploded_search)
           || product_searcher::is_category_search_match($row['Categoria_id'], $categories, $exploded_search)) {
             $products[] = $row;
-          } 
+          }
         }
       } else {
         while ($row = $result->fetch_assoc()) {
@@ -66,6 +67,7 @@
         ORDER BY $sort_sql
         LIMIT " . self::DEFAULT_PRODUCTS_COUNT . ";");
 
+      $products = array();
       while ($row = $result->fetch_assoc()) {
         $products[] = $row;
       }
@@ -101,13 +103,13 @@
     private const MIN_CATEGORY_SIMILARITY = 65;
     private const MIN_NAME_SIMILARITY = 72.5;
 
-    public function is_product_search_match($product_name, $search_tokens) { 
+    public function is_product_search_match($product_name, $search_tokens) {
       $name_tokens = explode(' ', $product_name);
-      
+
       foreach ($search_tokens as $search_token) {
         if (!self::contains($search_token, $product_name)
          && !self::is_similar($name_tokens, $search_token, self::MIN_NAME_SIMILARITY))
-          return false; 
+          return false;
       }
       return true;
     }
@@ -119,18 +121,18 @@
             return true;
           else
             return false;
-        }        
-      } 
+        }
+      }
       return false;
-    }    
+    }
 
     private static function is_category_match($category_name, $search_tokens) {
       $name_tokens = explode(' ', $category_name);
 
       foreach ($search_tokens as $search_token) {
         if (!self::is_similar($name_tokens, $search_token, self::MIN_CATEGORY_SIMILARITY))
-          return false;        
-      }      
+          return false;
+      }
       return true;
     }
 
