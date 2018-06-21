@@ -13,18 +13,14 @@
 
     $sort_sql = "`id` DESC";
     $products = NULL;
+    $search_text = NULL;
 
     $product_list_model = new product_list_model($db_connection);
-    if (!empty($_GET['pesquisa']))
-      $products = $product_list_model->get_products($sort_sql, NULL, $_GET['pesquisa']);
-    else
+    if (isset($_GET['pesquisa']) && !empty(trim($_GET['pesquisa']))) {
+      $search_text = trim($_GET['pesquisa']);
+      $products = $product_list_model->get_products($sort_sql, NULL, $search_text);
+    } else
       $products = $product_list_model->get_default_products($sort_sql, NULL);
-
-    foreach ($products as $product) {
-      echo "<pre>";
-      var_dump($product);
-      echo "</pre><br>";
-    }
   ?>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
@@ -40,7 +36,7 @@
       <h1>Administrador</h1>
       <form class="form-group pt-2">
       <div class="input-group">
-        <input class="form-control" type="search" name="pesquisa" placeholder="Procurar produtos">
+        <input class="form-control" type="search" name="pesquisa" value="<?= $search_text; ?>" placeholder="Procurar produtos">
 
         <div class="input-group-append">
           <button class="btn btn-danger" type="submit">
