@@ -14,7 +14,11 @@
          FROM `Categoria`
          ORDER BY `nome` ASC");
 
+<<<<<<< HEAD
         $categories = array();
+=======
+      $products = array();
+>>>>>>> 89727cc451a98e0b76466df304f1370f779df145
       while ($row = $result->fetch_assoc()) {
         $categories[] = $row;
       }
@@ -67,6 +71,7 @@
         ORDER BY $sort_sql
         LIMIT " . self::DEFAULT_PRODUCTS_COUNT . ";");
 
+      $products = array();
       while ($row = $result->fetch_assoc()) {
         $products[] = $row;
       }

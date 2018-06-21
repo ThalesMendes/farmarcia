@@ -1,3 +1,8 @@
+<?php 
+$mensagem=0;
+@$mensagem= $_REQUEST['mensagem'];
+?>
+
 <!doctype html>
 <html lang="pt-br">
 
@@ -16,11 +21,12 @@
 
 <body>
   <?php require 'navbar.php' ?>
-
+ 
+  
   <main class="container">
     <h1>Contato</h1>
 
-    <form class="form-centro">
+    <form class="form-centro" method="POST" action="envia_email.php">
       <!-- Nome -->
       <div class="form-group">
         <label class="obrigatorio" for="input-nome">Nome:</label>
@@ -32,7 +38,7 @@
             </div>
           </div>
 
-          <input id="input-nome" class="form-control" type="text" required>
+          <input id="input-nome" class="form-control" type="text" name="nome" required>
         </div>
       </div>
       <!-- Nome -->
@@ -45,10 +51,11 @@
           <div class="input-group-prepend">
             <div class="input-group-text">
               <i class="fas fa-at"></i>
+
             </div>
           </div>
 
-          <input id="input-email" class="form-control" type="email" required>
+          <input id="input-email" class="form-control" type="email" name="email" required>
         </div>
       </div>
       <!-- Email -->
@@ -64,7 +71,7 @@
             </div>
           </div>
 
-          <input id="input-telefone" class="form-control" type="tel">
+          <input id="input-telefone" class="form-control" type="tel" name="telefone" >
         </div>
       </div>
       <!-- Telefone -->
@@ -92,7 +99,7 @@
         <label class="obrigatorio" for="input-mensagem">Mensagem:</label>
 
         <div class="input-group">
-          <textarea id="input-mensagem" class="form-control" rows="8" required></textarea>
+          <textarea id="input-mensagem" class="form-control" rows="8" name="mensagem" required></textarea>
         </div>
       </div>
       <!-- Mensagem -->
@@ -101,10 +108,12 @@
         <span class="marcador-obrigatorio">*</span> são obrigatórios.</small>
 
       <!-- Enviar -->
+	  <!--<form method="post" action="formulario_email.php">-->
       <button class="btn btn-danger btn-lg btn-enviar" type="submit">
         Enviar
         <i class="fas fa-paper-plane"></i>
       </button>
+	  <!--</form>-->
       <!-- Enviar -->
     </form>
   </main>
@@ -113,3 +122,4 @@
 </body>
 
 </html>
+
