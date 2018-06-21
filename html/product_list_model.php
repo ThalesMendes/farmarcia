@@ -60,12 +60,14 @@
       return $products;
     }
 
-    private function get_default_products($sort_sql) {
-      $result = $this->db_connection->query(
-        "SELECT *
-        FROM `Produto`
-        ORDER BY $sort_sql
-        LIMIT " . self::DEFAULT_PRODUCTS_COUNT . ";");
+    public function get_default_products($sort_sql, $max_count = self::DEFAULT_PRODUCTS_COUNT) {
+      $sql = "SELECT *
+              FROM `Produto`
+              ORDER BY $sort_sql";
+      if (isset($max_count))
+        $sql .= " LIMIT " . $max_count . ";";
+
+      $result = $this->db_connection->query($sql);
 
       $products = array();
       while ($row = $result->fetch_assoc()) {
