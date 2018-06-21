@@ -35,7 +35,7 @@
     </div>
 
     <div class="text-center">
-      <a href="../html/login.php">Administrador</a>
+      <a class="admin" href="../html/login.php">Administrador</a>
     </div>
 
     <div class="text-center">

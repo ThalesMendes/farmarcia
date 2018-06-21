@@ -24,7 +24,12 @@ footer a {
   color: white;
 }
 
-footer a:hover {
+footer a:hover, admin:hover {
   color:#dc3545;
   text-decoration: none;
+}
+
+
+.admin{
+  color: #343a40;
 }
