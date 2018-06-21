@@ -14,11 +14,7 @@
          FROM `Categoria`
          ORDER BY `nome` ASC");
 
-<<<<<<< HEAD
-        $categories = array();
-=======
-      $products = array();
->>>>>>> 89727cc451a98e0b76466df304f1370f779df145
+      $categories = array();
       while ($row = $result->fetch_assoc()) {
         $categories[] = $row;
       }
