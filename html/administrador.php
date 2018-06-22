@@ -33,11 +33,13 @@
 
 <body>
   <main class="container">
-      <h1>Administrador</h1>
-      <form class="form-group pt-2">
+    <a class="deslogar" href="login.php">Sair</a>
+    <h1>Administrador</h1>
+
+    <!--barra de pesquisa-->
+    <form class="form-group pt-2">
       <div class="input-group">
         <input class="form-control" type="search" name="pesquisa" value="<?= $search_text; ?>" placeholder="Procurar produtos">
-
           <div class="input-group-append">
             <button class="btn btn-danger" type="submit">
               <i class="fas fa-search"></i>
@@ -45,29 +47,30 @@
           </div>
       </div>
     </form>
+    <!--barra de pesquisa-->
+
     <div class="container text-right">
       <a  href="cadastro-produto.php">
-        <button class="btn btn-danger btn-lg btn-enviar"  type="submit">
+        <button class="btn btn-danger btn-enviar"  type="submit">
           Adicionar Produto
           <i class="fas fa-plus-circle"></i>
         </button>
       </a>
       <a href="cadastro-categoria.php">
-        <button class="btn btn-danger btn-lg btn-enviar" type="submit">
+        <button class="btn btn-danger btn-enviar" type="submit">
           Adicionar Categoria
           <i class="fas fa-plus-circle"></i>
         </button>
       </a>
     </div>
 
-    <!--<i class="fas fa-edit"></i>  botão de editar-->
-    <div class="lista-produtos container col-lg-11 col-md-11">
+    <div class="tabela-produtos container col-lg-11 col-md-11">
       <?php if (!empty($products)): ?>
         <table class="table">
           <thead>
             <tr>
               <th scope="col">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <input type="checkbox" name="select_all" id="remove_all">
                 Selec. Todos
               </th>
               <th scope="col">Nome</th>
@@ -78,32 +81,27 @@
           </thead>
         </table>
           <?php foreach ($products as $product): ?>
-              <?php
-                $product_id = $product['id'];
-                $product_name = $product['nome'];
-                $product_price = $product['preco'];
-                $product_image = $product['imagem'];
-                $product_descricao = $product['descricao']
-              ?>
-              <!-- Produto -->
-              <div class="">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                </div>
-                <?php require 'administrador_template.php'; ?>
-              </div>
-              <!-- Produto -->
+            <?php
+              $product_id = $product['id'];
+              $product_name = $product['nome'];
+              $product_price = $product['preco'];
+              $product_image = $product['imagem'];
+              $product_descricao = $product['descricao']
+            ?>
+            <!-- Produto -->
+            <div>
+              <?php require 'administrador_template.php'; ?>
+            </div>
+            <!-- Produto -->
           <?php endforeach; ?>
       <?php else: ?>
-
         <p class="nenhum-produto">Nenhum produto encontrado!</p>
-
       <?php endif; ?>
     </div>
     <!-- Lista de produtos -->
 
     <div class="text-right">
-      <button class="btn btn-danger btn-lg btn-enviar" type="submit">
+      <button class="btn btn-danger btn-enviar" type="submit">
         Remover
         <i class="fas fa-trash-alt"></i>
       </button>

@@ -4,3 +4,21 @@
   font-size: 3em;
 }
 
+.tabela-produtos{
+  margin: 30px !important;
+}
+
+.form-group{
+  width: 40% !important;
+}
+
+.deslogar{
+  position: absolute;
+  color: rgb(226, 76, 76);
+  margin-left: 90%; 
+}
+
+td{
+  border-top: 0px !important;
+  border-bottom: 1px solid #dee2e6 !important;
+}
