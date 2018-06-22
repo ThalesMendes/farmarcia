@@ -26,7 +26,7 @@ $mensagem=0;
   <main class="container">
     <h1>Contato</h1>
 
-    <form class="form-centro" method="POST" action="envia_email.php">
+    <form class="form-centro" method="POST" action="envia_php_mailer.php">
       <!-- Nome -->
       <div class="form-group">
         <label class="obrigatorio" for="input-nome">Nome:</label>
