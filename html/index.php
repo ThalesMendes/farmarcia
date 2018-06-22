@@ -23,7 +23,7 @@
       $result = $this->db_connection->query(
         "SELECT *
          FROM `Produto`
-         ORDER BY `id` ASC
+         ORDER BY `id` DESC
          LIMIT " . $index . "," . $count . ";");
 
       $products = array();
