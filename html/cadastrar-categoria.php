@@ -1,6 +1,6 @@
 <?php
+  require 'check_login.php';
   require 'db_connection.php';
-
 
   $nome = $_POST['nome'];
 
