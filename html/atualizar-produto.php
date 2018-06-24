@@ -7,7 +7,7 @@
   $descricao = $_POST['descricao'];
   $categoria = $_POST['categoria'];
   $id = $_POST['id'];
-  echo $id;
+  
   $atualizar = "UPDATE Produto
                 SET nome = '$nome', preco = '$preco', descricao = '$descricao',
                 imagem = '$imagem', Categoria_id = '$categoria' WHERE id = '$id'";

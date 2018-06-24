@@ -12,21 +12,19 @@
         $result->close();
         return $categories;
       }
-      $result->close();
-      return $categories;
-    }
-function get_product($db_connection){
+
+function get_product($db_connection, $id){
   $result = $db_connection->query(
     "SELECT *
      FROM `Produto`
-     WHERE id = 1");
+     WHERE id = '$id'");
   $product = $result->fetch_row();
   return $product;
 }
-
-$categories = get_categories($db_connection);
-$produto = get_product($db_connection);
 $id = 1;
+$categories = get_categories($db_connection, $id);
+$produto = get_product($db_connection);
+
 ?>
 <!doctype html>
 <html lang="pt-br">
