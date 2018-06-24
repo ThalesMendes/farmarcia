@@ -1,12 +1,16 @@
 <?php
-require 'db_connection.php';
-function get_categories($db_connection) {
-      $result = $db_connection->query(
-        "SELECT *
-         FROM `Categoria`
-         ORDER BY `nome` ASC");
-      while ($row = $result->fetch_assoc()) {
-        $categories[] = $row;
+  require 'check_login.php';
+  require 'db_connection.php';
+  function get_categories($db_connection) {
+        $result = $db_connection->query(
+          "SELECT *
+          FROM `Categoria`
+          ORDER BY `nome` ASC");
+        while ($row = $result->fetch_assoc()) {
+          $categories[] = $row;
+        }
+        $result->close();
+        return $categories;
       }
       $result->close();
       return $categories;
