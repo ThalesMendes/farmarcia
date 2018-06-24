@@ -33,9 +33,10 @@
 </head>
 
 <body>
+<?php require 'navbar.php' ?>
 
   <main class="container">
-  <a class="deslogar" href="login.php">Sair</a>
+  <a class="deslogar" href="logout.php">Sair</a>
     <h1>Administrador</h1>
 
     <!--barra de pesquisa-->
@@ -52,7 +53,7 @@
     <!--barra de pesquisa-->
 
     <div class="container text-right">
-      <a  href="cadastro-produto.php">
+      <a href="cadastro-produto.php?id=0">
         <button class="btn btn-danger btn-enviar"  type="submit">
           Adicionar Produto
           <i class="fas fa-plus-circle"></i>
@@ -92,7 +93,7 @@
             ?>
             <!-- Produto -->
             <div>
-              <?php require 'administrador_template.php'; ?>
+              <?php require 'administrador_produto_template.php'; ?>
             </div>
             <!-- Produto -->
           <?php endforeach; ?>
@@ -131,6 +132,7 @@
   </script>
   <!--script do checkbox-->
 
+  <?php require 'footer.php' ?>
 </body>
 
 </html>
