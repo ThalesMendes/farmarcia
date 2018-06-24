@@ -10,4 +10,6 @@
   $inserir = "INSERT INTO Produto (nome, preco, descricao, imagem, Categoria_id)
               VALUES ('$nome', '$preco', '$descricao', '$imagem', '$categoria')";
   $resultado = mysqli_query($db_connection, $inserir);
+
+  header("Location: administrador.php ");
 ?>

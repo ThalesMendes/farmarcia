@@ -32,8 +32,9 @@
 </head>
 
 <body>
+
   <main class="container">
-    <a class="deslogar" href="login.php">Sair</a>
+  <a class="deslogar" href="login.php">Sair</a>
     <h1>Administrador</h1>
 
     <!--barra de pesquisa-->
@@ -69,14 +70,14 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">
-                <input type="checkbox" name="select_all" id="remove_all">
+              <th scope="col" class="checkbox">
+                <input type="checkbox" name="select-all" id="select-all">
                 Selec. Todos
               </th>
-              <th scope="col">Nome</th>
-              <th scope="col">Descrição</th>
-              <th scope="col">Preço</th>
-              <th scope="col">Editar</th>
+              <th scope="col" class="nome">Nome</th>
+              <th scope="col" class="descricao">Descrição</th>
+              <th scope="col" class="preco">Preço</th>
+              <th scope="col" class="editar">Editar</th>
             </tr>
           </thead>
         </table>
@@ -106,8 +107,29 @@
         <i class="fas fa-trash-alt"></i>
       </button>
     </div>
-
   </main>
+
+  <!--script do checkbox-->
+  <script
+    type="text/javascript"
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    
+    $('#select-all').click(function(event) {   
+      if(this.checked) {
+          // Iterate each checkbox
+          $(':checkbox').each(function() {
+              this.checked = true;                        
+          });
+      } else {
+          $(':checkbox').each(function() {
+              this.checked = false;                       
+          });
+      }
+  });
+  }
+  </script>
+  <!--script do checkbox-->
+
 </body>
 
 </html>

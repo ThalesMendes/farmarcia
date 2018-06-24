@@ -6,4 +6,6 @@
 
   $inserir = "INSERT INTO Categoria (nome) VALUES ('$nome')";
   $resultado = mysqli_query($db_connection, $inserir);
+
+  header("Location: administrador.php ");
 ?>
