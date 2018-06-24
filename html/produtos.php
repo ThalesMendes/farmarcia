@@ -21,7 +21,7 @@
   }
 
   // Lista de ordenações
-  $newer = new sort_type('Mais novo', "`id` ASC");
+  $newer = new sort_type('Mais novo', "`id` DESC");
   $alphabetic = new sort_type('Ordem alfabética', "`nome` ASC");
   $cheaper = new sort_type('Menor preço', "`preco` ASC");
 

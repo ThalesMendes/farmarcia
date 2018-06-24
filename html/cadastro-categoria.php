@@ -1,3 +1,5 @@
+<?php require 'check_login.php'; ?>
+
 <!doctype html>
 <html lang="pt-br">
 

@@ -1,3 +1,16 @@
+<?php
+  session_start();
+
+  if (isset($_SESSION['login']) && isset($_SESSION['ip'])) {
+    if ($_SESSION['ip'] === $_SERVER['REMOTE_ADDR']) {
+      header("Location: administrador.php");
+      exit;
+    } else {
+      require 'logout.php';
+    }
+  }
+?>
+
 <!doctype html>
 <html lang="pt-br">
 
