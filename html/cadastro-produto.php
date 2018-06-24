@@ -11,7 +11,18 @@ function get_categories($db_connection) {
       $result->close();
       return $categories;
     }
+function get_product($db_connection){
+  $result = $db_connection->query(
+    "SELECT *
+     FROM `Produto`
+     WHERE id = 1");
+  $product = $result->fetch_row();
+  return $product;
+}
+
 $categories = get_categories($db_connection);
+$produto = get_product($db_connection);
+$id = 1;
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -26,26 +37,49 @@ $categories = get_categories($db_connection);
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
     crossorigin="anonymous">
   <link rel="stylesheet" href="../assets/css/contato.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="../assets/css/comum.css">
 </head>
 
 <body>
+  <?php require 'navbar.php' ?>
 
   <main class="container">
     <h1>Cadastrar Produto</h1>
 
-    <form class="form-centro" method="post" action="cadastrar-produto.php">
+    <form class="form-centro" method="post" action="
+    <?php
+      if($id>0)
+        echo "atualizar-produto.php" ;
+      else
+        echo "cadastrar-produto.php";
+     ?>">
+      <!-- id -->
+      <input type="hidden" name="id" value="<?= $id ?>">
 
       <!-- Nome -->
       <div class="form-group">
         <label class="obrigatorio" for="input-nome">Nome:</label>
-          <input id="input-nome" class="form-control" type="text" name="nome" required>
+          <input id="input-nome" class="form-control" type="text" name="nome"
+            value = "<?php
+            if($id>0){
+              echo $produto[1];
+            }
+            ?>"
+          required>
         </div>
       </div>
 
       <!-- Preço -->
       <div class="form-group">
         <label class="obrigatorio" for="input-email">Preço:</label>
-          <input id="input-email" class="form-control" type="text" name="preco" required>
+          <input id="input-email" class="form-control" type="text" name="preco"
+          value = "<?php
+          if($id>0)
+            echo $produto[2];
+          ?>"
+          required>
         </div>
       </div>
 
@@ -78,7 +112,12 @@ $categories = get_categories($db_connection);
       <div class="form-group">
         <label for="input-descricao">Descrição:</label>
         <div class="input-group">
-          <textarea id="input-descricao" class="form-control" rows="8" name="descricao"></textarea>
+          <textarea id="input-descricao" class="form-control" rows="8" name="descricao">
+            <?php
+            if($id>0)
+              echo $produto[3];
+            ?>
+          </textarea>
         </div>
       </div>
 
@@ -92,7 +131,7 @@ $categories = get_categories($db_connection);
       </button>
     </form>
   </main>
-
+  <?php require 'footer.php' ?>
 
 </body>
 
