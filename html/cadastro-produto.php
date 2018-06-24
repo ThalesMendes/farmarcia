@@ -22,8 +22,8 @@ function get_product($db_connection, $id){
   return $product;
 }
 $id = 1;
-$categories = get_categories($db_connection, $id);
-$produto = get_product($db_connection);
+$categories = get_categories($db_connection);
+$produto = get_product($db_connection, $id);
 
 ?>
 <!doctype html>
