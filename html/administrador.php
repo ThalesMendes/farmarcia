@@ -1,4 +1,5 @@
 <?php
+  require 'check_login.php';
   require 'functions.php';
   require 'db_connection.php';
   require 'product_list_model.php';
