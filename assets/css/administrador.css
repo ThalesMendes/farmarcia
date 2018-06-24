@@ -32,7 +32,6 @@ td{
 }
 
 th{
-  width: 170px;
   height: 50px;
 }
 
@@ -41,7 +40,7 @@ img{
 }
 
 .checkbox{
-  width: 122px !important;
+  width: 16% !important;
 }
 
 .nome{
@@ -53,9 +52,10 @@ img{
 }
 
 .preco{
-  width: 12,5% !important;
+  width: 12% !important;
+  text-align: left;
 }
 
 .editar{
-  width: 6% !important;
+  width: 7% !important;
 }
