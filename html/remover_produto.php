@@ -6,8 +6,8 @@
     include("db_connection.php");
 
     for( $i = 0; $i<sizeof($checkbox);$i++){
-      $db_connection->query("DELETE * FROM 'produto' WHERE `produto`.`id` = '" . $checkbox[$i] . "'");
+      echo $db_connection->query("DELETE FROM `produto` WHERE `id` = '" . $checkbox[$i] . "'");
     }
-    header("Location: administrador.php");
-  } else echo 'loser';
+  }
+  header("Location: administrador.php");
 ?>

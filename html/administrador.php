@@ -80,7 +80,7 @@
     </div>
 
     <!--tabela de produtos-->
-    <form method"POST" action="remover_produto.php">
+    <form method="POST" action="remover_produto.php">
       <div class="tabela-produtos container col-lg-11 col-md-11">
         <?php if (!empty($products)): ?>
           <table class="table">

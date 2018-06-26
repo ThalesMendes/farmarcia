@@ -20,9 +20,10 @@ h1{
 }
 
 .deslogar{
-  position: absolute;
+  position: absolute !important;
+  right:0;
+  margin-right: 2%;
   color: rgb(226, 76, 76);
-  margin-left: 90%; 
 }
 
 td{
