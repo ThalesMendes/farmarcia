@@ -23,7 +23,7 @@
       $result = $this->db_connection->query(
         "SELECT *
          FROM `Produto`
-         ORDER BY `id` ASC
+         ORDER BY `id` DESC
          LIMIT " . $index . "," . $count . ";");
 
       $products = array();
@@ -99,7 +99,7 @@
                     <div class="col-lg-6 descricao-slideshow">
                       <div>
                         <h3><?= $product['nome']; ?></h3>
-                        <p><?= limit_text($product['descricao'], SLIDESHOW_DESCRIPTION_CHAR_LIMIT); ?></p>
+                        <p class="descricao-produto"><?= limit_text($product['descricao'], SLIDESHOW_DESCRIPTION_CHAR_LIMIT); ?></p>
                       </div>
 
                       <a href="pagina-produto.php?id=<?= $product['id']; ?>">

@@ -1,4 +1,4 @@
-<footer class="bg-dark text-white footer">
+<footer class="bg-dark text-white">
   <div class="container">
     <div class="pt-2 mb-3 text-center justify-content-center">
       <h6 class="text-uppercase font-weight-bold">
@@ -35,6 +35,10 @@
     </div>
 
     <div class="text-center">
+      <a class="admin" href="../html/login.php">Administrador</a>
+    </div>
+
+    <div class="text-center">
       Copyright © 2018 Farmárcia
     </div>
   </div>
@@ -43,3 +47,4 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+

@@ -119,7 +119,6 @@ $mensagem=0;
   </main>
 
   <?php require 'footer.php' ?>
-
 </body>
 
 </html>
