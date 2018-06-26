@@ -14,6 +14,18 @@
     $products = $product_list_model->get_products($sort_sql, NULL, $search_text);
   } else
     $products = $product_list_model->get_default_products($sort_sql, NULL);
+
+  function remover_produto(){
+
+    $deletar = $checkbox;
+    include_once("db_connection.php");
+ 
+     foreach(  $deletar as $checkbox ){
+         $db_connection->query(" DELETE * FROM Produto WHERE id = '$deletar' " );
+     }
+
+     header("Location: administrador.php");
+  }
 ?>
 
 <!doctype html>
@@ -67,52 +79,57 @@
       </a>
     </div>
 
-    <div class="tabela-produtos container col-lg-11 col-md-11">
-      <?php if (!empty($products)): ?>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col" class="checkbox">
-                <input type="checkbox" name="select-all" id="select-all">
-                Selec. Todos
-              </th>
-              <th scope="col" class="nome">Nome</th>
-              <th scope="col" class="descricao">Descrição</th>
-              <th scope="col" class="preco">Preço</th>
-              <th scope="col" class="editar">Editar</th>
-            </tr>
-          </thead>
-        </table>
-          <?php foreach ($products as $product): ?>
-            <?php
-              $product_id = $product['id'];
-              $product_name = $product['nome'];
-              $product_price = $product['preco'];
-              $product_image = $product['imagem'];
-              $product_descricao = $product['descricao']
-            ?>
-            <!-- Produto -->
-            <div>
-              <?php require 'administrador_produto_template.php'; ?>
-            </div>
-            <!-- Produto -->
-          <?php endforeach; ?>
-      <?php else: ?>
-        <p class="nenhum-produto">Nenhum produto encontrado!</p>
-      <?php endif; ?>
-    </div>
-    <!-- Lista de produtos -->
+    <!--tabela de produtos-->
+    <form method"POST" action="remover_produto.php">
+      <div class="tabela-produtos container col-lg-11 col-md-11">
+        <?php if (!empty($products)): ?>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col" class="checkbox">
+                  <input type="checkbox" name="select-all" id="select-all">
+                  Selec. Todos
+                </th>
+                <th scope="col" class="nome">Nome</th>
+                <th scope="col" class="descricao">Descrição</th>
+                <th scope="col" class="preco">Preço</th>
+                <th scope="col" class="editar">Editar</th>
+              </tr>
+            </thead>
+          </table>
+            <?php foreach ($products as $product): ?>
+              <?php
+                $product_id = $product['id'];
+                $product_name = $product['nome'];
+                $product_price = $product['preco'];
+                $product_image = $product['imagem'];
+                $product_descricao = $product['descricao']
+              ?>
+              <!-- Produto -->
+              <div>
+                <?php require 'administrador_produto_template.php'; ?>
+              </div>
+              <!-- Produto -->
+            <?php endforeach; ?>
+        <?php else: ?>
+          <p class="nenhum-produto">Nenhum produto encontrado!</p>
+        <?php endif; ?>
+      </div>
 
-    <div class="text-right">
-      <button class="btn btn-danger btn-enviar" type="submit">
-        Remover
-        <i class="fas fa-trash-alt"></i>
-      </button>
-    </div>
+      <div class="text-right">
+        <button name="remover" class="btn btn-danger btn-enviar" type="submit">
+          Remover
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    </form>
+    <!--tabela de produtos-->
   </main>
 
+  <?php require 'footer.php' ?>
+
   <!--script do checkbox-->
-  <script
+  <script>
     type="text/javascript"
     src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
     
@@ -128,11 +145,15 @@
           });
       }
   });
-  }
+
+  //$('#remover').click(function(event)){
+    
+
+  //};
+
   </script>
   <!--script do checkbox-->
 
-  <?php require 'footer.php' ?>
 </body>
 
 </html>

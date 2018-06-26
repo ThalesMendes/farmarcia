@@ -1,10 +1,13 @@
 <?php
-   $deletar = $_POST["checkbox"];
-   include_once("db_connection.php");
+  if(isset($_POST['checkbox'])){
 
-    foreach(  $deletar as $checkbox ){
-        $db_connection->query(" DELETE * FROM Produto WHERE id = '$deletar' " );
+    $checkbox = $_POST['checkbox'];
+
+    include("db_connection.php");
+
+    for( $i = 0; $i<sizeof($checkbox);$i++){
+      $db_connection->query("DELETE * FROM 'produto' WHERE `produto`.`id` = '" . $checkbox[$i] . "'");
     }
-
     header("Location: administrador.php");
+  } else echo 'loser';
 ?>
