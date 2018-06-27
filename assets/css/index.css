@@ -71,6 +71,7 @@
 }
 
 .descricao-slideshow h3 {
+  margin-bottom: 0;
   font-size: 2em;
 }
 /* Slideshow */
@@ -134,10 +135,6 @@
   align-items: center;
 
   flex-grow: 1;
-}
-
-.preco {
-  color: #888;
 }
 /* Produtos em destaque */
 

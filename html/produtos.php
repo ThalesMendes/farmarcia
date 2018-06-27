@@ -1,6 +1,7 @@
 <?php
   require 'functions.php';
   require 'product_list_model.php';
+  require 'product_model.php';
 
   class sort_type {
     private $name;
@@ -48,6 +49,8 @@
   }
 
   require 'db_connection.php';
+
+  $product_model = new product_model($db_connection);
 
   $product_list_model = new product_list_model($db_connection);
   $categories = $product_list_model->get_categories();
@@ -167,6 +170,7 @@
               $product_name = $product['nome'];
               $product_price = $product['preco'];
               $product_image = $product['imagem'];
+              $product_category = $product_model->get_category_name($product['Categoria_id']);
             ?>
 
             <!-- Produto -->

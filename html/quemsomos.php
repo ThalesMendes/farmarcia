@@ -17,7 +17,7 @@
 <body>
   <?php require 'navbar.php' ?>
 
-  <div class="container" style="margin-top:30px">
+  <main class="container" style="margin-top:30px">
     <div class="row">
       <div class="col-md-12">
         <div class="jumbotron pb-3 pt-3">
@@ -69,7 +69,7 @@
       </div>
       <br>
     </div>
-  </div>
+  </main>
 
   <?php require 'footer.php' ?>
 

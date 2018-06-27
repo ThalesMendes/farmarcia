@@ -1,5 +1,6 @@
 <?php
   require 'functions.php';
+  require 'product_model.php';
 
   class home_model {
     private const PROMO_PRODUCTS_COUNT = 3;
@@ -37,6 +38,8 @@
   }
 
   require 'db_connection.php';
+
+  $product_model = new product_model($db_connection);
 
   $home_model = new home_model($db_connection);
   $promo_products = $home_model->get_promo_products();
@@ -99,6 +102,7 @@
                     <div class="col-lg-6 descricao-slideshow">
                       <div>
                         <h3><?= $product['nome']; ?></h3>
+                        <p><?= $product_model->get_category_name($product['Categoria_id']); ?></p>
                         <p class="descricao-produto"><?= limit_text($product['descricao'], SLIDESHOW_DESCRIPTION_CHAR_LIMIT); ?></p>
                       </div>
 
@@ -145,6 +149,7 @@
               $product_name = $product['nome'];
               $product_price = $product['preco'];
               $product_image = $product['imagem'];
+              $product_category = $product_model->get_category_name($product['Categoria_id']);
             ?>
 
             <!-- Produto -->

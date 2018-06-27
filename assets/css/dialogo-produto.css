@@ -64,6 +64,11 @@
   width: 75%;
 }
 
-.preco {
+.categoria-item {
+  margin-bottom: 0;
   color: #888;
+}
+
+.preco {
+  color: #555;
 }
