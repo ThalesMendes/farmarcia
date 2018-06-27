@@ -21,7 +21,7 @@ function get_product($db_connection, $id){
   $product = $result->fetch_row();
   return $product;
 }
-$id = 1;
+$id = $_GET['id'];
 $categories = get_categories($db_connection);
 $produto = get_product($db_connection, $id);
 
@@ -50,7 +50,7 @@ $produto = get_product($db_connection, $id);
     <form class="form-centro" method="post" action="
     <?php
       if($id>0)
-        echo "atualizar-produto.php" ;
+        echo "atualizar-produto.php";
       else
         echo "cadastrar-produto.php";
      ?>">

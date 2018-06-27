@@ -13,4 +13,6 @@
                 imagem = '$imagem', Categoria_id = '$categoria' WHERE id = '$id'";
 
   $resultado = mysqli_query($db_connection, $atualizar);
+
+  header("Location: administrador.php ");
 ?>

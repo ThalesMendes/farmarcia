@@ -19,7 +19,6 @@ $mensagem=0;
 <body>
   <?php require 'navbar.php' ?>
 
-
   <main class="container">
     <h1>Contato</h1>
 
