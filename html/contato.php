@@ -1,4 +1,4 @@
-<?php 
+<?php
 $mensagem=0;
 @$mensagem= $_REQUEST['mensagem'];
 ?>
@@ -7,12 +7,9 @@ $mensagem=0;
 <html lang="pt-br">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Farmárcia - Contato</title>
+  <?php require 'head.php'; ?>
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-    crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
     crossorigin="anonymous">
   <link rel="stylesheet" href="../assets/css/contato.css">
@@ -21,8 +18,8 @@ $mensagem=0;
 
 <body>
   <?php require 'navbar.php' ?>
- 
-  
+
+
   <main class="container">
     <h1>Contato</h1>
 

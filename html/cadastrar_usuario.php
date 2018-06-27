@@ -22,9 +22,7 @@ if($btnCadUsuario){
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
-<meta charset="utf-8" />
- <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <?php include 'head.php'; ?>
 
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
