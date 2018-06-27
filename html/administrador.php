@@ -14,6 +14,7 @@
     $products = $product_list_model->get_products($sort_sql, NULL, $search_text);
   } else
     $products = $product_list_model->get_default_products($sort_sql, NULL);
+
 ?>
 
 <!doctype html>
@@ -33,12 +34,16 @@
 </head>
 
 <body>
+  <?php require 'navbar.php' ?>
+
   <main class="container">
-      <h1>Administrador</h1>
-      <form class="form-group pt-2">
+  <a class="deslogar" href="logout.php">Sair</a>
+    <h1>Administrador</h1>
+
+    <!--barra de pesquisa-->
+    <form class="form-group pt-2">
       <div class="input-group">
         <input class="form-control" type="search" name="pesquisa" value="<?= $search_text; ?>" placeholder="Procurar produtos">
-
           <div class="input-group-append">
             <button class="btn btn-danger" type="submit">
               <i class="fas fa-search"></i>
@@ -46,45 +51,52 @@
           </div>
       </div>
     </form>
+    <!--barra de pesquisa-->
+
     <div class="container text-right">
-	      <a href="cadastrar_usuario.php">
-        <button class="btn btn-danger btn-lg btn-enviar" type="submit">
-          Adicionar novo usuario
-          <i class="fas fa-plus-circle"></i>
-        </button>
-      </a>
+
+      <?php if ($_SESSION && $_SESSION['login'] == "admin@admin"): ?>
+        <a href="cadastrar_usuario.php">
+          <button class="btn btn-danger btn-enviar" type="submit">
+            Adicionar novo usuario
+            <i class="fas fa-plus-circle"></i>
+          </button>
+        </a>
+      <?php endif; ?>
+
       <a  href="cadastro-produto.php">
-        <button class="btn btn-danger btn-lg btn-enviar"  type="submit">
+        <button class="btn btn-danger btn-enviar"  type="submit">
           Adicionar Produto
           <i class="fas fa-plus-circle"></i>
         </button>
       </a>
       <a href="cadastro-categoria.php">
-        <button class="btn btn-danger btn-lg btn-enviar" type="submit">
+        <button class="btn btn-danger btn-enviar" type="submit">
           Adicionar Categoria
           <i class="fas fa-plus-circle"></i>
         </button>
       </a>
     </div>
 
-    <!--<i class="fas fa-edit"></i>  botão de editar-->
-    <div class="lista-produtos container col-lg-11 col-md-11">
-      <?php if (!empty($products)): ?>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                Selec. Todos
-              </th>
-              <th scope="col">Nome</th>
-              <th scope="col">Descrição</th>
-              <th scope="col">Preço</th>
-              <th scope="col">Editar</th>
-            </tr>
-          </thead>
-        </table>
-          <?php foreach ($products as $product): ?>
+    <!--tabela de produtos-->
+    <form method="POST" action="remover_produto.php">
+      <div class="tabela-produtos container col-lg-11 col-md-11">
+        <?php if (!empty($products)): ?>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col" class="checkbox">
+                  <input type="checkbox" name="select-all" id="select-all">
+                  Selec. Todos
+                </th>
+                <th scope="col" class="nome">Nome</th>
+                <th scope="col" class="descricao">Descrição</th>
+                <th scope="col" class="preco">Preço</th>
+                <th scope="col" class="editar">Editar</th>
+              </tr>
+            </thead>
+          </table>
+            <?php foreach ($products as $product): ?>
               <?php
                 $product_id = $product['id'];
                 $product_name = $product['nome'];
@@ -93,30 +105,49 @@
                 $product_descricao = $product['descricao']
               ?>
               <!-- Produto -->
-              <div class="">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                </div>
-                <?php require 'administrador_template.php'; ?>
+              <div>
+                <?php require 'administrador_produto_template.php'; ?>
               </div>
               <!-- Produto -->
-          <?php endforeach; ?>
-      <?php else: ?>
+            <?php endforeach; ?>
+        <?php else: ?>
+          <p class="nenhum-produto">Nenhum produto encontrado!</p>
+        <?php endif; ?>
+      </div>
 
-        <p class="nenhum-produto">Nenhum produto encontrado!</p>
-
-      <?php endif; ?>
-    </div>
-    <!-- Lista de produtos -->
-
-    <div class="text-right">
-      <button class="btn btn-danger btn-lg btn-enviar" type="submit">
-        Remover
-        <i class="fas fa-trash-alt"></i>
-      </button>
-    </div>
-
+      <div class="text-right">
+        <button name="remover" class="btn btn-danger btn-enviar" type="submit">
+          Remover
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    </form>
+    <!--tabela de produtos-->
   </main>
+
+  <?php require 'footer.php' ?>
+
+  <!--script do checkbox-->
+  <script>
+    type="text/javascript"
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+
+    $('#select-all').click(function(event) {
+      if(this.checked) {
+          // Iterate each checkbox
+          $(':checkbox').each(function() {
+              this.checked = true;
+          });
+      } else {
+          $(':checkbox').each(function() {
+              this.checked = false;
+          });
+      }
+  });
+
+  </script>
+  <!--script do checkbox-->
+
 </body>
 
 </html>

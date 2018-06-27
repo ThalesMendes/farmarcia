@@ -9,4 +9,6 @@
                 SET nome = '$nome' WHERE id = '$id'";
 
   $resultado = mysqli_query($db_connection, $atualizar);
+
+  header("Location: administrador.php ");
 ?>

@@ -19,7 +19,8 @@
     // redireciona
     if (empty($row)) {
       header("Location: login.php?erro=1");
-    } else {
+    } 
+    else {
       $_SESSION['login'] = $user;
       $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
 
