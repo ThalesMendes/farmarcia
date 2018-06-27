@@ -17,7 +17,7 @@
 <body>
   <?php require 'navbar.php' ?>
 
-  <main class="container mb-5">
+  <main class="container">
     <h1>Localização</h1>
 
     <div class="row">
