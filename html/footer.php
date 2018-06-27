@@ -35,7 +35,9 @@
     </div>
 
     <div class="text-center">
-      <a class="admin" href="../html/login.php">Administrador</a>
+      <a class="admin" href="../html/login.php">
+       <i class="fas fa-lock fa-2x"></i>
+      </a>
     </div>
 
     <div class="text-center">

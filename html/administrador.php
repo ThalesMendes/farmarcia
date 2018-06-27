@@ -19,7 +19,7 @@
 
     $deletar = $checkbox;
     include_once("db_connection.php");
- 
+
      foreach(  $deletar as $checkbox ){
          $db_connection->query(" DELETE * FROM Produto WHERE id = '$deletar' " );
      }
@@ -132,22 +132,22 @@
   <script>
     type="text/javascript"
     src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-    
-    $('#select-all').click(function(event) {   
+
+    $('#select-all').click(function(event) {
       if(this.checked) {
           // Iterate each checkbox
           $(':checkbox').each(function() {
-              this.checked = true;                        
+              this.checked = true;
           });
       } else {
           $(':checkbox').each(function() {
-              this.checked = false;                       
+              this.checked = false;
           });
       }
   });
 
   //$('#remover').click(function(event)){
-    
+
 
   //};
 

@@ -3,16 +3,8 @@
   font-size: 3em;
 }
 
-.btn{
-  margin-bottom: 4%;
-}
-
 .tabela-produtos{
   margin: 10px !important;
-}
-
-.form-group{
-  width: 40% !important;
 }
 
 h1{
@@ -58,4 +50,8 @@ img{
 
 .editar{
   width: 7% !important;
+}
+
+main {
+  margin-bottom: 1rem;
 }
