@@ -45,7 +45,7 @@
 </head>
 
 <body>
-<?php require 'navbar.php' ?>
+  <?php require 'navbar.php' ?>
 
   <main class="container">
   <a class="deslogar" href="logout.php">Sair</a>
@@ -65,14 +65,18 @@
     <!--barra de pesquisa-->
 
     <div class="container text-right">
-	      <a href="cadastrar_usuario.php">
-        <button class="btn btn-danger btn-lg btn-enviar" type="submit">
-          Adicionar novo usuario
-          <i class="fas fa-plus-circle"></i>
-        </button>
-      </a>
+
+      <?php if ($_SESSION && $_SESSION['login'] == "admin@admin"): ?>
+        <a href="cadastrar_usuario.php">
+          <button class="btn btn-danger btn-enviar" type="submit">
+            Adicionar novo usuario
+            <i class="fas fa-plus-circle"></i>
+          </button>
+        </a>
+      <?php endif; ?>
+
       <a  href="cadastro-produto.php">
-        <button class="btn btn-danger btn-lg btn-enviar"  type="submit">
+        <button class="btn btn-danger btn-enviar"  type="submit">
           Adicionar Produto
           <i class="fas fa-plus-circle"></i>
         </button>
@@ -151,11 +155,6 @@
           });
       }
   });
-
-  //$('#remover').click(function(event)){
-
-
-  //};
 
   </script>
   <!--script do checkbox-->
