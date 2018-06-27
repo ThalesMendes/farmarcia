@@ -10,7 +10,7 @@
     $categoria = $result->fetch_row();
     return $categoria;
   }
-  $id = 1;
+  $id = $_GET['id'];
   $categoria = get_categoria($db_connection, $id);
 ?>
 
