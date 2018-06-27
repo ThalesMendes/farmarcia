@@ -47,6 +47,12 @@
       </div>
     </form>
     <div class="container text-right">
+	      <a href="cadastrar_usuario.php">
+        <button class="btn btn-danger btn-lg btn-enviar" type="submit">
+          Adicionar novo usuario
+          <i class="fas fa-plus-circle"></i>
+        </button>
+      </a>
       <a  href="cadastro-produto.php">
         <button class="btn btn-danger btn-lg btn-enviar"  type="submit">
           Adicionar Produto
