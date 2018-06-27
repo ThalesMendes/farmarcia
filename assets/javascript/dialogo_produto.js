@@ -1,3 +1,5 @@
+var lockPopstate = false;
+
 $('#modal-produto').on('show.bs.modal', function (e) {
   $(this).find('.modal-content').load(e.relatedTarget.getAttribute('dialogo-src'));
 });
@@ -7,6 +9,17 @@ $(".modal").on("shown.bs.modal", function() {
   history.pushState(null, null, urlReplace);
 });
 
+$(".modal").on("hidden.bs.modal", function() {
+  lockPopstate = true;
+  history.back();
+  lockPopstate = false;
+});
+
 $(window).on('popstate', function() {
-  $(".modal").modal('hide');
+  if (!lockPopstate) {
+    lockPopstate = true;
+    history.forward();
+    lockPopstate = false;
+    $(".modal").modal('hide');
+  }
 });
