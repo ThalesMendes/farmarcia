@@ -4,6 +4,18 @@
   require 'db_connection.php';
   require 'product_list_model.php';
 
+  function get_products_count($db_connection, $category_id) {
+    $sql = "SELECT
+            COUNT(*) AS 'count'
+            FROM `produto`
+            WHERE `Categoria_id` = $category_id;";
+
+    $result = $db_connection->query($sql);
+    $data = $result->fetch_assoc();
+
+    return $data['count'];
+  }
+
   $sort_sql = "`id` DESC";
   $products = NULL;
   $search_text = NULL;
@@ -15,6 +27,7 @@
   } else
     $products = $product_list_model->get_default_products($sort_sql, NULL);
 
+  $categories = $product_list_model->get_categories();
 ?>
 
 <!doctype html>
@@ -72,7 +85,7 @@
     </div>
 
     <!--tabela de produtos-->
-    <form method="POST" action="remover_produto.php">
+    <form method="POST" action="remover_produto.php" style="display: none">
       <div class="tabela-produtos container col-lg-11 col-md-11">
         <?php if (!empty($products)): ?>
           <table class="table">
@@ -116,15 +129,39 @@
       </div>
     </form>
     <!--tabela de produtos-->
+
+    <!-- Tabela de categorias -->
+    <form>
+      <table class="table-categoria">
+        <thead>
+          <tr>
+            <th>Selec. Todos</th>
+            <th class="categoria-id">Id</th>
+            <th>Nome</th>
+            <th class="categoria-num-produtos">Nº de produtos</th>
+            <th>Editar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($categories as $category): ?>
+            <?php
+              $category_id = $category['id'];
+              $category_name = $category['nome'];
+              $product_count = get_products_count($db_connection, $category_id);
+
+              include 'administrador_categoria_template.php';
+            ?>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+    </form>
+    <!-- Tabela de categorias -->
   </main>
 
-  <?php require 'footer.php' ?>
+  <?php require 'footer.php'; ?>
 
   <!--script do checkbox-->
   <script>
-    type="text/javascript"
-    src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-
     $('#select-all').click(function(event) {
       if(this.checked) {
           // Iterate each checkbox
@@ -136,11 +173,9 @@
               this.checked = false;
           });
       }
-  });
-
+    });
   </script>
   <!--script do checkbox-->
-
 </body>
 
 </html>
