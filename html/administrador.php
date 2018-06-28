@@ -70,7 +70,7 @@
         </a>
       <?php endif; ?>
 
-      <a  href="cadastro-produto.php?id=0">
+      <a href="cadastro-produto.php?id=0">
         <button class="btn btn-danger btn-enviar"  type="submit">
           Adicionar Produto
           <i class="fas fa-plus-circle"></i>
@@ -85,7 +85,7 @@
     </div>
 
     <!--tabela de produtos-->
-    <form method="POST" action="remover_produto.php" style="display: none">
+    <form method="POST" action="remover_produto.php">
       <div class="tabela-produtos container col-lg-11 col-md-11">
         <?php if (!empty($products)): ?>
           <table class="table">
