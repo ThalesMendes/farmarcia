@@ -57,13 +57,13 @@
         </a>
       <?php endif; ?>
 
-      <a  href="cadastro-produto.php">
+      <a  href="cadastro-produto.php?id=0">
         <button class="btn btn-danger btn-enviar"  type="submit">
           Adicionar Produto
           <i class="fas fa-plus-circle"></i>
         </button>
       </a>
-      <a href="cadastro-categoria.php">
+      <a href="cadastro-categoria.php?id=0">
         <button class="btn btn-danger btn-enviar" type="submit">
           Adicionar Categoria
           <i class="fas fa-plus-circle"></i>
