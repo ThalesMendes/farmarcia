@@ -29,10 +29,6 @@ if($btnCadUsuario){
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
-    crossorigin="anonymous">
-    <link rel="stylesheet" href="../assets/css/comum.css">
-
     <title> Cadastro de Usuário </title>
 
 	</head>
