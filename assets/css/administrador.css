@@ -60,6 +60,10 @@ img{
 .table-categoria tbody tr:nth-child(even) {
   background-color: #f0f0f0;
 }
+
+.btn-ok {
+  padding: .5em 3em;
+}
 /* Listagem de categorias */
 
 main {

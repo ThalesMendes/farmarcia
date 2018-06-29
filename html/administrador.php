@@ -130,44 +130,93 @@
     </form>
     <!--tabela de produtos-->
 
+    <h2>Categorias</h2>
+    <form action="remover-categoria.php">
+      <!-- Tabela de categorias -->
+      <table class="table-categoria table">
+        <thead>
+          <tr>
+            <th>
+              <input type="checkbox" class="select-all" checkbox-target="checkbox-categoria">
+              Selec. Todos
+            </th>
+            <th>Id</th>
+            <th>Nome</th>
+            <th class="categoria-num-produtos">Nº de produtos</th>
+            <th>Editar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($categories as $category): ?>
+            <?php
+              $category_id = $category['id'];
+              $category_name = $category['nome'];
+              $product_count = get_products_count($db_connection, $category_id);
 
-  <h2>Categorias</h2>
-    <!-- Tabela de categorias -->
-    <table class="table-categoria table">
-      <thead>
-        <tr>
-          <th>
-            <input type="checkbox" class="select-all" checkbox-target="checkbox-categoria">
-            Selec. Todos
-          </th>
-          <th>Id</th>
-          <th>Nome</th>
-          <th class="categoria-num-produtos">Nº de produtos</th>
-          <th>Editar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach ($categories as $category): ?>
-          <?php
-            $category_id = $category['id'];
-            $category_name = $category['nome'];
-            $product_count = get_products_count($db_connection, $category_id);
+              include 'administrador_categoria_template.php';
+            ?>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+      <!-- Tabela de categorias -->
 
-            include 'administrador_categoria_template.php';
-          ?>
-        <?php endforeach; ?>
-      </tbody>
-    </table>
-    <!-- Tabela de categorias -->
+      <!-- Remover categorias -->
+      <div class="text-right">
+        <button type="button" id="remover-categoria-btn" class="btn btn-danger btn-enviar" data-toggle="modal">
+          Remover categorias
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+      <!-- Remover categorias -->
 
-    <!-- Remover categorias -->
-    <a class="text-right">
-      <button class="btn btn-danger btn-enviar" type="submit">
-        Remover categorias
-        <i class="fas fa-trash-alt"></i>
-      </button>
-    </a>
-    <!-- Remover categorias -->
+      <!-- Diálogo de remoção de categoria -->
+      <div id="remover-categoria-modal" class="modal fade" role="dialog" tabindex="-1">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Remover categorias</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+              <p><strong>Todos os produtos contidos nas categorias selecionadas serão deletados.
+              Tem certeza de que quer continuar?</strong></p>
+            </div>
+
+            <div class="modal-footer">
+              <button type="submit" class="btn">Remover</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Diálogo de remoção de categoria -->
+
+      <!-- Diálogo nenhuma categoria selecionada -->
+      <div id="nenhuma-categoria-modal" class="modal fade" role="dialog" tabindex="-1">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Remover categorias</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+              <p>Nenhuma categoria selecionada.</p>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn-ok btn btn-danger" data-dismiss="modal">Ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Diálogo nenhuma categoria selecionada -->
+    </form>
   </main>
 
   <?php require 'footer.php'; ?>
@@ -179,6 +228,14 @@
       $(':checkbox.' + this.getAttribute("checkbox-target")).each(function() {
         this.checked = check_value;
       });
+    });
+
+    $('#remover-categoria-btn').click(function() {
+      if ($('.checkbox-categoria:checked').length > 0) {
+        $(this).attr('data-target', '#remover-categoria-modal');
+      } else {
+        $(this).attr('data-target', '#nenhuma-categoria-modal');
+      }
     });
   </script>
   <!--script do checkbox-->
