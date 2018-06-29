@@ -1,6 +1,6 @@
 <tr>
-  <td><input type="checkbox"></td>
-  <td class="categoria-id"><?= $category_id; ?></td>
+  <td><input class="checkbox-categoria" type="checkbox" name="categoria[]" value="<?= $category_id; ?>"></td>
+  <td><?= $category_id; ?></td>
   <td><?= $category_name; ?></td>
   <td class="categoria-num-produtos"><?= $product_count; ?></td>
   <td>

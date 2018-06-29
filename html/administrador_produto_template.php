@@ -2,7 +2,7 @@
   <tbody>
     <tr>
       <td class="checkbox">
-        <input type="checkbox" name="checkbox[]" value="<?=$product_id?>">
+        <input type="checkbox" name="checkbox[]" value="<?=$product_id?>" class="checkbox-produto">
         <!-- Imagem -->
         <a class="produto-img-container" href="pagina-produto.php?id=<?= $product_id; ?>" dialogo-src="dialogo-produto.php?id=<?= $product_id; ?>" data-toggle="modal" data-target="#modal-produto">
           <img src="<?= get_image_path($product_image);?>" width="30px" heigth="75px" alt="Foto do produto">

@@ -92,7 +92,7 @@
             <thead>
               <tr>
                 <th scope="col" class="checkbox">
-                  <input type="checkbox" name="select-all" id="select-all">
+                  <input type="checkbox" name="select-all" class="select-all" checkbox-target="checkbox-produto">
                   Selec. Todos
                 </th>
                 <th scope="col" class="nome">Nome</th>
@@ -130,49 +130,55 @@
     </form>
     <!--tabela de produtos-->
 
-    <!-- Tabela de categorias -->
-    <form>
-      <table class="table-categoria">
-        <thead>
-          <tr>
-            <th>Selec. Todos</th>
-            <th class="categoria-id">Id</th>
-            <th>Nome</th>
-            <th class="categoria-num-produtos">Nº de produtos</th>
-            <th>Editar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach ($categories as $category): ?>
-            <?php
-              $category_id = $category['id'];
-              $category_name = $category['nome'];
-              $product_count = get_products_count($db_connection, $category_id);
 
-              include 'administrador_categoria_template.php';
-            ?>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
-    </form>
+  <h2>Categorias</h2>
     <!-- Tabela de categorias -->
+    <table class="table-categoria table">
+      <thead>
+        <tr>
+          <th>
+            <input type="checkbox" class="select-all" checkbox-target="checkbox-categoria">
+            Selec. Todos
+          </th>
+          <th>Id</th>
+          <th>Nome</th>
+          <th class="categoria-num-produtos">Nº de produtos</th>
+          <th>Editar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($categories as $category): ?>
+          <?php
+            $category_id = $category['id'];
+            $category_name = $category['nome'];
+            $product_count = get_products_count($db_connection, $category_id);
+
+            include 'administrador_categoria_template.php';
+          ?>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+    <!-- Tabela de categorias -->
+
+    <!-- Remover categorias -->
+    <a class="text-right">
+      <button class="btn btn-danger btn-enviar" type="submit">
+        Remover categorias
+        <i class="fas fa-trash-alt"></i>
+      </button>
+    </a>
+    <!-- Remover categorias -->
   </main>
 
   <?php require 'footer.php'; ?>
 
   <!--script do checkbox-->
   <script>
-    $('#select-all').click(function(event) {
-      if(this.checked) {
-          // Iterate each checkbox
-          $(':checkbox').each(function() {
-              this.checked = true;
-          });
-      } else {
-          $(':checkbox').each(function() {
-              this.checked = false;
-          });
-      }
+    $('.select-all').click(function(event) {
+      var check_value = this.checked;
+      $(':checkbox.' + this.getAttribute("checkbox-target")).each(function() {
+        this.checked = check_value;
+      });
     });
   </script>
   <!--script do checkbox-->

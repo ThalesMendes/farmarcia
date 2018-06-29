@@ -57,24 +57,8 @@ img{
   }
 }
 
-.table-categoria {
-  word-wrap: break-word;
-  width: 100%;
-}
-
-.table-categoria td,
-.table-categoria th {
-  padding: 5px;
-}
-
-.table-categoria td:first-child,
-.table-categoria th:first-child {
-  padding-left: 0;
-}
-
-.table-categoria td:last-child,
-.table-categoria th:last-child {
-  padding-right: 0;
+.table-categoria tbody tr:nth-child(even) {
+  background-color: #f0f0f0;
 }
 /* Listagem de categorias */
 
