@@ -24,10 +24,10 @@
           <h4>Fundada em 2000, a Farmárcia é uma drogaria de inovação e valores que visa o melhor atendimento ao cliente com
             o melhor preço.</h4>
         </div>
-
-        <img class="img-fluid" src="http://www.poa24horas.com.br/wp-content/uploads/2017/07/Reprod-Poa-24H-125.jpg">
-        <br>
-
+		<div align="center">
+        <img class="img-fluid" src="../assets/imgs/marcia.jpg">
+		</div>
+		<br>
         <div class="jumbotron pb-3 pt-3">
           <h5>História</h5>
 
