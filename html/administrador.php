@@ -131,7 +131,7 @@
     <!--tabela de produtos-->
 
     <h2>Categorias</h2>
-    <form action="remover-categoria.php">
+    <form action="remover-categoria.php" method="post">
       <!-- Tabela de categorias -->
       <table class="table-categoria table">
         <thead>
@@ -195,26 +195,12 @@
       <!-- Diálogo de remoção de categoria -->
 
       <!-- Diálogo nenhuma categoria selecionada -->
-      <div id="nenhuma-categoria-modal" class="modal fade" role="dialog" tabindex="-1">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Remover categorias</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-
-            <div class="modal-body">
-              <p>Nenhuma categoria selecionada.</p>
-            </div>
-
-            <div class="modal-footer">
-              <button type="button" class="btn-ok btn btn-danger" data-dismiss="modal">Ok</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <?php
+        $modal_id = 'nenhuma-categoria-modal';
+        $modal_title = 'Remover categorias';
+        $modal_text = 'Nenhuma categoria selecionada.';
+        require 'ok_modal_template.php';
+      ?>
       <!-- Diálogo nenhuma categoria selecionada -->
     </form>
   </main>
@@ -239,6 +225,23 @@
     });
   </script>
   <!--script do checkbox-->
+
+  <?php if (isset($_SESSION['remocao_categorias'])): ?>
+    <?php
+      unset($_SESSION['remocao_categorias']);
+
+      $modal_id = 'categoria-removida-modal';
+      $modal_title = 'Categorias removidas';
+      $modal_text = 'Categorias removidas com sucesso.';
+      require 'ok_modal_template.php';
+    ?>
+
+    <script>
+      $(window).on('load', function() {
+        $('#categoria-removida-modal').modal('show');
+      });
+    </script>
+  <?php endif; ?>
 </body>
 
 </html>
