@@ -195,6 +195,7 @@
 
   <?php require 'footer.php' ?>
   <script src="../assets/javascript/dialogo_produto.js"></script>
+  <script src="../assets/javascript/modal_voltar.js"></script>
 
 </body>
 

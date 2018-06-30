@@ -232,6 +232,8 @@
   </script>
   <!--script do checkbox-->
 
+  <script src="../assets/javascript/modal_voltar.js"></script>
+
   <?php if (isset($_SESSION['remocao_categorias'])): ?>
     <?php
       unset($_SESSION['remocao_categorias']);
