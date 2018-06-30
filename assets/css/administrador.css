@@ -1,6 +1,5 @@
 @media(max-width: 576px) {
   .categoria-num-produtos,
-  .descricao,
   .categoria,
   .preco {
     display: none;
@@ -12,7 +11,8 @@
 }
 
 @media(max-width: 768px) {
-  .tabela-produtos img {
+  .tabela-produtos img,
+  .descricao {
     display: none;
   }
 }
