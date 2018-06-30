@@ -27,7 +27,13 @@
   <?php require 'navbar.php' ?>
 
   <main class="container">
-    <h1>Cadastrar Categoria</h1>
+    <h1><?php
+    if($id>0){
+      echo "Editar";
+    } else {
+      echo "Cadastrar";
+    }
+    ?> Categoria</h1>
 
     <form class="form-centro" method="post" action="
     <?php

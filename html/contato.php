@@ -79,8 +79,11 @@ $mensagem=0;
             </div>
           </div>
 
-          <select id="input-assunto" class="custom-select" required>
-            <option selected>Outro</option>
+          <select id="input-assunto" class="custom-select" name="assunto" required>
+            <option selected>Duvidas</option>
+            <option>Reclamações</option>
+            <option>Estoque</option>
+            <option>Outros</option>
           </select>
         </div>
       </div>
@@ -114,4 +117,3 @@ $mensagem=0;
 </body>
 
 </html>
-

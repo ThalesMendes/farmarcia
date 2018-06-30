@@ -39,7 +39,13 @@ $produto = get_product($db_connection, $id);
   <?php require 'navbar.php' ?>
 
   <main class="container">
-    <h1>Cadastrar Produto</h1>
+    <h1><?php
+    if($id>0){
+      echo "Editar";
+    } else {
+      echo "Cadastrar";
+    }
+    ?> Produto</h1>
 
     <form class="form-centro" method="post" action="
     <?php
@@ -85,7 +91,13 @@ $produto = get_product($db_connection, $id);
           <select id="input-assunto" class="custom-select" name="categoria" required>
 
           <?php foreach ($categories as $category): ?>
-            <option name = "categoria" value="<?= $category['id']; ?>">
+            <option <?php
+                if($id>0){
+                  if($produto[5]==$category['id'])
+                    echo "selected";
+                }
+                ?>
+             name = "categoria" value="<?= $category['id']; ?>">
               <?= $category['nome']; ?>
           <?php endforeach; ?>
         </select>
@@ -122,6 +134,7 @@ $produto = get_product($db_connection, $id);
       <button class="btn btn-danger btn-lg btn-enviar" type="submit">
         Cadastrar
       </button>
+
     </form>
   </main>
   <?php require 'footer.php' ?>
