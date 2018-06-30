@@ -11,7 +11,6 @@
 	
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-	include_once('conexao.php');
 	$nome = $_POST['nome'];
 	$email = $_POST['email'];
 	$telefone = $_POST['telefone']; 
@@ -22,11 +21,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	'Telefone: ' . $telefone . '<br>' .
 	'Mensagem: ' . $mensagem . '<br>' ;
 	
-	$result_msg_contato = "INSERT INTO mensagens_contato(nome, email, telefone, mensagem) VALUES('$nome', '$email', '$telefone', '$mensagem')";
-	$resultado_msg_contatomsg_contato= mysqli_query($conn, $result_msg_contato);
-
-
-
     // Criação do Objeto da Classe PHPMailer
     $mail = new PHPMailer(true); 
 	$mail->CharSet="UTF-8";
@@ -83,7 +77,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Enviar E-mail
         $mail->send();
-        echo 'Mensagem enviada com sucesso';
+        header('Location: contato.php');
     } catch (Exception $e) {
         echo 'A mensagem não foi enviada pelo seguinte motivo: ', $mail->ErrorInfo;
 	}
