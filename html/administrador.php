@@ -125,7 +125,7 @@
 
       <div class="text-right">
         <button name="remover" class="btn btn-danger btn-enviar" type="submit">
-          Remover
+          Remover produtos
           <i class="fas fa-trash-alt"></i>
         </button>
       </div>
