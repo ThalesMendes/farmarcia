@@ -3,6 +3,7 @@
   require 'functions.php';
   require 'db_connection.php';
   require 'product_list_model.php';
+  require 'product_model.php';
 
   function get_products_count($db_connection, $category_id) {
     $sql = "SELECT
@@ -28,6 +29,7 @@
     $products = $product_list_model->get_default_products($sort_sql, NULL);
 
   $categories = $product_list_model->get_categories();
+  $product_model = new product_model($db_connection);
 ?>
 
 <!doctype html>
@@ -86,40 +88,40 @@
 
     <!--tabela de produtos-->
     <form method="POST" action="remover_produto.php">
-      <div class="tabela-produtos container col-lg-11 col-md-11">
-        <?php if (!empty($products)): ?>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col" class="checkbox">
-                  <input type="checkbox" name="select-all" class="select-all" checkbox-target="checkbox-produto">
-                  Selec. Todos
-                </th>
-                <th scope="col" class="nome">Nome</th>
-                <th scope="col" class="descricao">Descrição</th>
-                <th scope="col" class="preco">Preço</th>
-                <th scope="col" class="editar">Editar</th>
-              </tr>
-            </thead>
-          </table>
+      <?php if (!empty($products)): ?>
+        <table class="tabela-produtos table">
+          <thead>
+            <tr>
+              <th scope="col" class="checkbox">
+                <input type="checkbox" name="select-all" class="select-all" checkbox-target="checkbox-produto">
+                Selec. Todos
+              </th>
+              <th scope="col" class="nome">Nome</th>
+              <th class="categoria">Categoria</th>
+              <th scope="col" class="descricao">Descrição</th>
+              <th scope="col" class="preco">Preço</th>
+              <th scope="col" class="editar">Editar</th>
+            </tr>
+          </thead>
+          <tbody>
             <?php foreach ($products as $product): ?>
               <?php
                 $product_id = $product['id'];
                 $product_name = $product['nome'];
+                $product_category = $product_model->get_category_name($product['Categoria_id']);
                 $product_price = $product['preco'];
                 $product_image = $product['imagem'];
                 $product_descricao = $product['descricao']
               ?>
               <!-- Produto -->
-              <div>
-                <?php require 'administrador_produto_template.php'; ?>
-              </div>
+              <?php require 'administrador_produto_template.php'; ?>
               <!-- Produto -->
             <?php endforeach; ?>
-        <?php else: ?>
-          <p class="nenhum-item">Nenhum produto encontrado!</p>
-        <?php endif; ?>
-      </div>
+          </tbody>
+        </table>
+      <?php else: ?>
+        <p class="nenhum-item">Nenhum produto encontrado!</p>
+      <?php endif; ?>
 
       <div class="text-right">
         <button name="remover" class="btn btn-danger btn-enviar" type="submit">
