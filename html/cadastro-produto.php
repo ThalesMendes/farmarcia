@@ -1,25 +1,32 @@
 <?php
   require 'check_login.php';
   require 'db_connection.php';
-  function get_categories($db_connection) {
-        $result = $db_connection->query(
-          "SELECT *
-          FROM `Categoria`
-          ORDER BY `nome` ASC");
-        while ($row = $result->fetch_assoc()) {
-          $categories[] = $row;
-        }
-        $result->close();
-        return $categories;
-      }
+  function get_categories($db_connection)
+  {
+      $result = $db_connection->query(
+          'SELECT *
+          FROM `categoria`
+          ORDER BY `nome` ASC'
+      );
 
-function get_product($db_connection, $id){
-  $result = $db_connection->query(
-    "SELECT *
-     FROM `Produto`
-     WHERE id = '$id'");
-  $product = $result->fetch_row();
-  return $product;
+      $categories[] = $row;
+      if ($result !== false) {
+          while ($row = $result->fetch_assoc()) {
+              $categories[] = $row;
+          }
+      }
+      return $categories;
+  }
+
+function get_product($db_connection, $id)
+{
+    $result = $db_connection->query(
+        "SELECT *
+      FROM `croduto`
+      WHERE id = '$id'"
+    );
+
+    return $result ? $result->fetch_row() : null;
 }
 $id = $_GET['id'];
 $categories = get_categories($db_connection);
@@ -40,19 +47,20 @@ $produto = get_product($db_connection, $id);
 
   <main class="container">
     <h1><?php
-    if($id>0){
-      echo "Editar";
+    if ($id > 0) {
+        echo 'Editar';
     } else {
-      echo "Cadastrar";
+        echo 'Cadastrar';
     }
     ?> Produto</h1>
 
     <form class="form-centro" method="post" action="
     <?php
-      if($id>0)
-        echo "atualizar-produto.php";
-      else
-        echo "cadastrar-produto.php";
+      if ($id > 0) {
+          echo 'atualizar-produto.php';
+      } else {
+          echo 'cadastrar-produto.php';
+      }
      ?>">
       <!-- id -->
       <input type="hidden" name="id" value="<?= $id ?>">
@@ -62,8 +70,8 @@ $produto = get_product($db_connection, $id);
         <label class="obrigatorio" for="input-nome">Nome:</label>
           <input id="input-nome" class="form-control" type="text" name="nome"
             value = "<?php
-            if($id>0){
-              echo $produto[1];
+            if ($id > 0) {
+                echo $produto[1];
             }
             ?>"
           required>
@@ -75,8 +83,9 @@ $produto = get_product($db_connection, $id);
         <label class="obrigatorio" for="input-email">Preço:</label>
           <input id="input-email" class="form-control" type="text" name="preco"
           value = "<?php
-          if($id>0)
-            echo $produto[2];
+          if ($id > 0) {
+              echo $produto[2];
+          }
           ?>"
           required>
         </div>
@@ -92,9 +101,10 @@ $produto = get_product($db_connection, $id);
 
           <?php foreach ($categories as $category): ?>
             <option <?php
-                if($id>0){
-                  if($produto[5]==$category['id'])
-                    echo "selected";
+                if ($id > 0) {
+                    if ($produto[5] == $category['id']) {
+                        echo 'selected';
+                    }
                 }
                 ?>
              name = "categoria" value="<?= $category['id']; ?>">
@@ -119,8 +129,9 @@ $produto = get_product($db_connection, $id);
         <div class="input-group">
           <textarea id="input-descricao" class="form-control" rows="8" name="descricao">
             <?php
-            if($id>0)
-              echo $produto[3];
+            if ($id > 0) {
+                echo $produto[3];
+            }
             ?>
           </textarea>
         </div>

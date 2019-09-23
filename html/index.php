@@ -2,39 +2,48 @@
   require 'functions.php';
   require 'product_model.php';
 
-  class home_model {
-    private const PROMO_PRODUCTS_COUNT = 3;
-    private const HIGHLIGHTED_PRODUCTS_COUNT = 6;
+  class home_model
+  {
+      private const PROMO_PRODUCTS_COUNT = 3;
+      private const HIGHLIGHTED_PRODUCTS_COUNT = 6;
 
-    private $db_connection;
+      private $db_connection;
 
-    function __construct($db_connection) {
-      $this->db_connection = $db_connection;
-    }
-
-    public function get_promo_products() {
-      return $this->get_products(0, self::PROMO_PRODUCTS_COUNT);
-    }
-
-    public function get_highlighted_products() {
-      return $this->get_products(self::PROMO_PRODUCTS_COUNT, self::HIGHLIGHTED_PRODUCTS_COUNT);
-    }
-
-    private function get_products($index, $count) {
-      $result = $this->db_connection->query(
-        "SELECT *
-         FROM `Produto`
-         ORDER BY `id` DESC
-         LIMIT " . $index . "," . $count . ";");
-
-      $products = array();
-      while ($row = $result->fetch_assoc()) {
-        $products[] = $row;
+      public function __construct($db_connection)
+      {
+          $this->db_connection = $db_connection;
       }
-      $result->close();
 
-      return $products;
-    }
+      public function get_promo_products()
+      {
+          return $this->get_products(0, self::PROMO_PRODUCTS_COUNT);
+      }
+
+      public function get_highlighted_products()
+      {
+          return $this->get_products(self::PROMO_PRODUCTS_COUNT, self::HIGHLIGHTED_PRODUCTS_COUNT);
+      }
+
+      private function get_products($index, $count)
+      {
+          $result = $this->db_connection->query(
+              'SELECT *
+              FROM `croduto`
+              ORDER BY `id` DESC
+              LIMIT ' . $index . ',' . $count . ';'
+          );
+
+          $products = [];
+
+          if ($result !== false) {
+              while ($row = $result->fetch_assoc()) {
+                  $products[] = $row;
+              }
+              $result->close();
+          }
+
+          return $products;
+      }
   }
 
   require 'db_connection.php';
@@ -73,17 +82,21 @@
           <ol class="carousel-indicators">
             <?php foreach ($promo_products as $index => $product): ?>
 
-              <li data-target="#slideshow" data-slide-to="<?= $index ?>" class="<?php if ($index == 0) echo 'active'; ?>"></li>
+              <li data-target="#slideshow" data-slide-to="<?= $index ?>" class="<?php if ($index == 0) {
+    echo 'active';
+} ?>"></li>
 
             <?php endforeach; ?>
           </ol>
 
           <div class="container">
             <div class="carousel-inner">
-              <?php foreach($promo_products as $index => $product): ?>
+              <?php foreach ($promo_products as $index => $product): ?>
 
                 <!-- Slide -->
-                <div class="carousel-item slide-item <?php if ($index == 0) echo 'active'; ?>">
+                <div class="carousel-item slide-item <?php if ($index == 0) {
+    echo 'active';
+} ?>">
                   <div class="row">
                     <!-- Imagem -->
                     <div class="col-lg-4 img-container">
@@ -136,7 +149,7 @@
       <?php if ($highlighted_products): ?>
 
         <ol class="row">
-          <?php foreach($highlighted_products as $product): ?>
+          <?php foreach ($highlighted_products as $product): ?>
             <?php
               $product_id = $product['id'];
               $product_name = $product['nome'];

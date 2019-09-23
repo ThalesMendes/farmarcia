@@ -5,28 +5,32 @@
   require 'product_list_model.php';
   require 'product_model.php';
 
-  function get_products_count($db_connection, $category_id) {
-    $sql = "SELECT
+  function get_products_count($db_connection, $category_id)
+  {
+      $sql = "SELECT
             COUNT(*) AS 'count'
             FROM `produto`
             WHERE `Categoria_id` = $category_id;";
 
-    $result = $db_connection->query($sql);
-    $data = $result->fetch_assoc();
+      $result = $db_connection->query($sql);
+      if ($result !== false) {
+          $data = $result->fetch_assoc();
+      }
 
-    return $data['count'];
+      return $data['count'];
   }
 
-  $sort_sql = "`id` DESC";
-  $products = NULL;
-  $search_text = NULL;
+  $sort_sql = '`id` DESC';
+  $products = null;
+  $search_text = null;
 
   $product_list_model = new product_list_model($db_connection);
   if (isset($_GET['pesquisa']) && !empty(trim($_GET['pesquisa']))) {
-    $search_text = trim($_GET['pesquisa']);
-    $products = $product_list_model->get_products($sort_sql, NULL, $search_text);
-  } else
-    $products = $product_list_model->get_default_products($sort_sql, NULL);
+      $search_text = trim($_GET['pesquisa']);
+      $products = $product_list_model->get_products($sort_sql, null, $search_text);
+  } else {
+      $products = $product_list_model->get_default_products($sort_sql, null);
+  }
 
   $categories = $product_list_model->get_categories();
   $product_model = new product_model($db_connection);
@@ -63,7 +67,7 @@
 
     <div class="container text-right">
 
-      <?php if ($_SESSION && $_SESSION['login'] == "admin@admin"): ?>
+      <?php if ($_SESSION && $_SESSION['login'] == 'admin@admin'): ?>
         <a href="cadastrar_usuario.php">
           <button class="btn btn-danger btn-enviar" type="submit">
             Adicionar novo usuario

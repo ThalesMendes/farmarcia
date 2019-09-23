@@ -1,29 +1,30 @@
 <?php
-  if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    session_start();
-    $user = $_POST['email'];
-    $password = $_POST['senha'];
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      session_start();
+      $user = $_POST['email'];
+      $password = $_POST['senha'];
 
-    $hash = md5($password);
-    include_once("db_connection.php");
+      $hash = md5($password);
+      include_once 'db_connection.php';
 
-    $result = $db_connection->query("SELECT * FROM Usuario WHERE login='$user' AND senha='$hash'");
+      $result = $db_connection->query("SELECT * FROM usuario WHERE login='$user' AND senha='$hash'");
 
-    while ($row = $result->fetch_assoc()) {
-      if ($row['login'] == $user && $row['senha'] == $hash) {
-        break;
+      if ($result !== false) {
+          while ($row = $result->fetch_assoc()) {
+              if ($row['login'] == $user && $row['senha'] == $hash) {
+                  break;
+              }
+              $row = null;
+          }
       }
-      $row = null;
-    }
 
-    // redireciona
-    if (empty($row)) {
-      header("Location: login.php?erro=1");
-    } else {
-      $_SESSION['login'] = $user;
-      $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
+      // redireciona
+      if (empty($row)) {
+          header('Location: login.php?erro=1');
+      } else {
+          $_SESSION['login'] = $user;
+          $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
 
-      header("Location: administrador.php ");
-    }
+          header('Location: administrador.php ');
+      }
   }
-?>

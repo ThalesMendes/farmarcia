@@ -5,10 +5,10 @@
   function get_categoria($db_connection, $id){
     $result = $db_connection->query(
       "SELECT *
-       FROM `Categoria`
+       FROM `categoria`
        WHERE id = '$id'");
-    $categoria = $result->fetch_row();
-    return $categoria;
+
+    return $result ? $result->fetch_row() : false;
   }
   $id = $_GET['id'];
   $categoria = get_categoria($db_connection, $id);
